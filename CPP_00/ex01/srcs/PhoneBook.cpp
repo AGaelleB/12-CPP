@@ -3,11 +3,11 @@
 #include "../includes/Contact.hpp"
 
 PhoneBook::PhoneBook(void) {
-	std::cout << "Constructor PhoneBook" << std::endl;
+	std::cout << "Constructor PhoneBook called" << std::endl;
 	return;
 }
 
 PhoneBook::~PhoneBook(void) {
-	std::cout << "Destructor PhoneBook" << std::endl;
+	std::cout << "*Destructor PhoneBook called*" << std::endl;
 	return;
 }

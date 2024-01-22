@@ -4,6 +4,6 @@
 
 int	main(void) {
 	PhoneBook test;
-	// Contact Contact;
+	Contact Contact;
 	return (0);
 }

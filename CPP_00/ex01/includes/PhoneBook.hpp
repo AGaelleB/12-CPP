@@ -3,14 +3,15 @@
 
 class PhoneBook {
 
+	private:
+		// int	tab_contacts[8];
+
 	public:
 		// appel des constructor et destructor 
 		PhoneBook(void);
 		~PhoneBook(void);
-	private:
-		// int	tab_contacts[8];
 
 };
-// repertoire doit etre une instance de phonebook
+// l’objet répertoire doit être une instance de la classe PhoneBook
 
 #endif
