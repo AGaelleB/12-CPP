@@ -3,20 +3,18 @@
 #include "../includes/PhoneBook.hpp"
 #include "../includes/Contact.hpp"
 
-// Définissez des codes ANSI pour les couleurs
 const std::string RESET = "\033[0m";
 const std::string RED = "\033[31m";
 const std::string GREEN = "\033[32m";
 const std::string BLUE = "\033[34m";
 const std::string YELLOW = "\033[33m";
 
-PhoneBook::PhoneBook(void) {
-	// std::cout << "Constructor PhoneBook called" << std::endl;
+
+PhoneBook::PhoneBook(void) : _contactCount(1) {
 	return;
 }
 
 PhoneBook::~PhoneBook(void) {
-	// std::cout << "*Destructor PhoneBook called*" << std::endl;
 	return;
 }
 
@@ -35,39 +33,123 @@ void PhoneBook::OpenPhoneBook(void) const {
 }
 
 void PhoneBook::AddContact(void) {
-	Contact newContact;
-	std::string userInput;
-
-
-	std::cout << BLUE << "* * * * * * * * * * * * * * * * * * * * * * * *" << RESET << std::endl;
-	std::cout << "Enter your first name : ";
-	std::cin >> userInput;
-	newContact.setFirstName(userInput);
-
-	std::cout << "Enter your last name : ";
-	std::cin >> userInput;
-	newContact.setLastName(userInput);
-
-	std::cout << "Enter your nickname : ";
-	std::cin >> userInput;
-	newContact.setNickname(userInput);
-
-	std::cout << "Enter your phone number : ";
-	std::cin >> userInput;
-	newContact.setPhoneNumber(userInput);
-
-	std::cout << "Enter your darkest secret : ";
-	std::cin.ignore();  // Ignorer les caractères restants du précédent std::cin, vider mémoire tampon
-	std::getline(std::cin, userInput);  // Permet de ne pas s'arrêter si espaces
-	newContact.setDarkestSecret(userInput);
 	
-	std::cout << BLUE << "* * * * * * * * * * * * * * * * * * * * * * * *" << RESET << std::endl;
+	if (_contactCount <= 8) {
 
-	// Stocker le nouveau contact dans le tableau
-	// Vous devrez implémenter une logique pour gérer l'ajout dans le tableau.
-	// Par exemple, trouver la première position libre dans le tableau et y ajouter le contact.
+		Contact newContact;
+		std::string userInput;
+		std::cout << BLUE << "* * * * * * * * * * * * * * * * * * * * * * * *" << RESET << std::endl;
+		DataContact(newContact);
+		newContact.setIndex(_contactCount);
+		_Contacts[_contactCount] = newContact;
+		_contactCount++;
+		// std::cout << "Contact added with index: " << newContact.getIndex() << std::endl;
+		std::cout << BLUE << "* * * * * * * * * * * * * * * * * * * * * * * *" << RESET << std::endl;
+	} else {
+		Contact newContact;
+		std::string userInput;
+		DataContact(newContact);
+		newContact.setIndex(_contactCount % 8 + 1);
+		_Contacts[_contactCount % 8] = newContact;
+		_contactCount++;
+		if (_contactCount > 8)
+			_contactCount = 1; // Réinitialisez à 1 une fois remplacé le 1er contact
+	}
 }
 
+/* void PhoneBook::DataContact(Contact &newContact) {
+	std::string userInput;
+	std::string prompts[] = {
+		"Enter your first name : ",
+		"Enter your last name : ",
+		"Enter your nickname : ",
+		"Enter your phone number : ",
+		"Enter your darkest secret : "
+	};
+	void (Contact::*setters[])(std::string) = {
+		&Contact::setFirstName,
+		&Contact::setLastName,
+		&Contact::setNickname,
+		&Contact::setPhoneNumber,
+		&Contact::setDarkestSecret
+	};
+
+	for (int i = 0; i < 5; i++) {
+		while (true) {
+			std::cout << prompts[i];
+			std::getline(std::cin, userInput);
+			if (!userInput.empty()) {
+				(newContact.*setters[i])(userInput);
+				break;
+			}
+			else {
+				std::cout << prompts[i] << " cannot be empty." << std::endl;
+			}
+		}
+	}
+}
+ */
+
+void PhoneBook::DataContact(Contact &newContact) {
+	
+	std::string userInput;
+
+	while (1) {
+		std::cout << "Enter your first name : ";
+		std::getline(std::cin, userInput);
+		if (!userInput.empty()) {
+			newContact.setFirstName(userInput);
+			break;
+		}
+		else {
+			std::cout << "First name cannot be empty." << std::endl;
+		}
+	}
+	while (1) {
+		std::cout << "Enter your last name : ";
+		std::getline(std::cin, userInput);
+		if (!userInput.empty()) {
+			newContact.setLastName(userInput);
+			break;
+		}
+		else {
+			std::cout << "Last name cannot be empty." << std::endl;
+		}
+	}
+	while (1) {
+		std::cout << "Enter your nickname : ";
+		std::getline(std::cin, userInput);
+		if (!userInput.empty()) {
+			newContact.setNickname(userInput);
+			break;
+		}
+		else {
+			std::cout << "Nickname cannot be empty." << std::endl;
+		}
+	}
+	while (1) {
+		std::cout << "Enter your phone number : ";
+		std::getline(std::cin, userInput);
+		if (!userInput.empty()) {
+			newContact.setPhoneNumber(userInput);
+			break;
+		}
+		else {
+			std::cout << "Phone number cannot be empty." << std::endl;
+		}
+	}
+	while (1) {
+		std::cout << "Enter your darkest secret : ";
+		std::getline(std::cin, userInput);
+		if (!userInput.empty()) {
+			newContact.setDarkestSecret(userInput);
+			break;
+		}
+		else {
+			std::cout << "Darkest secret cannot be empty." << std::endl;
+		}
+	}
+}
 
 
 void PhoneBook::SearchContact(void) {
@@ -91,11 +173,12 @@ void PhoneBook::SearchContact(void) {
 	return;
 }
 
-void PhoneBook::PrintContact(void) {
+void PhoneBook::DisplayContact(void) {
 
-	std::cout << std::endl;
-	std::cout << "* * * * * * * Your Contacts * * * * * * * * *" << std::endl;
-
+	// if (_index > 0 && _index <= 8)
+	// 	_Contacts[_index].DisplayContact();
+	// else
+		std::cout << "Invalid contact index." << std::endl;
 	return;
 }
 

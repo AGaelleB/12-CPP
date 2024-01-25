@@ -3,8 +3,6 @@
 #include "../includes/PhoneBook.hpp"
 #include "../includes/Contact.hpp"
 
-
-// Définissez des codes ANSI pour les couleurs
 const std::string RESET = "\033[0m";
 const std::string RED = "\033[31m";
 const std::string GREEN = "\033[32m";
@@ -18,8 +16,7 @@ int	main(void) {
 	PhoneBook.OpenPhoneBook();
 	while(1) {
 		std::cout << "Enter your choice : ";
-		std::cin >> userInput;
-
+		std::getline(std::cin, userInput);
 		if (userInput == "ADD") {
 			if (i < 8)
 			{
@@ -38,9 +35,9 @@ int	main(void) {
 			break;
 		}
 		else {
-			std::cout << RED << "           /!\\   Invalid choice   /!\\" << RESET << std::endl;
+			// std::cout << RED << "           /!\\   Invalid choice   /!\\" << RESET << std::endl;
 			// std::cout << "Please choose between : \"ADD\", \"SEARCH\" and \"EXIT\"" << std::endl;
-			std::cout << std::endl;
+			// std::cout << std::endl;
 		}
 	}
 	return (0);
