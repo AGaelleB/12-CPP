@@ -1,14 +1,14 @@
 #ifndef PHONEBOOK_H
 # define PHONEBOOK_H
 
+#include "../includes/Contact.hpp"
+
 class PhoneBook {
 
 	private:
-		int	_Contacts[8];
+		Contact _Contacts[8];
 
 	public:
-		// int foo // un attribut
-
 		// appel des constructor et destructor 
 		PhoneBook(void);
 		~PhoneBook(void);
