@@ -8,6 +8,7 @@ class PhoneBook {
 	private:
 		Contact _PhoneBook[3]; //8
 		int _contactCount;
+		int _nextIndex; 
 
 	public:
 		// appel des constructor et destructor 

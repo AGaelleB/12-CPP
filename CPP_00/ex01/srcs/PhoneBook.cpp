@@ -14,7 +14,7 @@ const std::string YELLOW = "\033[33m";
 
 /***************************** CONST DEST *******************************/
 
-PhoneBook::PhoneBook(void) : _contactCount(0) {
+PhoneBook::PhoneBook(void) : _contactCount(0), _nextIndex(0) {
 	return;
 }
 
@@ -37,41 +37,22 @@ void PhoneBook::OpenPhoneBook(void) const {
 	return;
 }
 
-// void PhoneBook::AddContact(void) {
-// 	Contact newContact;
-// 	DataContact(newContact);
-
-// 	// Calculez l'indice où insérer le nouveau contact
-// 	int index = _contactCount % 3;
-
-// 	// Ajoutez le nouveau contact à l'index actuel
-// 	newContact.setIndex(index);
-// 	_PhoneBook[index] = newContact;
-
-// 	// Incrémente le compteur de contacts
-// 	_contactCount++;
-// 	index++;
-
-// 	// Si le tableau est plein, revenez au début
-// 	if (_contactCount == 3) {
-// 		index = 0;
-// 	}
-// }
-
 void PhoneBook::AddContact(void) {
-    Contact newContact;
-    DataContact(newContact);
+	Contact newContact;
+	DataContact(newContact);
 
-    int index = _contactCount % 3;
-    newContact.setIndex(index);
-    _PhoneBook[index] = newContact;
+	// _nextIndex pour l'index du nouveau contact
+	newContact.setIndex(_nextIndex);
+	_PhoneBook[_nextIndex] = newContact;
 
-    if (_contactCount < 3) {
-        _contactCount++;
-    }
+	// incrementation de _nextIndex
+	_nextIndex = (_nextIndex + 1) % 3;
+
+	// Incrementation de _contactCount jusqu'au max
+	if (_contactCount < 3) {
+		_contactCount++;
+	}
 }
-
-
 
 void PhoneBook::DataContact(Contact &newContact) {
 	
