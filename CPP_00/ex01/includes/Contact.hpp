@@ -13,7 +13,6 @@ class Contact {
 		std::string _darkestSecret;
 		int			_index;
 
-
 	public:
 		// constructor et destructor
 		Contact(void);
@@ -26,7 +25,6 @@ class Contact {
 		std::string getPhoneNumber(void) const;
 		std::string getDarkestSecret(void) const;
 		int getIndex(void) const;
-
 
 		// Setters
 		void setFirstName(std::string userInput);

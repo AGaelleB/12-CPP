@@ -6,7 +6,7 @@
 class PhoneBook {
 
 	private:
-		Contact _Contacts[8];
+		Contact _PhoneBook[3]; //8
 		int _contactCount;
 
 	public:
@@ -18,7 +18,9 @@ class PhoneBook {
 		void AddContact(void);
 		void DataContact(Contact &newContact);
 		void SearchContact(void);
-		void DisplayContact(void);
+		void DisplayAllContacts(void);
+		std::string TruncateString(const std::string input, size_t maxLength);
+		void DisplayContactIndex(int userInput);
 		void ExitContact(void);
 };
 // l’objet répertoire doit être une instance de la classe PhoneBook
