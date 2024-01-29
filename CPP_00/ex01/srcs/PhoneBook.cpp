@@ -41,15 +41,12 @@ void PhoneBook::AddContact(void) {
 	Contact newContact;
 	DataContact(newContact);
 
-	// _nextIndex pour l'index du nouveau contact
 	newContact.setIndex(_nextIndex);
 	_PhoneBook[_nextIndex] = newContact;
 
-	// incrementation de _nextIndex
-	_nextIndex = (_nextIndex + 1) % 3;
+	_nextIndex = (_nextIndex + 1) % 8;
 
-	// Incrementation de _contactCount jusqu'au max
-	if (_contactCount < 3) {
+	if (_contactCount < 8) {
 		_contactCount++;
 	}
 }
@@ -113,15 +110,22 @@ void PhoneBook::SearchContact(void) {
 	return;
 }
 
+std::string cut_to_fit(std::string userInput) {
+
+	if (userInput.length() > 10)
+		userInput = userInput.substr(0, 9) + ".";
+	return(userInput);
+}
+
 void PhoneBook::DisplayAllContacts(void) {
 	int	userInput;
 	
 	for (int i = 0; i < _contactCount; i++) {
 		Contact &currentContact = _PhoneBook[i];
 		std::cout << "|" << std::setw(10) << std::right << currentContact.getIndex() << "|";
-		std::cout << "" << std::setw(10) << std::right << currentContact.getFirstName() << "|";
-		std::cout << "" << std::setw(10) << std::right << currentContact.getLastName() << "|";
-		std::cout << "" << std::setw(10) << std::right << currentContact.getNickname() << "|" << std::endl;
+		std::cout << "" << std::setw(10) << std::right << cut_to_fit(currentContact.getFirstName()) << "|";
+		std::cout << "" << std::setw(10) << std::right << cut_to_fit(currentContact.getLastName()) << "|";
+		std::cout << "" << std::setw(10) << std::right << cut_to_fit(currentContact.getNickname()) << "|" << std::endl;
 	}
 	std::cout << std::endl;
 	while (_contactCount > 0) {

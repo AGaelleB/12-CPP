@@ -6,7 +6,7 @@
 class PhoneBook {
 
 	private:
-		Contact _PhoneBook[3]; //8
+		Contact _PhoneBook[8];
 		int _contactCount;
 		int _nextIndex; 
 
