@@ -76,6 +76,7 @@ int	Account::getNbWithdrawals(void) {
 }
 
 void	Account::displayAccountsInfos(void) {
+
 	Account::_displayTimestamp();
 
 	std::cout << " accounts:" << Account::getNbAccounts();
@@ -92,7 +93,9 @@ void	Account::displayAccountsInfos(void) {
 void	Account::makeDeposit(int deposit) {
 
 	Account::_displayTimestamp();
+
 	this->_nbDeposits++;
+	Account::_totalNbDeposits++;
 
 	std::cout << " index:" << this->_accountIndex;
 	std::cout << ";p_amount:" << this->_amount;
@@ -101,7 +104,7 @@ void	Account::makeDeposit(int deposit) {
 	std::cout << ";nb_deposits:" << this->_nbDeposits;
 	std::cout << std::endl;
 
-	// Mise à jour de la somme après depot
+	// Maj de la somme après depot
 	this->_amount += deposit;
 	Account::_totalAmount += deposit;
 
@@ -111,7 +114,6 @@ void	Account::makeDeposit(int deposit) {
 bool	Account::makeWithdrawal(int withdrawal) {
 
 	Account::_displayTimestamp();
-	this->_nbWithdrawals++;
 
 	std::cout << " index:" << this->_accountIndex;
 	std::cout << ";p_amount:" << this->_amount;
@@ -121,17 +123,22 @@ bool	Account::makeWithdrawal(int withdrawal) {
 		std::cout << "refused" << std::endl;
 		return (false);
 	}
-	std::cout << withdrawal;
-	std::cout << ";amount:" << (this->_amount - withdrawal);
-	std::cout << ";nbWithdrawals:" << this->_nbWithdrawals;
-	std::cout << std::endl;
-
-	// Mise à jour de la somme après le retrait
+	// Maj de la somme après le retrait
 	this->_amount -= withdrawal; 
 	Account::_totalAmount -= withdrawal;
 
+	// Maj de nb de retrait que si pas refusé
+	this->_nbWithdrawals++;
+	Account::_totalNbWithdrawals++;
+
+	std::cout << withdrawal;
+	std::cout << ";amount:" << (this->_amount - withdrawal);
+	std::cout << ";nb_Withdrawals:" << this->_nbWithdrawals;
+	std::cout << std::endl;
+
 	return (true);
 }
+
 
 int	Account::checkAmount(void) const {
 
