@@ -23,7 +23,7 @@ public:
 
 	typedef Account		t;
 
-	static int	getNbAccounts( void );
+	static int	getNbAccounts( void ); // fonction non membre, impossible d utiliser this-> dans une fonciton non membre
 	static int	getTotalAmount( void );
 	static int	getNbDeposits( void );
 	static int	getNbWithdrawals( void );
@@ -40,12 +40,12 @@ public:
 
 private:
 
-	static int	_nbAccounts;
+	static int	_nbAccounts; // attribut non membre
 	static int	_totalAmount;
 	static int	_totalNbDeposits;
 	static int	_totalNbWithdrawals;
 
-	static void	_displayTimestamp( void );
+	static void	_displayTimestamp( void ); // fonction non membre
 
 	int				_accountIndex;
 	int				_amount;

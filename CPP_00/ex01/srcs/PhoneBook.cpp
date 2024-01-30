@@ -60,7 +60,12 @@ void PhoneBook::DataContact(Contact &newContact) {
 		std::getline(std::cin, userInput);
 		if (!userInput.empty()) {
 			newContact.setFirstName(userInput);
-			break;
+			break;;
+		}
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return;
 		}
 	}
 	while (1) {
@@ -70,6 +75,11 @@ void PhoneBook::DataContact(Contact &newContact) {
 			newContact.setLastName(userInput);
 			break;
 		}
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return;
+		}
 	}
 	while (1) {
 		std::cout << "Nickname : ";
@@ -77,6 +87,11 @@ void PhoneBook::DataContact(Contact &newContact) {
 		if (!userInput.empty()) {
 			newContact.setNickname(userInput);
 			break;
+		}
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return;
 		}
 	}
 	while (1) {
@@ -86,6 +101,11 @@ void PhoneBook::DataContact(Contact &newContact) {
 			newContact.setPhoneNumber(userInput);
 			break;
 		}
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return;
+		}
 	}
 	while (1) {
 		std::cout << "Your darkest secret : ";
@@ -94,6 +114,11 @@ void PhoneBook::DataContact(Contact &newContact) {
 			newContact.setDarkestSecret(userInput);
 			std::cout << std::endl;
 			break;
+		}
+		if (std::cin.eof()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return;
 		}
 	}
 }
@@ -135,11 +160,11 @@ void PhoneBook::DisplayAllContacts(void) {
 			DisplayContactIndex(userInput);
 			break;
 		}
-		else {
+		if (std::cin.eof()) {
 			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return;
 		}
-		std::cin.ignore();
 	}
 }
 
