@@ -1,0 +1,17 @@
+Répartition du temps estimée par projet :
+
+CPP01 : 4 jours
+CPP02 : 4 jours
+CPP03 : 5 jours
+CPP04 : 7 jours
+
+Cela totalise 20 jours, ce qui correspond au nombre de jours de travail 
+disponibles jusqu'à la deadline.
+
+
+Rétroplanning détaillé :
+
+CPP01 : du 1er au 4 février
+CPP02 : du 5 au 8 février
+CPP03 : du 9 au 15 février
+CPP04 : du 16 février au 4 mars 

@@ -11,7 +11,7 @@ class PhoneBook {
 		int _nextIndex; 
 
 	public:
-		// appel des constructor et destructor 
+		// appel des constructors et destructors
 		PhoneBook(void);
 		~PhoneBook(void);
 
@@ -20,7 +20,6 @@ class PhoneBook {
 		void DataContact(Contact &newContact);
 		void SearchContact(void);
 		void DisplayAllContacts(void);
-		std::string TruncateString(const std::string input, size_t maxLength);
 		void DisplayContactIndex(int userInput);
 		void ExitContact(void);
 };

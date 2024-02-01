@@ -13,6 +13,7 @@ class Contact {
 		std::string _darkestSecret;
 		int			_index;
 
+
 	public:
 		// constructor et destructor
 		Contact(void);
@@ -33,7 +34,6 @@ class Contact {
 		void setPhoneNumber(std::string userInput);
 		void setDarkestSecret(std::string userInput);
 		void setIndex(int userInput);
-
 };
 // objets contacts, qui doivent être chacun une instance de la classe Contact
  
