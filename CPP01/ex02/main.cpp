@@ -17,8 +17,8 @@
 int main() {
 
 	std::string string = "HI THIS IS BRAIN";
-	std::string *stringPTR = &string;
-	std::string &stringREF = string;
+	std::string* stringPTR = &string;
+	std::string& stringREF = string;
 
 
 	std::cout << "L’adresse de la string en mémoire est : " << &string << std::endl;

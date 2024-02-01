@@ -23,6 +23,7 @@ std::string Contact::getFirstName(void) const {
 std::string Contact::getLastName(void) const {
 	return (this->_lastName);
 }
+
 std::string Contact::getNickname(void) const {
 	return (this->_nickname);
 }
