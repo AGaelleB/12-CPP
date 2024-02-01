@@ -1,20 +1,5 @@
 #include "Zombie.hpp"
 
-/*  POINTEURS ET REFERENCES
-	pointeur : "*"
-		=> si a un moment ca ne doit pas exister (NULL) ou changer,
-		il faut utiliser un pointeur
-
-	reference : "&"
-		- Une ref ne peut pas pointer sur NULL.
-		- C'est comme un pointeur dereferencé.
-		- La ref pointe sur une variable et on ne peut pas changer vers 
-		quoi elle pointe.
-		=> si ca doit tjrs exister et jamais changer
-		j'utiliser une reference
- */
-
-
 int main() {
 
 	// creation d'un zombie dans la stack (la pile)
