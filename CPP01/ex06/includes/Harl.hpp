@@ -2,6 +2,7 @@
 #define HARL_HPP
 
 #include <iostream>
+#include <limits>
 
 #define MSG_LEVEL "choose a level between \"DEBUG\", \"INFO\", \"WARNING\" and \"ERROR\""
 #define MSG_DEBUG "I love having extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger. I really do !"
@@ -25,8 +26,12 @@ class Harl {
 
 // Définition d'une struct pour associer un niveau à une fonction membre
 typedef struct s_level {
-	std::string level;
-	void (Harl::*function)();
+
+	std::string	level;
+	// void		(Harl::*function)();
+	int			printFromToLevel;
+
 } t_level;
+
 
 #endif

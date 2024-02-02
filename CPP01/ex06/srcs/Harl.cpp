@@ -7,40 +7,67 @@ Harl::~Harl() {
 }
 
 void Harl::debug() {
-	std::cout << std::endl << MSG_DEBUG << std::endl << std::endl;
+	std::cout << "[ DEBUG ]" << std::endl;
+	std::cout << MSG_DEBUG << std::endl << std::endl;
 }
 
 void Harl::info() {
-	std::cout << std::endl << MSG_INFO << std::endl << std::endl;
+	std::cout << "[ INFO ]" << std::endl;
+	std::cout << MSG_INFO << std::endl << std::endl;
 }
 
 void Harl::warning() {
-	std::cout << std::endl << MSG_WARNING << std::endl << std::endl;
+	std::cout << "[ WARNING ]" << std::endl;
+	std::cout << MSG_WARNING << std::endl << std::endl;
 }
 
 void Harl::error() {
-	std::cout << std::endl << MSG_ERROR << std::endl << std::endl;
+	std::cout << "[ ERROR ]" << std::endl;
+	std::cout <<  MSG_ERROR << std::endl << std::endl;
 }
 
 void Harl::complain(std::string level) {
 
 	// Association de chaque niveau à sa fonction
 	t_level levelFunctions[4] = {
-		{"DEBUG", &Harl::debug},
-		{"INFO", &Harl::info},
-		{"WARNING", &Harl::warning},
-		{"ERROR", &Harl::error}
+		{"DEBUG", 0},
+		{"INFO", 1},
+		{"WARNING", 2},
+		{"ERROR", 3}
 	};
 
-	// Je parcours le tab pour trouver la fonction correspondante au niveau donné
+	bool found = false;  // Ajout d'un indicateur pour savoir si on a trouvé une correspondance
+
+	// Recherche de la fonction correspondante au niveau donné
 	for (int i = 0; i < 4; i++) {
 		if (level == levelFunctions[i].level) {
-			(this->*(levelFunctions[i].function))();
-			return;
+			found = true;
+			switch (i) {
+				case 0:
+					this->debug();
+					break;
+				case 1:
+					this->info();
+					break;
+				case 2:
+					this->warning();
+					break;
+				case 3:
+					this->error();
+					break;
+				default:
+					std::cout << "Error: " << MSG_LEVEL << std::endl;
+			}
 		}
 	}
-	std::cout << "Error: " MSG_LEVEL << std::endl;
+
+	// Si aucun niveau correspondant n'est trouvé
+	if (!found) {
+		std::cout << "Error: " << MSG_LEVEL << std::endl;
+	}
 }
+
+
 
 /* NOTE EXPLICATIVE
 
@@ -48,7 +75,7 @@ void Harl::complain(std::string level) {
 	action effectuer en fonction du level, j'utilise des pointeurs de fonction
 	membres pour appeler la fonction appropriée en fonction du level spécifié.
 
-	La partie clé de cette fonction est la struct t_level.
+	La partie clé de cette fonction est la struct LevelFunctionPair.
 	Cette struct agit comme une sorte de dictionnaire qui associe chaque level
 	(comme "DEBUG" ou "INFO") à la fonction membre correspondante de la classe Harl
 	(comme Harl::debug ou Harl::info).
