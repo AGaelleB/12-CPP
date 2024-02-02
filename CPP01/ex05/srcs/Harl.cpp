@@ -50,18 +50,17 @@ void Harl::complain(std::string level) {
 
 /* NOTE EXPLICATIVE
 
-	 Au lieu d'utiliser une série de déclarations if et else if pour décider quelle
-	action effectuer en fonction du niveau, nous utilisons des pointeurs de fonction
-	membres pour appeler la fonction appropriée en fonction du niveau spécifié.
+	Au lieu d'utiliser une série de déclarations if et else if pour décider quelle
+	action effectuer en fonction du level, j'utilise des pointeurs de fonction
+	membres pour appeler la fonction appropriée en fonction du level spécifié.
 
-	La partie clé de cette fonction est la structure LevelFunctionPair.
-	Cette structure agit comme une sorte de dictionnaire qui associe chaque niveau
+	La partie clé de cette fonction est la struct LevelFunctionPair.
+	Cette struct agit comme une sorte de dictionnaire qui associe chaque level
 	(comme "DEBUG" ou "INFO") à la fonction membre correspondante de la classe Harl
 	(comme Harl::debug ou Harl::info).
 
-	Ensuite, nous créons un tableau levelFunctions de cette structure, où chaque
-	élément du tableau contient un niveau et le pointeur vers la fonction membre
-	correspondante.
+	Ensuite, nous créons un tableau levelFunctions de cette struct, où chaque élément
+	du tableau contient un level et le pointeur vers la fonction membre correspondante.
 
 	Puis on parcours le tableau pour associer en fonction de l'entrée utilisateur
 
