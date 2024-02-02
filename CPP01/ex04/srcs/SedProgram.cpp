@@ -48,7 +48,6 @@ std::string SedProgram::createNewFilename(std::string fileName) {
 	}
 }
 
-// parcours le file avec getline et copie et remplace en envoyant dans le newfileName
 void	SedProgram::checkAndRreplace(std::string fileName, std::string s1, std::string s2) {
 	
 	std::string outputFileName;

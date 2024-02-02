@@ -1,5 +1,5 @@
-#ifndef SEDPROGRAM
-#define SEDPROGRAM
+#ifndef SEDPROGRAM_HPP
+#define SEDPROGRAM_HPP
 
 #include <iostream>
 
