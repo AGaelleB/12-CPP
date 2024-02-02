@@ -6,19 +6,19 @@ Harl::Harl() {
 Harl::~Harl() {
 }
 
-void Harl::debug() {
+void Harl::_debug() {
 	std::cout << std::endl << MSG_DEBUG << std::endl << std::endl;
 }
 
-void Harl::info() {
+void Harl::_info() {
 	std::cout << std::endl << MSG_INFO << std::endl << std::endl;
 }
 
-void Harl::warning() {
+void Harl::_warning() {
 	std::cout << std::endl << MSG_WARNING << std::endl << std::endl;
 }
 
-void Harl::error() {
+void Harl::_error() {
 	std::cout << std::endl << MSG_ERROR << std::endl << std::endl;
 }
 
@@ -26,10 +26,10 @@ void Harl::complain(std::string level) {
 
 	// Association de chaque niveau à sa fonction
 	t_level levelFunctions[4] = {
-		{"DEBUG", &Harl::debug},
-		{"INFO", &Harl::info},
-		{"WARNING", &Harl::warning},
-		{"ERROR", &Harl::error}
+		{"DEBUG", &Harl::_debug},
+		{"INFO", &Harl::_info},
+		{"WARNING", &Harl::_warning},
+		{"ERROR", &Harl::_error}
 	};
 
 	// Je parcours le tab pour trouver la fonction correspondante au niveau donné
@@ -50,8 +50,8 @@ void Harl::complain(std::string level) {
 
 	La partie clé de cette fonction est la struct t_level.
 	Cette struct agit comme une sorte de dictionnaire qui associe chaque level
-	(comme "DEBUG" ou "INFO") à la fonction membre correspondante de la classe Harl
-	(comme Harl::debug ou Harl::info).
+	(comme "_debug" ou "INFO") à la fonction membre correspondante de la classe Harl
+	(comme Harl::_debug ou Harl::info).
 
 	Ensuite, nous créons un tableau levelFunctions de cette struct, où chaque élément
 	du tableau contient un level et le pointeur vers la fonction membre correspondante.
