@@ -12,7 +12,6 @@ Fixed::Fixed(const Fixed &src) {
 	this->_value = src.getRawBits();
 }
 
-
 Fixed::~Fixed() {
 	std::cout << RED << "Destructor called" << RESET << std::endl;
 }

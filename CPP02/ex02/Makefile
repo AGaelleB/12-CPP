@@ -1,5 +1,5 @@
 
-NAME = HarlFilter
+NAME = Fixed
 
 CC = c++
 
@@ -9,7 +9,7 @@ OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
 SRCS = main.cpp \
-	Harl.cpp \
+	Fixed.cpp \
 
 RM = rm -rf
 

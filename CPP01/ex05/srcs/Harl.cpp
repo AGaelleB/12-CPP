@@ -50,12 +50,12 @@ void Harl::complain(std::string level) {
 
 	La partie clé de cette fonction est la struct t_level.
 	Cette struct agit comme une sorte de dictionnaire qui associe chaque level
-	(comme "_debug" ou "INFO") à la fonction membre correspondante de la classe Harl
-	(comme Harl::_debug ou Harl::info).
+	(comme "_debug" ou "_info") à la fonction membre correspondante de la classe Harl
+	(comme Harl::_debug ou Harl::_info).
 
-	Ensuite, nous créons un tableau levelFunctions de cette struct, où chaque élément
+	Ensuite, je cree un tableau levelFunctions de cette struct, où chaque élément
 	du tableau contient un level et le pointeur vers la fonction membre correspondante.
 
-	Puis on parcours le tableau pour associer en fonction de l'entrée utilisateur
+	Puis je parcours le tableau pour associer en fonction de l'entrée utilisateur
 
  */
