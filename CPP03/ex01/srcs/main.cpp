@@ -1,8 +1,7 @@
 #include "../includes/ClapTrap.hpp"
 #include "../includes/ScavTrap.hpp"
 
-int	main(void)
-{
+int	main(void) {
 	ScavTrap	fight1("Gaga");
 	ScavTrap	fight2("Bibi");
 
@@ -20,12 +19,21 @@ int	main(void)
 	std::cout << "\nBibi's fight" << std::endl;
 	for (int i = 0; i < 5; i++)
 		fight2.attack("Stone");
-
 	fight2.guardGate();
 	fight2.takeDamage(99);
 	fight2.beRepaired(1);
 	fight2.takeDamage(2);
 	fight2.attack("Stone");
+
+
+	// for (int i = 0; i < 10; i++)
+	// 	fight1.attack("Bibi");
+
+	// for (int i = 0; i < 10; i++)
+	// 	fight1.takeDamage(0);
+
+	// for (int i = 0; i < 10; i++)
+	// 	fight1.beRepaired(0);
 
 	return (0);
 }

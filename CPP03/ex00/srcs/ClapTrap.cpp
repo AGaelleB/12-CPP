@@ -45,8 +45,16 @@ void ClapTrap::attack(const std::string& target) {
 		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
 		return; 
 	}
-	else
+	else {
+		if (this->_energy > 0)
+			this->_energy--;	
+		if (this->_energy <= 0) {
+			MSG_NO_ENERGY;
+			return ;
+		}
 		MSG_ATTACK;
+	}
+	MSG_COUNT;
 }
 
 void ClapTrap::takeDamage(unsigned int amount) {
@@ -56,44 +64,42 @@ void ClapTrap::takeDamage(unsigned int amount) {
 		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
 		return; 
 	}
-	if (this->_energy > 0 && this->_hit > 0) {
+	if (this->_hit > 0) {
 		this->_hit -= amount;
-		this->_energy--;
 	}
 	if (this->_hit <= 0) {
 		MSG_NO_LIFE;
 		return ;
 	}
-	if (this->_energy <= 0) {
-		MSG_NO_ENERGY;
-		return ;
-	}
-
-	MSG_COUNT
+	MSG_COUNT;
 }
 
 void ClapTrap::beRepaired(unsigned int amount) {
 
 	if (this->_energy <= 0 || this->_hit <= 0) {
 		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
-		return; 
-	}
-
-	if ((amount > 0 && amount <= MAX_INT) || amount == 0) {
-		if (this->_energy < MAX_ENERGY && this->_hit < MAX_HEALTH) {
-			this->_hit += amount;
-			if (this->_hit > MAX_HEALTH) 
-				this->_hit = MAX_HEALTH;
-			this->_energy++;
-			if (this->_energy > MAX_ENERGY) 
-				this->_energy = MAX_ENERGY;
-		}
+		return;
 	}
 	else {
-		MSG_ERROR_ARG;
-		return ;
-	}
+		if (amount <= MAX_INT) {
+			if (this->_hit < MAX_HEALTH) {
+				this->_hit += amount;
+				if (this->_hit > MAX_HEALTH) 
+					this->_hit = MAX_HEALTH;
+			}
+			if (this->_energy > 0) {
+				this->_energy--; 
+				MSG_BE_REPAIRED
+			}
+			if (this->_energy <= 0) {
+				MSG_NO_ENERGY;
+				return ;
+			}
+		} else {
+			MSG_ERROR_ARG;
+			return ;
+		}
 
-	MSG_BE_REPAIRED
-	MSG_COUNT
+		MSG_COUNT;
+	}
 }

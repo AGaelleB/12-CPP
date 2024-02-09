@@ -12,8 +12,8 @@
 #define CYAN	"\033[1;36m"
 #define RESET	"\033[0m"
 
-#define MSG_ATTACK		std::cout << "ClapTrap " << _name << " attacks " << target << ", causing " << _attacksDamage << " points of damage! " << std::endl;
-#define MSG_TAKE_DAMAGE	std::cout << RED << "ClapTrap " << _name << " took damage for " << amount << " points and lost 1 point of energy! " << RESET << std::endl;
+#define MSG_ATTACK		std::cout << YELLOW << "ClapTrap " << _name << " attacks " << target << ", causing " << _attacksDamage << " points of damage! " << RESET << std::endl;
+#define MSG_TAKE_DAMAGE	std::cout << RED << "ClapTrap " << _name << " took damage for " << amount << " points!" << RESET << std::endl;
 #define MSG_BE_REPAIRED	std::cout << GREEN << "ClapTrap " << _name << " is repaired for " << amount << " points and gained 1 point of energy! " << RESET << std::endl;
 #define MSG_COUNT		std::cout << _hit << "/10 health, " << _energy << "/10 energy points!" << std::endl;
 #define MSG_NO_LIFE		std::cout << MAGENTA << "ClapTrap " << _name << " is dead, she had no life points left ... RIP :'( " << RESET << std::endl;
@@ -21,8 +21,8 @@
 #define MSG_ERROR_ARG	std::cout << "Amount must be positive interger" << std::endl;
 
 #define	MAX_INT 2147483647
-#define	MAX_ENERGY 10
-#define	MAX_HEALTH 10
+#define	MAX_ENERGY 50
+#define	MAX_HEALTH 100
 
 class ClapTrap {
 

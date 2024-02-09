@@ -12,8 +12,8 @@
 #define CYAN	"\033[1;36m"
 #define RESET	"\033[0m"
 
-#define MSG_ATTACK		std::cout << "ClapTrap " << _name << " attacks " << target << ", causing " << _attacksDamage << " points of damage! " << std::endl;
-#define MSG_TAKE_DAMAGE	std::cout << RED << "ClapTrap " << _name << " took damage for " << amount << " points and lost 1 point of energy! " << RESET << std::endl;
+#define MSG_ATTACK		std::cout << YELLOW << "ClapTrap " << _name << " attacks " << target << ", causing " << _attacksDamage << " points of damage! " << RESET << std::endl;
+#define MSG_TAKE_DAMAGE	std::cout << RED << "ClapTrap " << _name << " took damage for " << amount << " points!" << RESET << std::endl;
 #define MSG_BE_REPAIRED	std::cout << GREEN << "ClapTrap " << _name << " is repaired for " << amount << " points and gained 1 point of energy! " << RESET << std::endl;
 #define MSG_COUNT		std::cout << _hit << "/100 health, " << _energy << "/50 energy points!" << std::endl;
 #define MSG_NO_LIFE		std::cout << MAGENTA << "ClapTrap " << _name << " is dead, she had no life points left ... RIP :'( " << RESET << std::endl;

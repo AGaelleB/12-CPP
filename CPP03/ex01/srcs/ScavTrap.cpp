@@ -46,10 +46,17 @@ void ScavTrap::attack(const std::string& target) {
 		std::cout << "Sorry, ScavTrap " << _name << " is dead.\n";
 		return; 
 	}
-	else
+	else {
+		if (this->_energy > 0)
+			this->_energy--;	
+		if (this->_energy <= 0) {
+			MSG_NO_ENERGY;
+			return ;
+		}
 		MSG_ATTACK;
+	}
+	MSG_COUNT;
 }
-
 
 void	ScavTrap::guardGate() {
 	std::cout << "ScavTrap is now in Gate keeper mode" << std::endl;
