@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#define MSG_LEVEL "choose a level between \"_debug\", \"_info\", \"WARNING\" and \"ERROR\""
+#define MSG_LEVEL "choose a level between \"DEBUG\", \"INFO\", \"WARNING\" and \"ERROR\""
 #define MSG_DEBUG "I love having extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger. I really do !"
 #define MSG_INFO "I cannot believe adding extra bacon costs more money. You didn’t put enough bacon in my burger ! If you did, I wouldn’t be asking for more !"
 #define MSG_WARNING "I think I deserve to have some extra bacon for free. I’ve been coming for years whereas you started working here since last month."

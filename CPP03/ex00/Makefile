@@ -1,5 +1,5 @@
 
-NAME = Fixed
+NAME = ClapTrap
 
 CC = c++
 
@@ -9,7 +9,7 @@ OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
 SRCS = main.cpp \
-	Fixed.cpp \
+	ClapTrap.cpp \
 
 RM = rm -rf
 

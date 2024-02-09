@@ -66,10 +66,4 @@ std::ostream& operator<<(std::ostream& os, const Fixed& src);
 	C'est ce qu'on appelle la "surcharge de l'opérateur d'insertion", car tu modifies
 	la façon dont l'opérateur << fonctionne pour ton objet Fixed.
 	Cela rend l'affichage de ton objet dans la console vraiment facile et lisible.
-
-
-
-
-
-
  */

@@ -51,7 +51,7 @@ Fixed	Fixed::operator+(const Fixed& src) const {
 
 	Fixed	result;
 
-	result._value = _value + src._value;
+	result._value = this->_value + src._value;
 
 	return (result);
 }
@@ -60,7 +60,7 @@ Fixed	Fixed::operator-(const Fixed& src) const {
 
 	Fixed	result;
 
-	result._value = _value - src._value;
+	result._value = this->_value - src._value;
 
 	return (result);
 }
@@ -70,8 +70,8 @@ Fixed	Fixed::operator*(const Fixed& src) const {
 	Fixed	result;
 
 	// Pour la multiplication, il faut prendre en compte la partie fractionnaire
-	result._value = (_value * src._value) >> _fractionalBits;
-
+	result._value = (this->_value * src._value) >> _fractionalBits;
+	//  Le décalage à droite (>>) de 8 bits ramene le résultat à la bonne échelle.
 	return (result);
 }
 
@@ -80,8 +80,8 @@ Fixed	Fixed::operator/(const Fixed& src) const {
 	Fixed	result;
 
 	// Pour la division, il faut prendre en compte la partie fractionnaire
-	result._value = ((_value << _fractionalBits) / src._value);
-
+	result._value = ( (this->_value << _fractionalBits) / src._value );
+	//  Le décalage à gauche (<<) de 8 bits ramene le résultat à la bonne échelle.
 	return (result);
 }
 

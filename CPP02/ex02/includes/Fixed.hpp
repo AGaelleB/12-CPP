@@ -68,3 +68,55 @@ class Fixed {
 std::ostream& operator<<(std::ostream& os, const Fixed& src);
 
 #endif
+
+
+/* FONCTIONS STATIQUES
+
+	Imagine une bibliothèque où tu peux aller chercher des livres sans avoir
+	besoin d'une carte de bibliothèque spécifique. Les fonctions membres statiques
+	sont un peu comme ça dans le monde de la programmation : elles appartiennent
+	à une classe et tu peux les utiliser sans avoir besoin de créer un objet
+	spécifique de cette classe. Cela peut être super utile pour des tâches qui
+	sont liées à la classe dans son ensemble plutôt qu'à un objet individuel.
+	Par exemple, comparer deux nombres pour voir lequel est le plus grand ou le
+	plus petit, comme dans ton cas avec les fonctions min et max.
+
+ */
+
+/* OPERATEURS DE SURCHARGES
+
+	Les versions préfixes de ces opérateurs incrémentent ou décrémentent la valeur
+	de l'objet, puis retournent l'objet lui-même après modification.
+
+	Les versions postfixes prennent un paramètre entier (généralement non utilisé)
+	pour les distinguer syntaxiquement des versions préfixes. Elles incrémentent
+	ou décrémentent la valeur de l'objet, mais retournent une copie de l'objet
+	avant la modification.
+
+ */
+
+/* OPERATEURS D'INCREMENTATION ET DECREMENTATION
+
+	Imagine que tu as une télécommande qui ne fonctionne qu'avec un seul appareil.
+	Les opérateurs de surcharge te permettent de modifier cette télécommande pour
+	qu'elle puisse contrôler plusieurs appareils de manières différentes.
+	En programmation, surcharger un opérateur signifie que tu donnes à cet
+	opérateur (comme +, -, *, /, etc.) une nouvelle manière de fonctionner quand
+	il est utilisé avec des objets de ta classe. Cela te permet d'ajouter,
+	soustraire, multiplier ou diviser des objets de ta classe de manière intuitive,
+	comme si c'étaient des nombres.
+
+ */
+
+/* INTERETS DES REFERENCES
+
+	Utiliser des références, c'est un peu comme avoir le numéro de téléphone de
+	quelqu'un plutôt que de devoir aller le voir en personne chaque fois que tu
+	veux lui parler. Les références permettent à tes fonctions de travailler
+	directement avec les objets existants sans avoir à les copier (ce qui pourrait
+	être lent et utiliser beaucoup de mémoire). Cela rend ton programme plus rapide
+	et plus efficace, surtout quand tu travailles avec de gros objets ou des
+	opérations qui doivent être très rapides, comme les comparaisons ou les calculs
+	arithmétiques.
+
+ */

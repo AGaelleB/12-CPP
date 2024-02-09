@@ -54,12 +54,12 @@ void	SedProgram::checkAndRreplace(std::string fileName, std::string s1, std::str
 	outputFileName = createNewFilename(fileName);
 
 	std::ifstream inputFile(fileName.c_str());
-	std::ofstream outputFile(outputFileName.c_str()); 
+	std::ofstream outputFile(outputFileName.c_str());
 
 	std::string readLine;
-	size_t pos = 0;
 	while (std::getline(inputFile, readLine)) { // Lit une ligne dans readLine
 
+		size_t pos = 0;
 		while ((pos = readLine.find(s1, pos)) != std::string::npos) {
 			// Trouve la pos de la 1er occurrence de s1 dans la ligne
 
