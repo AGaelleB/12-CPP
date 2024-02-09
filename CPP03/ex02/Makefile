@@ -1,5 +1,5 @@
 
-NAME = ScavTrap
+NAME = FragTrap
 
 CC = c++
 
@@ -11,6 +11,7 @@ OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 SRCS = main.cpp \
 	ClapTrap.cpp \
 	ScavTrap.cpp \
+	FragTrap.cpp \
 
 RM = rm -rf
 
