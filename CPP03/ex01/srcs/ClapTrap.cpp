@@ -7,7 +7,7 @@ ClapTrap::ClapTrap() {
 	std::cout << CYAN << "~ClapTrap~ default constructor called" << RESET << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _hit(10), _energy(10), _attacksDamage(0) {
+ClapTrap::ClapTrap(std::string name) : _name(name), _hit(100), _energy(50), _attacksDamage(20) {
 	std::cout << CYAN << "~ClapTrap~ constructor called for " << _name << RESET << std::endl;
 }
 
@@ -51,6 +51,7 @@ void ClapTrap::attack(const std::string& target) {
 
 void ClapTrap::takeDamage(unsigned int amount) {
 
+	MSG_TAKE_DAMAGE
 	if (this->_energy <= 0 || this->_hit <= 0) {
 		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
 		return; 
@@ -67,8 +68,6 @@ void ClapTrap::takeDamage(unsigned int amount) {
 		MSG_NO_ENERGY;
 		return ;
 	}
-
-	MSG_TAKE_DAMAGE
 	MSG_COUNT
 }
 
