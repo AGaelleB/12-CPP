@@ -1,21 +1,20 @@
 
-NAME = DiamondTrap
+NAME = Animal
 
 CC = c++
 
-CPP_FLAGS = -Wall -Wextra -Werror -Wshadow -std=c++98
-
-#le flag Wshadow aide à identifier les situations où une variable membre dans une classe dérivée
-#pourrait "cacher" (ou "ombre") une variable membre portant le même nom dans une classe de base
+CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
 OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
 SRCS = main.cpp \
-	ClapTrap.cpp \
-	ScavTrap.cpp \
-	FragTrap.cpp \
-	DiamondTrap.cpp \
+	Animal.cpp \
+	Dog.cpp \
+	Cat.cpp \
+	WrongAnimal.cpp \
+	WrongCat.cpp \
+
 
 RM = rm -rf
 
