@@ -14,6 +14,7 @@ SRCS = main.cpp \
 	Cat.cpp \
 	WrongAnimal.cpp \
 	WrongCat.cpp \
+	Brain.cpp \
 
 RM = rm -rf
 

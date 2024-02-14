@@ -4,7 +4,6 @@
 #include "../includes/Cat.hpp"
 #include "../includes/WrongCat.hpp"
 
-
 int main() {
 
 	std::cout << "	~~~ ANIMAL ~~~\n";
