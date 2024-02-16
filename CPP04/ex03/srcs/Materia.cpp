@@ -1,5 +1,5 @@
 #include "../includes/Materia.hpp"
-
+#include "../includes/ICharacter.hpp"
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
@@ -8,7 +8,7 @@ AMateria::AMateria() : _type("NULL") {
 	return;
 }
 
-AMateria::AMateria(std::string const type) : _type(type) {
+AMateria::AMateria(std::string const & type) : _type(type) {
 	std::cout << CYAN << "~Abstract Materia~ type constructor called" << RESET << std::endl;
 	return;
 }
@@ -45,10 +45,12 @@ std::string const & AMateria::getType() const {
 
 // pas d'implementation car AMateria est une classe abstraite
 // ces fonctions seront definies dans Ice et Cure
-AMateria* AMateria::clone() const {
-}
+// AMateria* AMateria::clone() const {
+// }
+
 
 // pas d'implementation car AMateria est une classe abstraite
 // ces fonctions seront definies dans Ice et Cure
 void AMateria::use(ICharacter& target) {
+	std::cout << "AMateria use on " << target.getName() << std::endl;
 }

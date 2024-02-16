@@ -1,20 +1,15 @@
 #include "../includes/Cure.hpp"
-
+#include "../includes/ICharacter.hpp"
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Cure::Cure() {
+Cure::Cure() : _type("cure") {
 	std::cout << CYAN << "~Cure~ default constructor called" << RESET << std::endl;
-	this->_type = "cure";
+	// this->_type = "cure";
 	return;
 }
 
-Cure::Cure(std::string const type) : _type("cure") {
-	std::cout << CYAN << "~Cure~ type constructor called" << RESET << std::endl;
-	return;
-}
-
-Cure::Cure(const Cure& rhs) {
+Cure::Cure(const Cure& rhs) : AMateria(rhs._type) {
 	*this = rhs;
 	std::cout << CYAN << "~Cure~ copy constructor called" << RESET << std::endl;
 	return;
@@ -46,9 +41,9 @@ std::string const & Cure::getType() const {
 
 
 Cure* Cure::clone() const {
-
+	return (new Cure());
 }
 
 void Cure::use(ICharacter& target) {
-	std::cout << "* heals" <<  target << "’s wounds *" << std::endl;
+	std::cout << "* heals" <<  target.getName() << "’s wounds *" << std::endl;
 }

@@ -17,6 +17,7 @@
 
 #include "main.hpp"
 #include "Materia.hpp"
+#include "IMateriaSource.hpp"
 
 class AMateria;
 
@@ -37,18 +38,9 @@ class MateriaSource : public IMateriaSource {
 		MateriaSource& operator=(const MateriaSource& rhs);
 
 		// fonctions membres
-		// ???
+		virtual void learnMateria(AMateria*);
+		virtual AMateria* createMateria(std::string const & type);
 };
-
-
-class IMateriaSource {
-
-	public:
-		virtual ~IMateriaSource() {}
-		virtual void learnMateria(AMateria*) = 0;
-		virtual AMateria* createMateria(std::string const & type) = 0;
-};
-
 
 #endif
 

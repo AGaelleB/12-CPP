@@ -1,10 +1,10 @@
-#include "../includes/Animal.hpp"
-#include "../includes/WrongAnimal.hpp"
-#include "../includes/Dog.hpp"
-#include "../includes/Cat.hpp"
-#include "../includes/WrongCat.hpp"
-#include "../includes/Brain.hpp"
-
+#include "../includes/Character.hpp"
+#include "../includes/ICharacter.hpp"
+#include "../includes/Cure.hpp"
+#include "../includes/Ice.hpp"
+#include "../includes/Materia.hpp"
+#include "../includes/MateriaSource.hpp"
+#include "../includes/IMateriaSource.hpp"
 
 
 int main()

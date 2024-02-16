@@ -1,20 +1,15 @@
 #include "../includes/Ice.hpp"
-
+#include "../includes/ICharacter.hpp"
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Ice::Ice() {
+Ice::Ice() : _type("ice") {
 	std::cout << CYAN << "~Ice~ default constructor called" << RESET << std::endl;
-	this->_type = "ice";
+	// this->_type = "ice";
 	return;
 }
 
-Ice::Ice(std::string const type) : _type("ice") {
-	std::cout << CYAN << "~Ice~ type constructor called" << RESET << std::endl;
-	return;
-}
-
-Ice::Ice(const Ice& rhs) {
+Ice::Ice(const Ice& rhs) : AMateria(rhs._type) {
 	*this = rhs;
 	std::cout << CYAN << "~Ice~ copy constructor called" << RESET << std::endl;
 	return;
@@ -46,9 +41,9 @@ std::string const & Ice::getType() const {
 
 
 Ice* Ice::clone() const {
-
+	return (new Ice());
 }
 
 void Ice::use(ICharacter& target) {
-	std::cout << "* shoots an ice bolt at " << target << "*" << std::endl;
+	std::cout << "* shoots an ice bolt at " << target.getName() << "*" << std::endl;
 }

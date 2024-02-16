@@ -1,4 +1,5 @@
 #include "../includes/MateriaSource.hpp"
+#include "../includes/IMateriaSource.hpp"
 
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
@@ -56,7 +57,7 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& rhs) {
 
 
 void MateriaSource::learnMateria(AMateria* m) {
-	if (_nbMateria < MaxNbMateria && m != nullptr) {
+	if (_nbMateria < MaxNbMateria && m != NULL) {
 		for (int i = 0; i < _nbMateria; ++i) {
 			if (_materia[i] == m) // Vérifie si la materia est déjà apprise
 				return;
@@ -68,8 +69,8 @@ void MateriaSource::learnMateria(AMateria* m) {
 AMateria* MateriaSource::createMateria(std::string const & type) {
 	for (int i = 0; i < _nbMateria; ++i) {
 		if (_materia[i] && _materia[i]->getType() == type) {
-			return _materia[i]->clone();
+			return (_materia[i]->clone());
 		}
 	}
-	return nullptr;
+	return NULL;
 }

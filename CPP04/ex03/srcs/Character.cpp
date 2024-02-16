@@ -1,4 +1,5 @@
 #include "../includes/Character.hpp"
+#include "../includes/ICharacter.hpp"
 
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/

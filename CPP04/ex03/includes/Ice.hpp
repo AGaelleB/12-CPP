@@ -6,6 +6,8 @@
 #include "main.hpp"
 #include "Materia.hpp"
 
+class ICharacter;
+
 class Ice : public AMateria {
 
 	protected :
@@ -14,7 +16,6 @@ class Ice : public AMateria {
 	public :
 		 // construteur par default, de copie et destructeur
 		Ice();
-		Ice(std::string const & type);
 		Ice(const Ice& rhs);
 		virtual ~Ice();
 
