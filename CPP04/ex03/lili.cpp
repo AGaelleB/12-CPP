@@ -148,7 +148,7 @@ class Charactere : public ICharactere {
 
 	protected :
 		std::string	_name;
-		int			_items[4];
+		int			_materia[4];
 		int			_idx;
 
 	public :

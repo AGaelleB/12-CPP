@@ -11,6 +11,9 @@
 #include <iostream>
 #include <string>
 
+#define MaxNbMateria 4
+
+
 
 /* PREFIXE
 	Prefixe A : Abstraite -> pas instanciable 

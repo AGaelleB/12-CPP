@@ -3,21 +3,21 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Character::Character() : _name(""), _nbItems(0) {
+Character::Character() : _name(""), _nbMateria(0) {
 	std::cout << CYAN << "~Character~ default constructor called" << RESET << std::endl;
 
-	for (int i = 0; i < MaxNbItems; i++) {
-		_items[i] = NULL;
+	for (int i = 0; i < MaxNbMateria; i++) {
+		_materia[i] = NULL;
 	}
 
 	return;
 }
 
-Character::Character(std::string name) : _name(name), _nbItems(0) {
+Character::Character(std::string name) : _name(name), _nbMateria(0) {
 	std::cout << CYAN << "~Character~ type constructor called" << RESET << std::endl;
 	
-	for (int i = 0; i < MaxNbItems; i++) {
-		_items[i] = NULL;
+	for (int i = 0; i < MaxNbMateria; i++) {
+		_materia[i] = NULL;
 	}
 
 	return;
@@ -32,8 +32,8 @@ Character::Character(const Character& rhs) { // faire une copie profonde
 Character::~Character() {
 	std::cout << RED << "~Character~ destructor called" << RESET << std::endl;
 
-	for (int i = 0; i < _nbItems; i++) {
-		delete _items[i];
+	for (int i = 0; i < _nbMateria; i++) {
+		delete _materia[i];
 	}
 
 	return;
@@ -43,18 +43,24 @@ Character::~Character() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Character& Character::operator=(const Character& rhs) {
+	std::cout << CYAN << "~Character~ copy assignment operator called" << RESET << std::endl;
+
 	if (this != &rhs) {
 
 		_name = rhs._name;
 
 		// Je libere la mémoire
-		for (int i = 0; i < _nbItems; ++i)
-			delete _items[i];
-		_nbItems = rhs._nbItems;
+		for (int i = 0; i < _nbMateria; ++i)
+			delete _materia[i];
+		_nbMateria = rhs._nbMateria;
+
+		// Je repasse mes ptr a NULL
+		for (int i = 0; i < MaxNbMateria; i++)
+			_materia[i] = NULL;
 
 		// J'alloue et copie de nvx objets
-		for (int i = 0; i < _nbItems; ++i)
-			_items[i] = rhs._items[i]->clone();
+		for (int i = 0; i < _nbMateria; ++i)
+			_materia[i] = rhs._materia[i]->clone();
 	}
 	return (*this);
 }
@@ -70,8 +76,8 @@ std::string const & Character::getName() const {
 // Cette fonction permet à un personnage d'équiper une materia
 void Character::equip(AMateria* m) {
 
-	if (_nbItems < 4 && m != NULL)
-		_items[_nbItems++] = m;
+	if (_nbMateria < 4 && m != NULL)
+		_materia[_nbMateria++] = m;
 
 }
 
@@ -80,8 +86,8 @@ void Character::equip(AMateria* m) {
 // une materia de son inventaire sans la supprimer
 void Character::unequip(int idx) {
 
-	if (idx >= 0 && idx < MaxNbItems && _items[idx] != NULL)
-		_items[idx] = NULL;
+	if (idx >= 0 && idx < MaxNbMateria && _materia[idx] != NULL)
+		_materia[idx] = NULL;
 		// retirer sans supprimer pour éviter les leaks
 }
 
@@ -89,7 +95,7 @@ void Character::unequip(int idx) {
 // Cette fonction permet à un personnage d'utiliser une des matérias équipées sur une cible
 void Character::use(int idx, ICharacter& target) {
 
-	if (idx >= 0 && idx < _nbItems && _items[idx] != NULL)
-		_items[idx]->use(target);
+	if (idx >= 0 && idx < _nbMateria && _materia[idx] != NULL)
+		_materia[idx]->use(target);
 
 }

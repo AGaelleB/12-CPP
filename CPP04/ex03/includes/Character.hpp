@@ -6,16 +6,14 @@
 #include "main.hpp"
 #include "Materia.hpp"
 
-#define MaxNbItems 4
-
 class AMateria;
 
 class Character : public ICharacter {
 
 	protected :
 		std::string	_name;
-		AMateria*	_items[MaxNbItems]; // Correction: Utiliser des pointeurs vers AMateria
-		int			_nbItems; // Pour suivre le nombre actuel d'objets dans l'inventaire
+		AMateria*	_materia[MaxNbMateria]; // Utiliser des pointeurs vers AMateria
+		int			_nbMateria; // Pour suivre le nombre actuel d'objets dans l'inventaire
 
 	public :
 		 // construteur par default, de copie et destructeur
