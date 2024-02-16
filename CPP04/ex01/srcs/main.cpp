@@ -7,6 +7,7 @@
 
 
 int main() {
+
 	const int numAnimals = 7; // Nombre total d'animaux dans le tableau
 	Animal* animals[numAnimals]; // Tableau d'animaux
 
