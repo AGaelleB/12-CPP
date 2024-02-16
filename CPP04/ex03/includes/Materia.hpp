@@ -1,4 +1,4 @@
-// Materia.hpp ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ OKKKK
+// Materia.hpp
 
 #ifndef MATERIA_HPP
 #define MATERIA_HPP

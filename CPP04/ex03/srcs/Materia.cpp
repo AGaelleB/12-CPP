@@ -3,7 +3,7 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-AMateria::AMateria() {
+AMateria::AMateria() : _type("NULL") {
 	std::cout << CYAN << "~Abstract Materia~ default constructor called" << RESET << std::endl;
 	return;
 }
@@ -43,11 +43,12 @@ std::string const & AMateria::getType() const {
 	return(this->_type);
 }
 
-
+// pas d'implementation car AMateria est une classe abstraite
+// ces fonctions seront definies dans Ice et Cure
 AMateria* AMateria::clone() const {
-
 }
 
+// pas d'implementation car AMateria est une classe abstraite
+// ces fonctions seront definies dans Ice et Cure
 void AMateria::use(ICharacter& target) {
-
 }
