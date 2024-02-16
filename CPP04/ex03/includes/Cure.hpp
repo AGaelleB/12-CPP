@@ -1,7 +1,10 @@
+// Cure.hpp
+
 #ifndef CURE_HPP
 #define CURE_HPP
 
 #include "main.hpp"
+#include "Materia.hpp"
 
 class Cure : public AMateria {
 

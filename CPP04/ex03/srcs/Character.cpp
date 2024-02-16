@@ -1,57 +1,95 @@
-#include "../includes/Charactere.hpp"
+#include "../includes/Character.hpp"
 
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-ICharactere::ICharactere() : _items("null") {
-	std::cout << CYAN << "~Charactere~ default constructor called" << RESET << std::endl;
+Character::Character() : _name(""), _nbItems(0) {
+	std::cout << CYAN << "~Character~ default constructor called" << RESET << std::endl;
+
+	for (int i = 0; i < MaxNbItems; i++) {
+		_items[i] = NULL;
+	}
+
 	return;
 }
 
-ICharactere::ICharactere(std::string const type) : _type(type) {
-	std::cout << CYAN << "~Charactere~ type constructor called" << RESET << std::endl;
+Character::Character(std::string name) : _name(name), _nbItems(0) {
+	std::cout << CYAN << "~Character~ type constructor called" << RESET << std::endl;
+	
+	for (int i = 0; i < MaxNbItems; i++) {
+		_items[i] = NULL;
+	}
+
 	return;
 }
 
-ICharactere::ICharactere(const ICharactere& rhs) {
+Character::Character(const Character& rhs) { // faire une copie profonde 
 	*this = rhs;
-	std::cout << CYAN << "~Charactere~ copy constructor called" << RESET << std::endl;
+	std::cout << CYAN << "~Character~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
-ICharactere::~ICharactere() {
-	std::cout << RED << "~Charactere~ destructor called" << RESET << std::endl;
+Character::~Character() {
+	std::cout << RED << "~Character~ destructor called" << RESET << std::endl;
+
+	for (int i = 0; i < _nbItems; i++) {
+		delete _items[i];
+	}
+
 	return;
 }
 
 
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
-ICharactere& ICharactere::operator=(const ICharactere& rhs) {
-	std::cout << CYAN << "~Charactere~ copy assignment operator called" << RESET << std::endl;
-
+Character& Character::operator=(const Character& rhs) {
 	if (this != &rhs) {
-		this->_type = rhs._type;
+
+		_name = rhs._name;
+
+		// Je libere la mémoire
+		for (int i = 0; i < _nbItems; ++i)
+			delete _items[i];
+		_nbItems = rhs._nbItems;
+
+		// J'alloue et copie de nvx objets
+		for (int i = 0; i < _nbItems; ++i)
+			_items[i] = rhs._items[i]->clone();
 	}
 	return (*this);
 }
 
-
 /****************************** FONCTIONS MEMBRES ******************************/
 
 
-std::string const & ICharactere::getName() const {
-	
+std::string const & Character::getName() const {
+	return (this->_name);
 }
 
-void ICharactere::equip(AMateria* m) {
+
+// Cette fonction permet à un personnage d'équiper une materia
+void Character::equip(AMateria* m) {
+
+	if (_nbItems < 4 && m != NULL)
+		_items[_nbItems++] = m;
 
 }
 
-void ICharactere::unequip(int idx) {
 
+// Cette fonction permet à un personnage de retirer (mais pas de détruire)
+// une materia de son inventaire sans la supprimer
+void Character::unequip(int idx) {
+
+	if (idx >= 0 && idx < MaxNbItems && _items[idx] != NULL)
+		_items[idx] = NULL;
+		// retirer sans supprimer pour éviter les leaks
 }
 
-void ICharactere::use(int idx, ICharacter& target) {
+
+// Cette fonction permet à un personnage d'utiliser une des matérias équipées sur une cible
+void Character::use(int idx, ICharacter& target) {
+
+	if (idx >= 0 && idx < _nbItems && _items[idx] != NULL)
+		_items[idx]->use(target);
 
 }

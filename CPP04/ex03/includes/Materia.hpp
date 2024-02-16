@@ -1,7 +1,11 @@
+// Materia.hpp ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ OKKKK
+
 #ifndef MATERIA_HPP
 #define MATERIA_HPP
 
 #include "main.hpp"
+
+class ICharacter; // Inclusion de ICharacter dans Materia.hpp
 
 class AMateria {
 
@@ -19,8 +23,7 @@ class AMateria {
 		AMateria& operator=(const AMateria& rhs);
 
 		// fonctions membres
-		std::string const & getType() const; //Returns the materia type
-		
+		std::string const & getType() const;
 		virtual AMateria* clone() const = 0;
 		virtual void use(ICharacter& target);
 };
@@ -37,7 +40,3 @@ class IMateriaSource {
 
 #endif
 
-/* PREFIXE
-	Prefixe A : Abstraite -> pas instanciable 
-	Prefixe I : Interface -> creer une interface 
- */

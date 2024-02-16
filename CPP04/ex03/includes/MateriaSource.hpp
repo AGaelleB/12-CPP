@@ -1,7 +1,10 @@
+// MateriaSource.hpp
+
 #ifndef MATERIASOURCE_HPP
 #define MATERIASOURCE_HPP
 
 #include "main.hpp"
+#include "Materia.hpp"
 
 class MateriaSource : public IMateriaSource {
 
@@ -10,7 +13,6 @@ class MateriaSource : public IMateriaSource {
 	public :
 		 // construteur par default, de copie et destructeur
 		MateriaSource();
-		MateriaSource(std::string const & type);
 		MateriaSource(const MateriaSource& rhs);
 		virtual ~MateriaSource();
 

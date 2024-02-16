@@ -1,7 +1,10 @@
+// Ice.hpp
+
 #ifndef ICE_HPP
 #define ICE_HPP
 
 #include "main.hpp"
+#include "Materia.hpp"
 
 class Ice : public AMateria {
 

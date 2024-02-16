@@ -1,35 +1,44 @@
-#ifndef CHARACTERE_HPP
-#define CHARACTERE_HPP
+// Character.hpp
+
+#ifndef CHARACTER_HPP
+#define CHARACTER_HPP
 
 #include "main.hpp"
+#include "Materia.hpp"
 
-class Charactere : public ICharactere {
+#define MaxNbItems 4
+
+class AMateria;
+
+class Character : public ICharacter {
 
 	protected :
-		std::string	_type;
-		int			_items[4];
-		int			_index;
+		std::string	_name;
+		AMateria*	_items[MaxNbItems]; // Correction: Utiliser des pointeurs vers AMateria
+		int			_nbItems; // Pour suivre le nombre actuel d'objets dans l'inventaire
 
 	public :
 		 // construteur par default, de copie et destructeur
-		Charactere();
-		Charactere(std::string const & type);
-		Charactere(const Charactere& rhs);
-		virtual ~Charactere();
+		Character();
+		Character(std::string name);
+		Character(const Character& rhs);
+		virtual ~Character();
 
 		// Opérateur d'affectation, surcharge d'operateur '='
-		Charactere& operator=(const Charactere& rhs);
+		Character& operator=(const Character& rhs);
 
 		// fonctions membres
-		virtual std::string const & getName() const = 0;
-		virtual void equip(AMateria* m) = 0;
-		virtual void unequip(int idx) = 0;
-		virtual void use(int idx, ICharacter& target) = 0;
+		virtual std::string const & getName() const;
+		virtual void equip(AMateria* m);
+		virtual void unequip(int idx);
+		virtual void use(int idx, ICharacter& target);
+
 };
 
-class ICharactere {
+class ICharacter {
 
 	public :
+		virtual ~ICharacter() {}
 		virtual std::string const & getName() const = 0;
 		virtual void equip(AMateria* m) = 0;
 		virtual void unequip(int idx) = 0;
