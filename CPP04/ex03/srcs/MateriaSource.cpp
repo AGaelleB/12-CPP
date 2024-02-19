@@ -38,7 +38,7 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& rhs) {
 	if (this != &rhs) {
 
 		// Je libere la mémoire
-		for (int i = 0; i < _nbMateria; ++i)
+		for (int i = 0; i < _nbMateria; i++)
 			delete _materia[i];
 		_nbMateria = rhs._nbMateria;
 
@@ -47,7 +47,7 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& rhs) {
 			_materia[i] = NULL;
 
 		// J'alloue et copie de nvx objets
-		for (int i = 0; i < _nbMateria; ++i)
+		for (int i = 0; i < _nbMateria; i++)
 			_materia[i] = rhs._materia[i]->clone();
 	}
 	return (*this);
@@ -57,20 +57,30 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& rhs) {
 
 
 void MateriaSource::learnMateria(AMateria* m) {
-	if (_nbMateria < MaxNbMateria && m != NULL) {
-		for (int i = 0; i < _nbMateria; ++i) {
-			if (_materia[i] == m) // Vérifie si la materia est déjà apprise
+	
+	if (_nbMateria == MaxNbMateria)
+		std::cout << "MateriaSource can't learn more than " << MaxNbMateria << " materias" << std::endl;
+
+
+	else if (_nbMateria < MaxNbMateria && m != NULL) {
+		for (int i = 0; i < _nbMateria; i++) {
+			if (_materia[i] == m) {
+				std::cout << "MateriaSource " <<  m->getType() << "is already learned" << std::endl;
 				return;
+			}
 		}
 		_materia[_nbMateria++] = m;
+		std::cout << "MateriaSource learned new materia : " << m->getType() << std::endl;
+
 	}
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type) {
-	for (int i = 0; i < _nbMateria; ++i) {
+	for (int i = 0; i < _nbMateria; i++) {
 		if (_materia[i] && _materia[i]->getType() == type) {
+			std::cout << "MateriaSource created new materia : " << type << std::endl;
 			return (_materia[i]->clone());
 		}
 	}
-	return NULL;
+	return (NULL);
 }

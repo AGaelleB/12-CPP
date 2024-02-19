@@ -3,9 +3,9 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Ice::Ice() : _type("ice") {
+Ice::Ice() : AMateria("ice")  {
 	std::cout << CYAN << "~Ice~ default constructor called" << RESET << std::endl;
-	// this->_type = "ice";
+	this->_type = "ice";
 	return;
 }
 
@@ -41,8 +41,10 @@ std::string const & Ice::getType() const {
 
 
 Ice* Ice::clone() const {
-	return (new Ice());
+	Ice *cloneIce = new Ice(*this);
+	return (cloneIce);
 }
+
 
 void Ice::use(ICharacter& target) {
 	std::cout << "* shoots an ice bolt at " << target.getName() << "*" << std::endl;

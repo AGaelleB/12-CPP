@@ -16,7 +16,7 @@ Character::Character() : _name(""), _nbMateria(0) {
 
 Character::Character(std::string name) : _name(name), _nbMateria(0) {
 	std::cout << CYAN << "~Character~ type constructor called" << RESET << std::endl;
-	
+
 	for (int i = 0; i < MaxNbMateria; i++) {
 		_materia[i] = NULL;
 	}
@@ -24,9 +24,13 @@ Character::Character(std::string name) : _name(name), _nbMateria(0) {
 	return;
 }
 
-Character::Character(const Character& rhs) { // faire une copie profonde 
-	*this = rhs;
+Character::Character(const Character& rhs) : _name(rhs._name) { // copie profonde 
 	std::cout << CYAN << "~Character~ copy constructor called" << RESET << std::endl;
+	
+	for (int i = 0; i < MaxNbMateria; i++) {
+		_materia[i] = rhs._materia[i]->clone();
+	}
+	*this = rhs;
 	return;
 }
 
@@ -34,7 +38,8 @@ Character::~Character() {
 	std::cout << RED << "~Character~ destructor called" << RESET << std::endl;
 
 	for (int i = 0; i < _nbMateria; i++) {
-		delete _materia[i];
+		if (_materia[i])
+			delete _materia[i];
 	}
 
 	return;
@@ -77,8 +82,10 @@ std::string const & Character::getName() const {
 // Cette fonction permet à un personnage d'équiper une materia
 void Character::equip(AMateria* m) {
 
-	if (_nbMateria < 4 && m != NULL)
+	if (_nbMateria < 4 && m != NULL) {
+		std::cout << getName() << " has equipped materia : " << m->getType() << std::endl;
 		_materia[_nbMateria++] = m;
+	}
 
 }
 
@@ -87,16 +94,19 @@ void Character::equip(AMateria* m) {
 // une materia de son inventaire sans la supprimer
 void Character::unequip(int idx) {
 
-	if (idx >= 0 && idx < MaxNbMateria && _materia[idx] != NULL)
+	if (idx >= 0 && idx < MaxNbMateria && _materia[idx] != NULL) {
+		std::cout << getName() << " has unequipped materia : " << _materia[idx]->getType() << std::endl;
 		_materia[idx] = NULL;
-		// retirer sans supprimer pour éviter les leaks
+	}
 }
 
 
 // Cette fonction permet à un personnage d'utiliser une des matérias équipées sur une cible
 void Character::use(int idx, ICharacter& target) {
 
-	if (idx >= 0 && idx < _nbMateria && _materia[idx] != NULL)
+	if (idx >= 0 && idx < _nbMateria && _materia[idx] != NULL) {
+		std::cout << getName() << " is using materia \"" << _materia[idx]->getType() << "\" on " << target.getName() << std::endl;
 		_materia[idx]->use(target);
+	}
 
 }

@@ -3,9 +3,9 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Cure::Cure() : _type("cure") {
+Cure::Cure() : AMateria("cure") {
 	std::cout << CYAN << "~Cure~ default constructor called" << RESET << std::endl;
-	// this->_type = "cure";
+	this->_type = "cure";
 	return;
 }
 
@@ -41,8 +41,10 @@ std::string const & Cure::getType() const {
 
 
 Cure* Cure::clone() const {
-	return (new Cure());
+	Cure *cloneCure = new Cure(*this);
+	return (cloneCure);
 }
+
 
 void Cure::use(ICharacter& target) {
 	std::cout << "* heals" <<  target.getName() << "’s wounds *" << std::endl;
