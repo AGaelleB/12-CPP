@@ -7,8 +7,10 @@ Fixed::Fixed() : _value(0) {
 	std::cout << BLUE << "Default constructor called" << RESET << std::endl;
 }
 
-Fixed::Fixed(const Fixed& src) : _value(src._value) {
+Fixed::Fixed(const Fixed& src) {
 	std::cout << BLUE << "Copy constructor called" << RESET << std::endl;
+	*this = src;
+
 }
 
 Fixed::Fixed(const int nbInt) : _value(nbInt << _fractionalBits) {
@@ -26,13 +28,28 @@ Fixed::~Fixed() {
 /************************** OPERATEUR D'AFFECTATION  *************************/
 
 Fixed& Fixed::operator=(const Fixed& src) {
+	
 	std::cout << YELLOW << "Copy assignment operator called" << RESET << std::endl;
 
-	if (this != &src)
-		_value = src._value;
-
-	return (*this);
+	if (this != &src) {
+		this->_value = src.getRawBits();
+	}
+	return *this;
 }
+
+/**************************** GETTERS ET SETTERS *****************************/
+
+int	Fixed::getRawBits( void ) const {
+	// std::cout << GREEN << "getRawBits member function called" << RESET << std::endl;
+	return (this->_value);
+}
+
+void Fixed::setRawBits( int const raw ) {
+
+	// std::cout << GREEN << "setRawBits called" << RESET << std::endl;
+	this->_value = raw;
+}
+
 
 /***************************** FONCTIONS MEMBRES *****************************/
 
@@ -49,8 +66,3 @@ std::ostream& operator<<(std::ostream& os, const Fixed& src) {
 	return (os);
 }
 
-
-/* NOTE EXPLICATIVE
-
-
- */

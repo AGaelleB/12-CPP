@@ -103,8 +103,6 @@ void	mymainGlobal(void) {
 		Bob->equip(srcBob->createMateria("cure"));
 	}
 
-
-
 	// free
 	delete srcGaga;
 	delete Gaga;

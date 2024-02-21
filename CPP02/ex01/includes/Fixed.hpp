@@ -33,6 +33,8 @@ class Fixed {
 		float toFloat( void ) const;
 		int toInt( void ) const;
 
+		int	getRawBits( void ) const; // retourne la valeur du nombre à virgule fixe sans la convertir
+		void setRawBits( int const raw ); // initialise la valeur du nombre à virgule fixe avec celle passée en paramètre
 };
 
 // surcharge de l’opérateur d’insertion
