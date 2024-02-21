@@ -4,23 +4,23 @@
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
 AMateria::AMateria() : _type("NULL") {
-	std::cout << CYAN << "~Abstract Materia~ default constructor called" << RESET << std::endl;
+	// std::cout << CYAN << "~Abstract Materia~ default constructor called" << RESET << std::endl;
 	return;
 }
 
 AMateria::AMateria(std::string const & type) : _type(type) {
-	std::cout << CYAN << "~Abstract Materia~ type constructor called" << RESET << std::endl;
+	// std::cout << CYAN << "~Abstract Materia~ type constructor called" << RESET << std::endl;
 	return;
 }
 
 AMateria::AMateria(const AMateria& rhs) {
 	*this = rhs;
-	std::cout << CYAN << "~Abstract Materia~ copy constructor called" << RESET << std::endl;
+	// std::cout << CYAN << "~Abstract Materia~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
 AMateria::~AMateria() {
-	std::cout << RED << "~Abstract Materia~ destructor called" << RESET << std::endl;
+	// std::cout << RED << "~Abstract Materia~ destructor called" << RESET << std::endl;
 	return;
 }
 

@@ -3,20 +3,22 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Ice::Ice() : AMateria("ice")  {
-	std::cout << CYAN << "~Ice~ default constructor called" << RESET << std::endl;
+Ice::Ice() : AMateria("ice") {
+	// std::cout << CYAN << "~Ice~ default constructor called" << RESET << std::endl;
+
 	this->_type = "ice";
 	return;
 }
 
 Ice::Ice(const Ice& rhs) : AMateria(rhs._type) {
+	// std::cout << CYAN << "~Ice~ copy constructor called" << RESET << std::endl;
+
 	*this = rhs;
-	std::cout << CYAN << "~Ice~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
 Ice::~Ice() {
-	std::cout << RED << "~Ice~ destructor called" << RESET << std::endl;
+	// std::cout << RED << "~Ice~ destructor called" << RESET << std::endl;
 	return;
 }
 
@@ -24,7 +26,7 @@ Ice::~Ice() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Ice& Ice::operator=(const Ice& rhs) {
-	std::cout << CYAN << "~Ice~ copy assignment operator called" << RESET << std::endl;
+	// std::cout << CYAN << "~Ice~ copy assignment operator called" << RESET << std::endl;
 
 	if (this != &rhs) {
 		this->_type = rhs._type;

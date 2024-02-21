@@ -4,19 +4,22 @@
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
 Cure::Cure() : AMateria("cure") {
-	std::cout << CYAN << "~Cure~ default constructor called" << RESET << std::endl;
+	// std::cout << CYAN << "~Cure~ default constructor called" << RESET << std::endl;
+
 	this->_type = "cure";
 	return;
 }
 
 Cure::Cure(const Cure& rhs) : AMateria(rhs._type) {
+	// std::cout << CYAN << "~Cure~ copy constructor called" << RESET << std::endl;
+
 	*this = rhs;
-	std::cout << CYAN << "~Cure~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
+
 Cure::~Cure() {
-	std::cout << RED << "~Cure~ destructor called" << RESET << std::endl;
+	// std::cout << RED << "~Cure~ destructor called" << RESET << std::endl;
 	return;
 }
 
@@ -24,7 +27,7 @@ Cure::~Cure() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Cure& Cure::operator=(const Cure& rhs) {
-	std::cout << CYAN << "~Cure~ copy assignment operator called" << RESET << std::endl;
+	// std::cout << CYAN << "~Cure~ copy assignment operator called" << RESET << std::endl;
 
 	if (this != &rhs) {
 		this->_type = rhs._type;
