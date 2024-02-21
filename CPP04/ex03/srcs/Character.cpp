@@ -27,10 +27,10 @@ Character::Character(std::string name) : _name(name), _nbMateria(0) {
 Character::Character(const Character& rhs) : _name(rhs._name) { // copie profonde 
 	// std::cout << CYAN << "~Character~ copy constructor called" << RESET << std::endl;
 	
+	// je clone chaque materia indépendamment en utilisant clone() pour réaliser une copie profonde
 	for (int i = 0; i < MaxNbMateria; i++) {
 		this->_materia[i] = rhs._materia[i]->clone();
 	}
-	*this = rhs;
 	return;
 }
 
