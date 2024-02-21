@@ -20,14 +20,12 @@
 #include "IMateriaSource.hpp"
 
 class AMateria;
-class Character;
 
 
 class MateriaSource : public IMateriaSource {
 
 	private :
 		AMateria*	_materia[MaxNbMateria];
-		Character*	_characterName;
 		int			_nbMateria;
 
 	public :

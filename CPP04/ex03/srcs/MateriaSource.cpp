@@ -14,13 +14,12 @@ MateriaSource::MateriaSource() : _nbMateria(0) {
 	return;
 }
 
-MateriaSource::MateriaSource(const MateriaSource& rhs) { /// C EST OK ?? 
+MateriaSource::MateriaSource(const MateriaSource& rhs) { 
 	// std::cout << CYAN << "~MateriaSource~ copy constructor called" << RESET << std::endl;
 
 	for (int i = 0; i < MaxNbMateria; i++) {
 		this->_materia[i] = rhs._materia[i]->clone();
 	}
-	*this = rhs;
 	return;
 
 }
