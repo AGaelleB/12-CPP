@@ -3,55 +3,31 @@
 
 #include <iostream>
 
-#include "Bureaucrat.hpp" 
+#include "AForm.hpp"
 
-class PresidentialPardonForm {
+class PresidentialPardonForm : public AForm {
 
 	private :
-		std::string	_namePresidentialPardonForm;
-		bool		_isSigned;
-		int			_gradeToSign;
-		int			_gradeToExecute;
+		std::string	_target;
 
 	public :
 		// construteur par default, de copie et destructeur
 		PresidentialPardonForm();
-		PresidentialPardonForm(const std::string& name, int gradeToSign, int gradeToExecute);
+		PresidentialPardonForm(const std::string& target);
 		PresidentialPardonForm(const PresidentialPardonForm& rhs);
-		~PresidentialPardonForm();
+		virtual ~PresidentialPardonForm();
 
 		// Opérateur d'affectation, surcharge d'operateur '='
 		PresidentialPardonForm& operator=(const PresidentialPardonForm& rhs);
 
-		// getters  & setters
-		std::string	getNameForm() const;
-		bool		getIsSigned() const;
-		int			getGradeToSign() const;
-		int			getGradeToExecute() const;
+		// getter
+		std::string getTarget() const;
 
-
-		// fonctions memebres
-		void		beSigned(const Bureaucrat& bureaucrat); // Méthode pour signer le formulaire
-
-
-		// exceptions
-		class GradeTooHighException : public std::exception {
-			public :
-				virtual const char* what() const throw() {
-					return("Grade is too high!");
-				}
-		};
-
-		class GradeTooLowException : public std::exception {
-			public :
-				virtual const char* what() const throw() {
-					return("Grade is too low!");
-				}
-		};
+		// fonctions membres
+		void	execute(Bureaucrat const & executor) const ;
 
 };
 
-// opérateur d'insertion <<
-std::ostream& operator<<(std::ostream& os, const PresidentialPardonForm& PresidentialPardonForm);
-
 #endif
+
+

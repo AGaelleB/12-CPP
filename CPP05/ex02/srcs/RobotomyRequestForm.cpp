@@ -1,25 +1,22 @@
 #include "../includes/RobotomyRequestForm.hpp"
-
+#include <cstdlib>  // Pour rand() et srand()
+#include <ctime>    // Pour time()
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-RobotomyRequestForm::RobotomyRequestForm() : _nameRobotomyRequestForm("RobotomyRequestForm0"), _isSigned(false), _gradeToSign(150), _gradeToExecute(150) {
+RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm 🔧", 72, 45), _target("default_target") { // AForm pour init les donnees
+
 	// std::cout << CYAN << "~RobotomyRequestForm~ default constructor called" << RESET << std::endl;
 	return;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string& name, int gradeToSign, int gradeToExecute): _nameRobotomyRequestForm(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
+RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("RobotomyRequestForm 🔧", 72, 45), _target(target) {
+
 	// std::cout << CYAN << "~RobotomyRequestForm~ type constructor called" << RESET << std::endl;
-
-	if (this->_gradeToSign < 1 || this->_gradeToExecute < 1)
-		throw (GradeTooHighException());
-	else if (this->_gradeToSign > 150 || this->_gradeToExecute > 150)
-		throw (GradeTooLowException());
-
 	return;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& rhs) {
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& rhs) : AForm(rhs) {
 	// std::cout << CYAN << "~RobotomyRequestForm~ copy constructor called" << RESET << std::endl;
 	*this = rhs;
 	return;
@@ -34,63 +31,45 @@ RobotomyRequestForm::~RobotomyRequestForm() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& rhs) {
-	// std::cout << CYAN << "~RobotomyRequestForm~ copy assignment operator called" << RESET << std::endl;
-
-	this->_nameRobotomyRequestForm = rhs._nameRobotomyRequestForm;
-	this->_isSigned = rhs._isSigned;
-	this->_gradeToSign = rhs._gradeToSign;
-	this->_gradeToExecute = rhs._gradeToExecute;
-
+	if (this != &rhs) {
+		this->_target = rhs._target;
+	}
 	return (*this);
 }
 
-
 /*********************************** GETTERS **********************************/
 
-std::string	RobotomyRequestForm::getNameRobotomyRequestForm() const {
-	return (this->_nameRobotomyRequestForm);
+std::string	RobotomyRequestForm::getTarget() const {
+	return (this->_target);
 }
-
-bool	RobotomyRequestForm::getIsSigned() const {
-	return (this->_isSigned);
-}
-
-int	RobotomyRequestForm::getGradeToSign() const {
-	return (this->_gradeToSign);
-}
-
-int	RobotomyRequestForm::getGradeToExecute() const {
-	return (this->_gradeToExecute);
-}
-
 
 /****************************** FONCTIONS MEMBRES ******************************/
 
-void	RobotomyRequestForm::beSigned(const Bureaucrat& bureaucrat) {
 
-	if (bureaucrat.getGrade() > this->_gradeToSign) {
-		throw (GradeTooLowException());
+#define RED		"\033[1;31m"
+#define GREEN	"\033[1;32m"
+#define YELLOW	"\033[1;33m"
+#define BLUE	"\033[1;34m"
+#define MAGENTA	"\033[1;35m"
+#define CYAN	"\033[1;36m"
+#define RESET	"\033[0m"
+
+
+void	RobotomyRequestForm::execute(Bureaucrat const & executor) const {
+	
+	if (executor.getGrade() > 45) {
+		throw GradeTooLowException();
 	}
 	else {
-		std::cout << bureaucrat.getName() << " signed \"" << this->_nameRobotomyRequestForm << "\"" <<std::endl;
-		
-		this->_isSigned = true;
+
+		srand(static_cast<unsigned int>(time(0)));
+		int random = std::rand();
+		std::cout << "Robotomization in progress : Brzzzz.. Grzz.. wrrr.. 🔧\n";
+
+		if (random % 2 == 0)
+			std::cout << this->_target << " robotomization has succeeded ✅\n";
+		else
+			std::cout << "Oooops, sorry, robotomization of " << this->_target << " has failled ❌\n";
 	}
 
-}
-
-/*************************** OPERATEUR D'INSERTION ****************************/
-
-std::ostream& operator<<(std::ostream& os, const RobotomyRequestForm& RobotomyRequestForm) {
-	os << "\n~~ RobotomyRequestForm INFO ~~\n";
-	os << "RobotomyRequestForm name : " << RobotomyRequestForm.getNameRobotomyRequestForm() \
-	<< "\nRobotomyRequestForm grade to sign: " << RobotomyRequestForm.getGradeToSign() \
-	<< "\nRobotomyRequestForm grade to execute: " << RobotomyRequestForm.getGradeToExecute();
-
-	if (RobotomyRequestForm.getIsSigned() == true)
-		os << "\nRobotomyRequestForm status : is signed";
-	else if (RobotomyRequestForm.getIsSigned() == false)
-		os << "\nRobotomyRequestForm status : is not signed";
-
-	return os;
 }

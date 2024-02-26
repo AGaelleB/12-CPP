@@ -28,6 +28,8 @@ class AForm {
 		bool		getIsSigned() const;
 		int			getGradeToSign() const;
 		int			getGradeToExecute() const;
+		virtual void	execute(Bureaucrat const & executor) const = 0;
+
 
 
 		// fonctions memebres
@@ -55,3 +57,4 @@ class AForm {
 std::ostream& operator<<(std::ostream& os, const AForm& AForm);
 
 #endif
+

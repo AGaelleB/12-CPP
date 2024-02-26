@@ -88,6 +88,19 @@ void	Bureaucrat::signForm(AForm & fm) const
 	}
 }
 
+void Bureaucrat::executeForm(AForm const & form) {
+	try {
+		// Vérifier si le formulaire est signé et que le grade est suffisant
+		form.execute(*this); // Ici, on appelle la méthode execute du formulaire
+		std::cout << getName() << " executed \"" << form.getNameForm() << "\"" << std::endl;
+	} catch (std::exception &e) {
+		// Gestion des exceptions (par exemple, formulaire non signé ou grade insuffisant)
+		std::cerr << getName() << " couldn't execute \"" << form.getNameForm()
+				  << "\" because " << e.what() << std::endl;
+	}
+}
+
+
 /*************************** OPERATEUR D'INSERTION ****************************/
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat) {

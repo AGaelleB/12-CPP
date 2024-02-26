@@ -3,23 +3,19 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-PresidentialPardonPresidentialPardonForm::PresidentialPardonPresidentialPardonForm() : _namePresidentialPardonForm("PresidentialPardonForm0"), _isSigned(false), _gradeToSign(150), _gradeToExecute(150) {
+PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm 🧑‍⚖️", 25, 5), _target("default_target") {
+
 	// std::cout << CYAN << "~PresidentialPardonForm~ default constructor called" << RESET << std::endl;
 	return;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string& name, int gradeToSign, int gradeToExecute): _namePresidentialPardonForm(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
+PresidentialPardonForm::PresidentialPardonForm(const std::string& target) : AForm("PresidentialPardonForm 🧑‍⚖️", 25, 5), _target(target) {
+
 	// std::cout << CYAN << "~PresidentialPardonForm~ type constructor called" << RESET << std::endl;
-
-	if (this->_gradeToSign < 1 || this->_gradeToExecute < 1)
-		throw (GradeTooHighException());
-	else if (this->_gradeToSign > 150 || this->_gradeToExecute > 150)
-		throw (GradeTooLowException());
-
 	return;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& rhs) {
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& rhs) : AForm(rhs) {
 	// std::cout << CYAN << "~PresidentialPardonForm~ copy constructor called" << RESET << std::endl;
 	*this = rhs;
 	return;
@@ -34,55 +30,25 @@ PresidentialPardonForm::~PresidentialPardonForm() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& rhs) {
-	// std::cout << CYAN << "~PresidentialPardonForm~ copy assignment operator called" << RESET << std::endl;
-
-	this->_namePresidentialPardonForm = rhs._namePresidentialPardonForm;
-	this->_isSigned = rhs._isSigned;
-	this->_gradeToSign = rhs._gradeToSign;
-	this->_gradeToExecute = rhs._gradeToExecute;
-
+	if (this != &rhs) {
+		this->_target = rhs._target;
+	}
 	return (*this);
 }
 
-
 /*********************************** GETTERS **********************************/
 
-std::string	PresidentialPardonForm::getNamePresidentialPardonForm() const {
-	return (this->_namePresidentialPardonForm);
+std::string	PresidentialPardonForm::getTarget() const {
+	return (this->_target);
 }
-
-bool	PresidentialPardonForm::getIsSigned() const {
-	return (this->_isSigned);
-}
-
-int	PresidentialPardonForm::getGradeToSign() const {
-	return (this->_gradeToSign);
-}
-
-int	PresidentialPardonForm::getGradeToExecute() const {
-	return (this->_gradeToExecute);
-}
-
 
 /****************************** FONCTIONS MEMBRES ******************************/
 
-void	PresidentialPardonForm::beSigned(const Bureaucrat& bureaucrat) {
-
-	if (bureaucrat.getGrade() > this->_gradeToSign) {
-		throw (GradeTooLowException());
+void	PresidentialPardonForm::execute(Bureaucrat const & executor) const {
+	
+	if (executor.getGrade() > 5) {
+		throw GradeTooLowException();
 	}
-	else {
-		std::cout << bureaucrat.getName() << " signed \"" << this->_namePresidentialPardonForm << "\"" <<std::endl;
-		
-		this->_isSigned = true;
-	}
-
-}
-
-/*************************** OPERATEUR D'INSERTION ****************************/
-
-std::ostream& operator<<(std::ostream& os, const PresidentialPardonForm& PresidentialPardonForm) {
-
-
-	return os;
+	else
+		std::cout << this->_target << " has been pardoned by Zaphod Beeblebrox\n";
 }

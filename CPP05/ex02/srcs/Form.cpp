@@ -1,9 +1,9 @@
-#include "../includes/Form.hpp"
+#include "../includes/AForm.hpp"
 
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Form::AForm() : _nameForm("AForm0"), _isSigned(false), _gradeToSign(150), _gradeToExecute(150) {
+AForm::AForm() : _nameForm("AForm0"), _isSigned(false), _gradeToSign(150), _gradeToExecute(150) {
 	// std::cout << CYAN << "~AForm~ default constructor called" << RESET << std::endl;
 	return;
 }

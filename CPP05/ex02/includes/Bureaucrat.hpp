@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-class	Form;
+class	AForm;
 
 class Bureaucrat {
 
@@ -28,8 +28,8 @@ class Bureaucrat {
 		// fonctions memebres
 		void		incrementGrade();
 		void		decrementGrade();
-		void		signForm(Form & fm) const; // Check if the form got signed
-
+		void		signForm(AForm & fm) const; // Check if the form got signed
+		void		executeForm(AForm const & form); 
 		// exceptions
 		class GradeTooHighException : public std::exception {
 			public :

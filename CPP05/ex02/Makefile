@@ -1,5 +1,5 @@
 
-NAME = Form
+NAME = executeForm
 
 CC = c++
 
@@ -13,6 +13,7 @@ SRCS = main.cpp \
 	Form.cpp \
 	PresidentialPardonForm.cpp \
 	RobotomyRequestForm.cpp \
+	ShrubberyCreationForm.cpp \
 
 RM = rm -rf
 
