@@ -42,7 +42,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& rhs) {
 void ClapTrap::attack(const std::string& target) {
 
 	if (this->_energy <= 0 || this->_hit <= 0) {
-		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
+		std::cout << "Sorry, ClapTrap " << _name << " is dead\n";
 		return; 
 	}
 	else {
@@ -65,7 +65,7 @@ void ClapTrap::takeDamage(unsigned int amount) {
 	}
 	MSG_TAKE_DAMAGE;
 	if (this->_energy <= 0 || this->_hit <= 0) {
-		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
+		std::cout << "Sorry, ClapTrap " << _name << " is dead\n";
 		return; 
 	}
 	if (this->_hit > 0) {
@@ -81,7 +81,7 @@ void ClapTrap::takeDamage(unsigned int amount) {
 void ClapTrap::beRepaired(unsigned int amount) {
 
 	if (this->_energy <= 0 || this->_hit <= 0) {
-		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
+		std::cout << "Sorry, ClapTrap " << _name << " is dead\n";
 		return;
 	}
 	else {

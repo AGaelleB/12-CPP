@@ -21,8 +21,8 @@
 #define MSG_ERROR_ARG	std::cout << "Amount must be positive interger" << std::endl;
 
 #define	MAX_INT 2147483647
-#define	MAX_ENERGY 50
-#define	MAX_HEALTH 100
+#define	MAX_ENERGY 10
+#define	MAX_HEALTH 10
 
 class ClapTrap {
 
