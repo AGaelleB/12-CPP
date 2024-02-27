@@ -45,16 +45,6 @@ std::string	RobotomyRequestForm::getTarget() const {
 
 /****************************** FONCTIONS MEMBRES ******************************/
 
-
-#define RED		"\033[1;31m"
-#define GREEN	"\033[1;32m"
-#define YELLOW	"\033[1;33m"
-#define BLUE	"\033[1;34m"
-#define MAGENTA	"\033[1;35m"
-#define CYAN	"\033[1;36m"
-#define RESET	"\033[0m"
-
-
 void	RobotomyRequestForm::execute(Bureaucrat const & executor) const {
 	
 	if (executor.getGrade() > 45) {
@@ -63,7 +53,7 @@ void	RobotomyRequestForm::execute(Bureaucrat const & executor) const {
 	else {
 
 		srand(static_cast<unsigned int>(time(0)));
-		int random = std::rand();
+		int random = rand();
 		std::cout << "Robotomization in progress : Brzzzz.. Grzz.. wrrr.. 🔧\n";
 
 		if (random % 2 == 0)

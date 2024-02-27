@@ -4,7 +4,6 @@
 #include "../includes/RobotomyRequestForm.hpp"
 #include "../includes/ShrubberyCreationForm.hpp"
 
-
 #define RED		"\033[1;31m"
 #define GREEN	"\033[1;32m"
 #define YELLOW	"\033[1;33m"
@@ -21,13 +20,16 @@ int	main (void) {
 
 		// Je cree unr nvlle employée
 		std::cout << BLUE << "A new employee has joined the company :" << RESET << std::endl;
-		Bureaucrat bureaucratA("Gaga", 46);
+		Bureaucrat bureaucratA("Gaga", 45);
 		std::cout << bureaucratA << std::endl << std::endl;
 		
 		// Création des formulaires
 		std::cout << BLUE "Form have been created" << RESET;
 
-		ShrubberyCreationForm form1("Home");		// sign 145, exec 137
+		// Form	a = Form();							// class abstraite ne s execute plus
+		// std::cout << a << "\n\n";
+
+		ShrubberyCreationForm form1("Garden");		// sign 145, exec 137
 		RobotomyRequestForm form2("Labo");			// sign 72, exec 45
 		PresidentialPardonForm form3("Elysée"); 	// sign 25, exec 5
 		std::cout << form1 << std::endl;
