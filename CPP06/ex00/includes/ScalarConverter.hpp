@@ -50,10 +50,10 @@ class ScalarConverter {
 		double			_castDouble;
 
 		// conversion
-		char			_convertFromChar(void);
-		int				_convertFromInt(void);
-		float			_convertFromFloat(void);
-		double			_convertFromDouble(void);
+		char			_convertFromChar(const std::string& input);
+		int				_convertFromInt(const std::string& input);
+		float			_convertFromFloat(const std::string& input);
+		double			_convertFromDouble(const std::string& input);
 
 		// afficher les résultats
 		void		_printResult(int index);
