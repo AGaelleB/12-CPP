@@ -1,5 +1,4 @@
 #include "../includes/ScalarConverter.hpp"
-#include <sstream> // pour std::istringstream iss(input);
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
@@ -45,20 +44,36 @@ void ScalarConverter::_checkIfValid(const std::string& input) {
 	// Vérifie que ce ne soit pas vide
 	if (input.empty()) {
 		std::cout << "Invalid argument : it's empty" << std::endl;
-			return ;
+		return ;
 	}
 
 	// a ameliorer
 }
 
+bool ScalarConverter::_ParticularCase(const std::string& input) {
+	if (input == "nan" || input == "nanf") {
+		
+		std::cout << "char:	impossible" << std::endl;
+		std::cout << "int:	impossible" << std::endl;
+		std::cout << "float:	nanf" << std::endl;
+		std::cout << "double:	nan\n" << std::endl;
+		return true; // Indique que le cas a été géré
+	}
+	return false; // Indique que le cas n'a pas été géré
+}
+
+
 /****************************** DETECTION DU TYPE ******************************/
 
 bool ScalarConverter::_isCharLiteral(const std::string& input) {
-	if (input.length() == 1 && isalpha(input[0]))
-		return true ;
-	else
+	if (input.length() == 1 && !std::isdigit(input[0])) {
+		return true;
+	} else {
 		return false;
+	}
 }
+
+
 
 bool ScalarConverter::_isIntLiteral(const std::string& input) {
 
@@ -216,7 +231,10 @@ int ScalarConverter::_convertFromInt(const std::string& input) {
 
 void ScalarConverter::convert(const std::string& input) {
 	_checkIfValid(input); // Vérifie si l'entrée est valide.
-	
+	if (_ParticularCase(input)) {
+		return; // Si le cas particulier a été géré, termine l'exécution de la fonction
+	}
+
 	ScalarConverter converter; // Crée une instance de la classe
 
 	int index = 0;
@@ -224,7 +242,6 @@ void ScalarConverter::convert(const std::string& input) {
 		std::cout << "Detected type: Char\n" << std::endl;
 		converter._convertFromChar(input);
 		index = 1;
-
 	}
 	
 	else if (converter._isIntLiteral(input)) {
@@ -258,98 +275,40 @@ void ScalarConverter::convert(const std::string& input) {
 /****************************** UTILS ******************************/
 
 
+void ScalarConverter::_shortPrintResult(void) {
 
+	if (std::isprint(_castChar))
+		std::cout << "char:	" << _castChar << std::endl;
+	else
+		std::cout << "char:	Non displayable" << std::endl;
+	std::cout << "int:	" << _castInt << std::endl;
+	std::cout << "float:	" << std::fixed << std::setprecision(1) << _castFloat << "f" << std::endl; // pour avoir les chiffres apres la virgule
+	std::cout << "double:	" << std::fixed << std::setprecision(1) << _castDouble << std::endl << std::endl; // pour avoir les chiffres apres la virgule
 
-
-
-
-
-
-
-
-// void ScalarConverter::_printResult(int index) {
-
-// 	if (index == 1) {
-// 		if (std::isprint(_castChar))
-// 			std::cout << "char:		" << _castChar << std::endl;
-// 		else
-// 			std::cout << "char:	Non displayable" << std::endl;
-// 		std::cout << "int:		" << _castInt << std::endl;
-// 		std::cout << "float:	" << _castFloat << "f" << std::endl;
-// 		std::cout << "double:	" << _castDouble << std::endl;
-// 	}
-// 	else {
-// 		std::cout << "char:	impossible\n";
-// 	}
-
-// 	if (index == 2) {
-// 		std::cout << "int:	" << _castInt << std::endl;
-
-// 	}
-// 	else
-// 		std::cout << "int:	impossible\n";
-
-// 	if (index == 3) {
-// 		std::cout << "float:	" << _castFloat << "f" << std::endl;
-
-// 	}
-// 	else
-// 		std::cout << "float:	impossible\n";
-
-// 	if (index == 4)
-// 		std::cout << "double:	" << _castDouble << std::endl << std::endl;
-// 	else
-// 		std::cout << "double:	impossible\n\n";
-// }
-
+}
 
 void ScalarConverter::_printResult(int index) {
 
-	if (index == 1) {
-		if (std::isprint(_castChar))
-			std::cout << "char:	" << _castChar << std::endl;
-		else
-			std::cout << "char:	Non displayable" << std::endl;
-		std::cout << "int:	" << _castInt << std::endl;
-		std::cout << "float:	" << _castFloat << "f" << std::endl;
-		std::cout << "double:	" << _castDouble << std::endl;
-	}
+	if (index == 1)
+		ScalarConverter::_shortPrintResult();
 	// else
 	// 	std::cout << "char:	impossible\n";
 
-
-	if (index == 2) {
-		std::cout << "char:	" << _castChar << std::endl;
-		std::cout << "int:	" << _castInt << std::endl;
-		std::cout << "float:	" << _castFloat << "f" << std::endl;
-		std::cout << "double:	" << _castDouble << std::endl;
-	}
+	if (index == 2)
+		ScalarConverter::_shortPrintResult();
 	// else
 	// 	std::cout << "int:	impossible\n";
 
-
-	if (index == 3) {
-		std::cout << "char:	" << _castChar << std::endl;
-		std::cout << "int:	" << _castInt << std::endl;
-		std::cout << "float:" << _castFloat << "f" << std::endl;
-		std::cout << "double	" << _castDouble << std::endl;
-	}
+	if (index == 3)
+		ScalarConverter::_shortPrintResult();
 	// else
 	// 	std::cout << "float:	impossible\n";
 
-
-	if (index == 4) {
-		std::cout << "char:	" << _castChar << std::endl;
-		std::cout << "int:	" << _castInt << std::endl;
-		std::cout << "float:	" << _castFloat << "f" << std::endl;
-		std::cout << "double:	" << _castDouble << std::endl;
-	}
+	if (index == 4)
+		ScalarConverter::_shortPrintResult();
 	// else
 	// 	std::cout << "double:	impossible\n\n";
 }
-
-
-
 
 /* CAST EN C++
 
@@ -385,3 +344,14 @@ void ScalarConverter::_printResult(int index) {
 	mieux vaut ne pas utiliser le const cast, veut souvent dire qu'on a un probleme de design de notre code
 
  */
+
+
+/* Non displayable et impossible
+
+	"Non displayable" : lors d une conversion d un caractère en d'autres types.
+	Si le caractère n'est pas imprimable, afficher "Non displayable".
+
+	"Impossible" : Lorsqu une conversion ne peut pas être effectuée.
+	ex: convertir un caractère qui n'est pas un chiffre en un type numérique
+ */
+

@@ -6,6 +6,8 @@
 #include <limits>	// Pour std::numeric_limits
 #include <cmath>	// Pour std::isnan, std::isinf
 #include <string>
+#include <iomanip> // Pour std::fixed et std::setprecision
+#include <cctype> // Inclure la bibliothèque pour std::isalpha
 
 
 #define RED		"\033[1;31m"
@@ -35,6 +37,8 @@ class ScalarConverter {
 		ScalarConverter& operator=(const ScalarConverter& rhs);
 	
 		static void		_checkIfValid(const std::string& input);
+		static bool			_ParticularCase(const std::string& input);
+
 
 		// vérifier le type de valeur littérale
 		static bool		_isCharLiteral(const std::string& input);
@@ -56,7 +60,8 @@ class ScalarConverter {
 		double			_convertFromDouble(const std::string& input);
 
 		// afficher les résultats
-		void		_printResult(int index);
+		void			_printResult(int index);
+		void			_shortPrintResult(void);
 };
 
 
