@@ -4,14 +4,20 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-DiamondTrap::DiamondTrap() {
+DiamondTrap::DiamondTrap() : ClapTrap("Default_name_clap_name"), FragTrap(), ScavTrap() {
 	std::cout << BLUE << "~DiamondTrap~ default constructor called" << RESET << std::endl;
+	
+	this->_name = "DefaultName";
+	this->_hit = FragTrap::_hit;
+	this->_energy = ScavTrap::_energy;
+	this->_attacksDamage = FragTrap::_attacksDamage;
 }
 
 
-DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), FragTrap(name), ScavTrap(name), _name(name) {
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), FragTrap(name), ScavTrap(name) {
 	std::cout << BLUE << "~DiamondTrap~ constructor called for " << this->_name << RESET << std::endl;
 	
+	this->_name = name;
 	this->_hit = FragTrap::_hit; // Hérité de FragTrap
 	this->_energy = ScavTrap::_energy; // Hérité de ScavTrap
 	this->_attacksDamage = FragTrap::_attacksDamage; // Hérité de FragTrap
@@ -34,7 +40,7 @@ DiamondTrap::~DiamondTrap() {
 DiamondTrap& DiamondTrap::operator=(const DiamondTrap& rhs) {
 	std::cout << "~DiamondTrap~ copy assignment operator called" << std::endl;
 
-	if (this != &rhs) { 
+	if (this != &rhs) {
 		this->_name = rhs._name;
 		this->_hit = rhs._hit;
 		this->_energy = rhs._energy;

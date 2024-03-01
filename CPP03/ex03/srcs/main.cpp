@@ -10,6 +10,11 @@ int	main(void) {
 	ScavTrap	fight2("Bibi");
 	FragTrap	fight3("Tom");
 	DiamondTrap	fight4("Sun");
+	DiamondTrap	fightDefault;
+
+	std::cout << "\nDefault's fight" << std::endl;
+	fightDefault.attack("Bibi");
+	fightDefault.takeDamage(7);
 
 
 	std::cout << "\nGaga's fight" << std::endl;
@@ -62,4 +67,3 @@ int	main(void) {
 
 	return (0);
 }
-

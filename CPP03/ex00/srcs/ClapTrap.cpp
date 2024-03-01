@@ -3,7 +3,7 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-ClapTrap::ClapTrap() {
+ClapTrap::ClapTrap() : _name("DefaultName"), _hit(10), _energy(10), _attacksDamage(0) {
 	std::cout << CYAN << "~ClapTrap~ default constructor called" << RESET << std::endl;
 }
 

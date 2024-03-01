@@ -4,12 +4,20 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-ScavTrap::ScavTrap() {
+ScavTrap::ScavTrap() : ClapTrap() { // heritage
 	std::cout << BLUE << "~ScavTrap~ default constructor called" << RESET << std::endl;
+
+	this->_hit = 100;
+	this->_energy = 50;
+	this->_attacksDamage = 20;
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name) { // heritage
 	std::cout << BLUE << "~ScavTrap~ constructor called for " << this->_name << RESET << std::endl;
+
+	this->_hit = 100;
+	this->_energy = 50;
+	this->_attacksDamage = 20;
 }
 
 ScavTrap::ScavTrap(const ScavTrap& rhs) : ClapTrap(rhs) { // heritage

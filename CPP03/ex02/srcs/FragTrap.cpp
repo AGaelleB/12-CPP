@@ -3,12 +3,20 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-FragTrap::FragTrap() {
+FragTrap::FragTrap() : ClapTrap() { // heritage
 	std::cout << BLUE << "~FragTrap~ default constructor called" << RESET << std::endl;
+
+	this->_hit = 100;
+	this->_energy = 100;
+	this->_attacksDamage = 30;
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name) { // heritage
 	std::cout << BLUE << "~FragTrap~ constructor called for " << this->_name << RESET << std::endl;
+
+	this->_hit = 100;
+	this->_energy = 100;
+	this->_attacksDamage = 30;
 }
 
 FragTrap::FragTrap(const FragTrap& rhs) : ClapTrap(rhs) { // heritage
