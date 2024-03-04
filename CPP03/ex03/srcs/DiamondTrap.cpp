@@ -1,4 +1,3 @@
-// #include "../includes/ClapTrap.hpp"
 #include "../includes/DiamondTrap.hpp"
 
 
