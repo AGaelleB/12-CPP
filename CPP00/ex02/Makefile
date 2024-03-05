@@ -4,11 +4,10 @@ CC = c++
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
-OBJ_DIR = objs
-OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
-
 SRCS = Account.cpp \
 	tests.cpp \
+
+OBJS = $(SRCS:.cpp=.o)
 
 RM = rm -rf
 
@@ -20,25 +19,22 @@ MAGENTA=\033[1;35m
 CYAN=\033[1;36m
 RESET=\033[0m
 
-all: $(OBJ_DIR) $(NAME)
-
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
-
-$(OBJ_DIR)/%.o: srcs/%.cpp
-	@$(CC) $(CPP_FLAGS) -c $< -o $@
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	@$(CC) $(CPP_FLAGS) $(OBJS) -o $(NAME)
-	@echo "$(GREEN)[Make : 'Account' is done ​​✅​]$(RESET)"
+	@echo "$(GREEN)[Make : 'Account' is done ✓]$(RESET)"
+
+%.o: %.cpp
+	@$(CC) $(CPP_FLAGS) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJS)
 
 fclean:
-	@$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJS)
 	@$(RM) $(NAME)
-	@echo "$(BLUE)[fclean : 'Account' is done ​​🗑️ ​🧹​]$(RESET)"
+	@echo "$(BLUE)[fclean : 'Account' is done 🗑️ ​🧹​]$(RESET)"
 
 re: fclean all
 

@@ -1,6 +1,3 @@
-#include <iostream>
-#include <string>
-#include <limits>
 #include "../includes/PhoneBook.hpp"
 #include "../includes/Contact.hpp"
 
@@ -25,7 +22,6 @@ int	main(int ac, char **av) {
 				PhoneBook.AddContact();
 			else if (userInput == "SEARCH") {
 				PhoneBook.SearchContact();
-				std::cin.ignore();
 			}
 			else if (userInput == "EXIT") {
 				PhoneBook.ExitContact();

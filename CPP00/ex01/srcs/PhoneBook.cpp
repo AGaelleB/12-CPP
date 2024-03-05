@@ -1,9 +1,5 @@
-#include <iostream>
-#include <string>
-#include <iomanip>
- #include <limits>
+
 #include "../includes/PhoneBook.hpp"
-#include "../includes/Contact.hpp"
 
 const std::string RESET = "\033[0m";
 const std::string RED = "\033[31m";
@@ -54,6 +50,8 @@ void PhoneBook::AddContact(void) {
 void PhoneBook::DataContact(Contact &newContact) {
 	
 	std::string userInput;
+	unsigned long int	phoneNumber;
+
 	while (1) {
 		std::cout << std::endl;
 		std::cout << "First name : ";
@@ -96,15 +94,20 @@ void PhoneBook::DataContact(Contact &newContact) {
 	}
 	while (1) {
 		std::cout << "Phone number : ";
-		std::getline(std::cin, userInput);
-		if (!userInput.empty()) {
-			newContact.setPhoneNumber(userInput);
+		std::cin >> phoneNumber; // je lis l entrée utilisateur en tant qu'entier
+		if (std::cin.fail()) { 
+			std::cout << "Invalid input. Please enter a valid phone number." << std::endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		} else {
+			newContact.setPhoneNumber(phoneNumber);
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			break;
 		}
 		if (std::cin.eof()) {
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-			return;
+			break;
 		}
 	}
 	while (1) {
@@ -122,6 +125,10 @@ void PhoneBook::DataContact(Contact &newContact) {
 		}
 	}
 }
+
+
+
+
 
 void PhoneBook::SearchContact(void) {
 
@@ -144,7 +151,12 @@ std::string cut_to_fit(std::string userInput) {
 
 void PhoneBook::DisplayAllContacts(void) {
 	int	userInput;
-	
+
+	if (_contactCount == 0) {
+		std::cout << "No contacts. Add a contact first" << std::endl;
+		return;
+	}
+
 	for (int i = 0; i < _contactCount; i++) {
 		Contact &currentContact = _PhoneBook[i];
 		std::cout << "|" << std::setw(10) << std::right << currentContact.getIndex() << "|";
@@ -155,9 +167,14 @@ void PhoneBook::DisplayAllContacts(void) {
 	std::cout << std::endl;
 	while (_contactCount > 0) {
 		std::cout << "Please enter the contact index : ";
-		std::cin >> userInput;
-		if (userInput >= 0 && userInput < _contactCount) {
+		if (!(std::cin >> userInput)) {
+			std::cout << "Invalid input. Please enter a valid index" << std::endl;
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+		else if (userInput >= 0 && userInput < _contactCount) {
 			DisplayContactIndex(userInput);
+			std::cin.ignore();
 			break;
 		}
 		if (std::cin.eof()) {
@@ -176,6 +193,7 @@ void PhoneBook::DisplayContactIndex(int userInput) {
 	std::cout << "Lastname: " << selectedContact.getLastName() << std::endl;
 	std::cout << "Nickname: " << selectedContact.getNickname() << std::endl;
 	std::cout << "Phone number: " << selectedContact.getPhoneNumber() << std::endl;
+	std::cout << "Darkest secret: " << selectedContact.getDarkestSecret() << std::endl;
 	std::cout << std::endl;
 }
 
@@ -183,3 +201,4 @@ void PhoneBook::ExitContact(void) {
 	std::cout << "You chose to exit, bye." << std::endl;
 	return;
 }
+

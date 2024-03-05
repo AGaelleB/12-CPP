@@ -1,8 +1,4 @@
-#include <iostream>
-#include <string>
 #include "../includes/PhoneBook.hpp"
-#include "../includes/Contact.hpp"
-
 
 /***************************** CONST DEST *******************************/
 
@@ -28,7 +24,7 @@ std::string Contact::getNickname(void) const {
 	return (this->_nickname);
 }
 
-std::string Contact::getPhoneNumber(void) const {
+unsigned long int Contact::getPhoneNumber(void) const {
 	return (this->_phoneNumber);
 }
 
@@ -63,11 +59,8 @@ void Contact::setNickname(std::string userInput) {
 		std::cout << "Nickname name can't be empty." << std::endl;
 }
 
-void Contact::setPhoneNumber(std::string userInput) { // faire une protection pour chiffre etc 
-	if (!userInput.empty())
-		this->_phoneNumber = userInput;
-	else
-		std::cout << "Phone number can't be empty." << std::endl;
+void Contact::setPhoneNumber(unsigned long int userInput) {
+	this->_phoneNumber = userInput;
 }
 
 void Contact::setDarkestSecret(std::string userInput) {

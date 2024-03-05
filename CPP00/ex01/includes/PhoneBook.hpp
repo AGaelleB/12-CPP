@@ -1,6 +1,11 @@
 #ifndef PHONEBOOK_H
 # define PHONEBOOK_H
 
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <limits>
+
 #include "../includes/Contact.hpp"
 
 class PhoneBook {

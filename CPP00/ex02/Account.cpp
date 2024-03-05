@@ -15,7 +15,7 @@
 
 Account::Account(int initial_deposit)  {
 
-	 // initialisation des variables membres
+	// initialisation des variables membres
 	this->_accountIndex = this->getNbAccounts();
 	this->_amount = initial_deposit;
 	this->_nbDeposits = 0;
@@ -124,7 +124,7 @@ bool	Account::makeWithdrawal(int withdrawal) {
 		return (false);
 	}
 	// Maj de la somme après le retrait
-	this->_amount -= withdrawal; 
+	this->_amount -= withdrawal;
 	Account::_totalAmount -= withdrawal;
 
 	// Maj de nb de retrait que si pas refusé
