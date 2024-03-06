@@ -3,7 +3,7 @@ NAME = HarlFilter
 
 CC = c++
 
-CPP_FLAGS = -Wall -Wextra -Werror -Wimplicit-fallthrough=0 -std=c++98
+CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
 
 OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))

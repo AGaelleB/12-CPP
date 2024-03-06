@@ -24,7 +24,7 @@ void Harl::_error() {
 
 void Harl::complain(std::string level) {
 
-	// Association de chaque niveau à sa fonction
+	// J'associe chaque niveau à sa fonction
 	t_level levelFunctions[4] = {
 		{"DEBUG", &Harl::_debug},
 		{"INFO", &Harl::_info},
