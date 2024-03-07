@@ -5,18 +5,21 @@
 
 FragTrap::FragTrap() : ClapTrap("DefaultName") {
 	std::cout << BLUE << "~FragTrap~ default constructor called" << RESET << std::endl;
-
+	
+	this->_name = "DefaultName";
 	this->_hit = 100;
 	this->_energy = 100;
 	this->_attacksDamage = 30;
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name) { // heritage
-	std::cout << BLUE << "~FragTrap~ constructor called for " << this->_name << RESET << std::endl;
 
+	this->_name = name;
 	this->_hit = 100;
 	this->_energy = 100;
 	this->_attacksDamage = 30;
+
+	std::cout << BLUE << "~FragTrap~ constructor called for " << this->_name << RESET << std::endl;
 }
 
 FragTrap::FragTrap(const FragTrap& rhs) : ClapTrap(rhs) { // heritage
@@ -47,25 +50,14 @@ FragTrap& FragTrap::operator=(const FragTrap& rhs) {
 
 /****************************** FONCTIONS MEMBRES ******************************/
 
-void FragTrap::attack(const std::string& target) {
-
-	if (this->_energy <= 0 || this->_hit <= 0) {
-		std::cout << "Sorry, FragTrap " << _name << " is dead.\n";
-		return; 
-	}
-	else {
-		if (this->_energy > 0)
-			this->_energy--;	
-		if (this->_energy <= 0) {
-			MSG_NO_ENERGY;
-			return ;
-		}
-		MSG_ATTACK;
-	}
-	MSG_COUNT;
-}
 
 void	FragTrap::highFivesGuys() {
-	std::cout << "FragTrap give you a high fives 🙌 !" << std::endl;
+
+	if (this->_energy <= 0 || this->_hit <= 0) {
+		std::cout << MAGENTA << "Sorry, ClapTrap can't do a high five, " << _name << " is dead\n" << RESET;
+		return;
+	}
+	else
+		std::cout << BOLD << "FragTrap give you a high fives 🙌 !" << RESET << std::endl;
 }
 

@@ -7,22 +7,25 @@
 ScavTrap::ScavTrap() : ClapTrap() { // heritage
 	std::cout << BLUE << "~ScavTrap~ default constructor called" << RESET << std::endl;
 
+	this->_name = "DefaultName";
 	this->_hit = 100;
-	this->_energy = 100;
-	this->_attacksDamage = 30;
+	this->_energy = 50;
+	this->_attacksDamage = 20;
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name) { // heritage
-	std::cout << BLUE << "~ScavTrap~ constructor called for " << this->_name << RESET << std::endl;
-
+	
+	this->_name = name;
 	this->_hit = 100;
-	this->_energy = 100;
-	this->_attacksDamage = 30;
+	this->_energy = 50;
+	this->_attacksDamage = 20;
+
+	std::cout << BLUE << "~ScavTrap~ constructor called for " << this->_name << RESET << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap& rhs) : ClapTrap(rhs) { // heritage
-	*this = rhs;
 	std::cout << "~ScavTrap~ copy constructor called" << std::endl;
+	*this = rhs;
 	return;
 }
 
@@ -51,12 +54,12 @@ ScavTrap& ScavTrap::operator=(const ScavTrap& rhs) {
 void ScavTrap::attack(const std::string& target) {
 
 	if (this->_energy <= 0 || this->_hit <= 0) {
-		std::cout << "Sorry, ScavTrap " << _name << " is dead.\n";
+		std::cout << MAGENTA << "Sorry, ScavTrap " << _name << " is dead.\n" << RESET;
 		return; 
 	}
 	else {
 		if (this->_energy > 0)
-			this->_energy--;	
+			this->_energy--;
 		if (this->_energy <= 0) {
 			MSG_NO_ENERGY;
 			return ;
@@ -67,6 +70,10 @@ void ScavTrap::attack(const std::string& target) {
 }
 
 void	ScavTrap::guardGate() {
-	std::cout << "ScavTrap is now in Gate keeper mode" << std::endl;
+	if (this->_energy <= 0 || this->_hit <= 0) {
+		std::cout << MAGENTA << "Sorry, ScavTrap can't guard the gate, " << _name << " is dead\n" << RESET;
+		return;
+	}
+	else
+		std::cout << BOLD << "ScavTrap is now in Gate keeper mode" << RESET << std::endl;
 }
-

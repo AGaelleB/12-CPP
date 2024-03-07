@@ -12,16 +12,16 @@ DiamondTrap::DiamondTrap() : ClapTrap("Default_name_clap_name"), FragTrap(), Sca
 	this->_attacksDamage = FragTrap::_attacksDamage;
 }
 
-
-DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name"), FragTrap(name), ScavTrap(name) {
-	std::cout << BLUE << "~DiamondTrap~ constructor called for " << this->_name << RESET << std::endl;
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name), FragTrap(name), ScavTrap(name) {
 	
 	this->_name = name;
+	this->ClapTrap::_name = name + "_clap_name";
 	this->_hit = FragTrap::_hit; // Hérité de FragTrap
 	this->_energy = ScavTrap::_energy; // Hérité de ScavTrap
 	this->_attacksDamage = FragTrap::_attacksDamage; // Hérité de FragTrap
-}
 
+	std::cout << BLUE << "~DiamondTrap~ constructor called for " << this->_name << RESET << std::endl;
+}
 
 DiamondTrap::DiamondTrap(const DiamondTrap& rhs) : ClapTrap(rhs), FragTrap(rhs), ScavTrap(rhs) { // heritage en diamant
 	*this = rhs;
@@ -52,26 +52,17 @@ DiamondTrap& DiamondTrap::operator=(const DiamondTrap& rhs) {
 /****************************** FONCTIONS MEMBRES ******************************/
 
 void DiamondTrap::attack(const std::string& target) {
-
-	if (this->_energy <= 0 || this->_hit <= 0) {
-		std::cout << "Sorry, DiamondTrap " << _name << " is dead.\n";
-		return; 
-	}
-	else {
-		if (this->_energy > 0)
-			this->_energy--;	
-		if (this->_energy <= 0) {
-			MSG_NO_ENERGY;
-			return ;
-		}
-		MSG_ATTACK;
-	}
-	MSG_COUNT;
+	ScavTrap::attack(target);
 }
 
 void	DiamondTrap::whoAmI() {
-	std::cout << "DiamondTrap name is " << this->_name;
-	std::cout << " and my ClapTrap name is " << ClapTrap::_name << std::endl;
 
+	if (this->_energy <= 0 || this->_hit <= 0) {
+		std::cout << MAGENTA << "Sorry, DiamondTrap can't talk, " << _name << " is dead\n" << RESET;
+		return;
+	}
+	else {
+		std::cout << BOLD << "DiamondTrap name is " << this->_name;
+		std::cout << " and my ClapTrap name is " << ClapTrap::_name << RESET << std::endl;
+	}
 }
-

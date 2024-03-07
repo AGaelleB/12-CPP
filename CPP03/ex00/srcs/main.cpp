@@ -1,25 +1,25 @@
 #include "../includes/ClapTrap.hpp"
 
-int	main( void ) {
+int	main(void) {
 
-ClapTrap claptrap("Gaga");
+	ClapTrap Default;
+	ClapTrap Gaga("Gaga");
+	ClapTrap CopyGaga(Gaga);
+	std::cout << std::endl;
 
-claptrap.attack("Bibi");
+	std::cout << "~~~ Gaga's fight ~~~\n" << std::endl;
+	Gaga.attack("Bibi");
+	Gaga.beRepaired(14);
+	Gaga.takeDamage(9);
+	Gaga.beRepaired(10);
+	Gaga.takeDamage(9);
 
-claptrap.beRepaired(14);
-claptrap.takeDamage(9);
-claptrap.beRepaired(100);
-claptrap.takeDamage(9);
-claptrap.attack("Bibi");
+	for (int j = 0; j < 7; ++j)
+		Gaga.beRepaired(1);
 
-for (int j = 0; j < 15; ++j)
-	claptrap.beRepaired(0);
+	Gaga.attack("Bibi");
 
-for (int i = 0; i < 10; ++i)
-	claptrap.takeDamage(0);
+	std::cout << std::endl;
 
-claptrap.attack("Bibi");
-
-return 0;
+	return 0;
 }
-

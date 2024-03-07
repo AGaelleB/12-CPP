@@ -3,17 +3,17 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-ClapTrap::ClapTrap() {
+ClapTrap::ClapTrap() : _name("DefaultName"), _hit(10), _energy(10), _attacksDamage(0) {
 	std::cout << CYAN << "~ClapTrap~ default constructor called" << RESET << std::endl;
 }
 
-ClapTrap::ClapTrap(std::string name) : _name(name), _hit(100), _energy(100), _attacksDamage(30) {
+ClapTrap::ClapTrap(std::string name) : _name(name), _hit(10), _energy(10), _attacksDamage(0) {
 	std::cout << CYAN << "~ClapTrap~ constructor called for " << _name << RESET << std::endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap& rhs) {
-	*this = rhs;
 	std::cout << "~ClapTrap~ copy constructor called" << std::endl;
+	*this = rhs;
 	return;
 }
 
@@ -42,12 +42,12 @@ ClapTrap& ClapTrap::operator=(const ClapTrap& rhs) {
 void ClapTrap::attack(const std::string& target) {
 
 	if (this->_energy <= 0 || this->_hit <= 0) {
-		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
+		std::cout << MAGENTA << "Sorry, ClapTrap can't attack, " << _name << " is dead\n" << RESET;
 		return; 
 	}
 	else {
 		if (this->_energy > 0)
-			this->_energy--;	
+			this->_energy--;
 		if (this->_energy <= 0) {
 			MSG_NO_ENERGY;
 			return ;
@@ -63,11 +63,11 @@ void ClapTrap::takeDamage(unsigned int amount) {
 		MSG_ERROR_ARG;
 		return;
 	}
-	MSG_TAKE_DAMAGE;
 	if (this->_energy <= 0 || this->_hit <= 0) {
-		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
-		return; 
+		std::cout << MAGENTA << "Sorry, ClapTrap can't takeDamage, " << _name << " is dead\n" << RESET;
+		return;
 	}
+	MSG_TAKE_DAMAGE;
 	if (this->_hit > 0) {
 		this->_hit -= amount;
 	}
@@ -81,7 +81,7 @@ void ClapTrap::takeDamage(unsigned int amount) {
 void ClapTrap::beRepaired(unsigned int amount) {
 
 	if (this->_energy <= 0 || this->_hit <= 0) {
-		std::cout << "Sorry, ClapTrap " << _name << " is dead.\n";
+		std::cout << MAGENTA << "Sorry, ClapTrap can't beRepaired, " << _name << " is dead\n" << RESET;
 		return;
 	}
 	else {
@@ -92,7 +92,7 @@ void ClapTrap::beRepaired(unsigned int amount) {
 					this->_hit = MAX_HEALTH;
 			}
 			if (this->_energy > 0) {
-				this->_energy--; 
+				this->_energy--;
 				MSG_BE_REPAIRED
 			}
 			if (this->_energy <= 0) {
@@ -103,7 +103,6 @@ void ClapTrap::beRepaired(unsigned int amount) {
 			MSG_ERROR_ARG;
 			return ;
 		}
-
 		MSG_COUNT;
 	}
 }

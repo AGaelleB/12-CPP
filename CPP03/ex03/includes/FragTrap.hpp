@@ -11,6 +11,7 @@
 #define BLUE	"\033[1;34m"
 #define MAGENTA	"\033[1;35m"
 #define CYAN	"\033[1;36m"
+#define BOLD	"\033[1;37m"
 #define RESET	"\033[0m"
 
 class FragTrap : virtual public ClapTrap { // FragTrap herite de ClapTrap avec virtual
@@ -26,7 +27,6 @@ class FragTrap : virtual public ClapTrap { // FragTrap herite de ClapTrap avec v
 		FragTrap& operator=(const FragTrap& rhs);
 
 		// fonctions membre
-		void	attack(const std::string& target);
 		void	highFivesGuys(void);
 };
 
