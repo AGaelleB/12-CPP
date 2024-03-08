@@ -19,7 +19,7 @@ class Animal {
 	public :
 		 // construteur par default, de copie et destructeur
 		Animal();
-		Animal(std::string const type);
+		Animal(const std::string type);
 		Animal(const Animal& rhs);
 		virtual ~Animal();
 

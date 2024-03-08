@@ -13,8 +13,8 @@
 
 class Brain {
 
-	private :
-		std::string _ideas[100];
+	protected :
+		std::string	_ideas[100];
 
 	public :
 		 // construteur par default, de copie et destructeur
@@ -27,7 +27,7 @@ class Brain {
 
 		// Fonctions membres
 		std::string	getIdea(int index) const;
-		void		setIdea(int index, const std::string idea);
+		void		setIdea(const std::string& idea);
 
 };
 

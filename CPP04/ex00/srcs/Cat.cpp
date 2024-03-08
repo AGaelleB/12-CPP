@@ -3,14 +3,14 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Cat::Cat() {
-	std::cout << CYAN << "~Cat~ default constructor called" << RESET << std::endl;
+Cat::Cat() : Animal("Cat") {
+	std::cout << BLUE << "~Cat~ default constructor called" << RESET << std::endl;
 	 this->_type = "Cat";
 }
 
-Cat::Cat(const Cat& rhs) : Animal(rhs._type) { // heritage
+Cat::Cat(const Cat& rhs) : Animal("Cat") {
 	*this = rhs;
-	std::cout << CYAN << "~Cat~ copy constructor called" << RESET << std::endl;
+	std::cout << BLUE << "~Cat~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
@@ -22,7 +22,7 @@ Cat::~Cat() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Cat& Cat::operator=(const Cat& rhs) {
-	std::cout << CYAN << "~Cat~ copy assignment operator called" << RESET << std::endl;
+	std::cout << BLUE << "~Cat~ copy assignment operator called" << RESET << std::endl;
 
 	if (this != &rhs) { 
 		this->_type = rhs._type;

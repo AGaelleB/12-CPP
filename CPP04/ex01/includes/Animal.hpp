@@ -19,7 +19,7 @@ class Animal {
 	public :
 		 // construteur par default, de copie et destructeur
 		Animal();
-		Animal(std::string const type);
+		Animal(const std::string type);
 		Animal(const Animal& rhs);
 		virtual ~Animal();
 
@@ -29,7 +29,6 @@ class Animal {
 		// fonctions membres
 		std::string		getType() const;
 		virtual void	makeSound() const; // déclarée virtual pour permettre le polymorphisme
-
 };
 
 #endif

@@ -27,7 +27,7 @@ class WrongAnimal {
 		WrongAnimal& operator=(const WrongAnimal& rhs);
 
 		// fonctions membres
-		virtual void	makeSound() const; // déclarée virtual pour permettre le polymorphisme
+		void	makeSound() const;
 		std::string		getType() const;
 
 };

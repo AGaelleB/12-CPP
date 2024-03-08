@@ -3,15 +3,15 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Dog::Dog() {
-	std::cout << CYAN << "~Dog~ default constructor called" << RESET << std::endl;
+Dog::Dog() : Animal("Dog") {
+	std::cout << BLUE << "~Dog~ default constructor called" << RESET << std::endl;
 	this->_type = "Dog";
 	return;
 }
 
-Dog::Dog(const Dog& rhs) : Animal(rhs._type) { // heritage
+Dog::Dog(const Dog& rhs) : Animal("Dog") {
 	*this = rhs;
-	std::cout << CYAN << "~Dog~ copy constructor called" << RESET << std::endl;
+	std::cout << BLUE << "~Dog~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
@@ -24,7 +24,7 @@ Dog::~Dog() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Dog& Dog::operator=(const Dog& rhs) {
-	std::cout << CYAN << "~Dog~ copy assignment operator called" << RESET << std::endl;
+	std::cout << BLUE << "~Dog~ copy assignment operator called" << RESET << std::endl;
 
 	if (this != &rhs) { 
 		this->_type = rhs._type;

@@ -13,6 +13,7 @@ class Cat : public Animal {
 	public :
 		 // construteur par default, de copie et destructeur
 		Cat();
+		Cat(std::string type);
 		Cat(const Cat& rhs);
 		~Cat();
 
@@ -21,7 +22,8 @@ class Cat : public Animal {
 
 		// fonctions membres
 		void	makeSound() const;
-		Brain	&getBrain(void) const;
+		Brain*	getBrain(void) const;
+		void	setBrain(std::string idea);
 };
 
 #endif

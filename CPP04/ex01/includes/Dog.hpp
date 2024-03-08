@@ -13,6 +13,7 @@ class Dog : public Animal {
 	public :
 		 // construteur par default, de copie et destructeur
 		Dog();
+		Dog(std::string type);
 		Dog(const Dog& rhs);
 		~Dog();
 
@@ -21,7 +22,8 @@ class Dog : public Animal {
 
 		// fonctions membres
 		void	makeSound() const;
-		Brain	&getBrain(void) const;
+		Brain*	getBrain(void) const;
+		void	setBrain(std::string idea);
 
 };
 

@@ -23,7 +23,7 @@ int main() {
 
 	std::cout << "Type : " << theCat->getType() << std::endl;
 	std::cout << "Sounds like : ";
-	theCat->makeSound(); //will output the cat sound!
+	theCat->makeSound();
 	std::cout << std::endl;
 	
 	std::cout << "Type : " << meta->getType() << std::endl;
@@ -52,7 +52,7 @@ int main() {
 	// ils executent leurs bruits
 	std::cout << "Wrong Type : " << Wrongcat->getType() << std::endl;
 	std::cout << "Sounds like : ";
-	Wrongcat->makeSound(); //will output the cat sound!
+	Wrongcat->makeSound();
 	std::cout << std::endl;
 	
 	std::cout << "Wrong Type : " << Wrongmeta->getType() << std::endl;
