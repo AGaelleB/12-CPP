@@ -19,7 +19,7 @@ class AAnimal { // AAnimal n'est plus instanciable, prefix "A"
 	public :
 		 // construteur par default, de copie et destructeur
 		AAnimal();
-		AAnimal(std::string const type);
+		AAnimal(const std::string type);
 		AAnimal(const AAnimal& rhs);
 		virtual ~AAnimal();
 
@@ -28,12 +28,10 @@ class AAnimal { // AAnimal n'est plus instanciable, prefix "A"
 
 		// fonctions membres
 		std::string		getType() const;
-		virtual void	makeSound() const = 0; // déclarée virtual pour permettre le polymorphisme, mise a 0 pour classe abstraite
-
+		virtual void	makeSound() const = 0;
 };
 
 #endif
-
 
 /* Methode pure, classe non instanciable prefix "A"
 	

@@ -9,6 +9,7 @@ class WrongCat : public WrongAnimal {
 	public :
 		 // construteur par default, de copie et destructeur
 		WrongCat();
+		WrongCat(std::string type);
 		WrongCat(const WrongCat& rhs);
 		~WrongCat();
 

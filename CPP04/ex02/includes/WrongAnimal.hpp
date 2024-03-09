@@ -19,7 +19,7 @@ class WrongAnimal {
 	public :
 		 // construteur par default, de copie et destructeur
 		WrongAnimal();
-		WrongAnimal(std::string const type);
+		WrongAnimal(const std::string type);
 		WrongAnimal(const WrongAnimal& rhs);
 		virtual ~WrongAnimal();
 
@@ -27,7 +27,7 @@ class WrongAnimal {
 		WrongAnimal& operator=(const WrongAnimal& rhs);
 
 		// fonctions membres
-		virtual void	makeSound() const; // déclarée virtual pour permettre le polymorphisme
+		void	makeSound() const;
 		std::string		getType() const;
 
 };

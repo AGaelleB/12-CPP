@@ -3,15 +3,23 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Dog::Dog() : _brain(new Brain()) { // creation du brain
-	std::cout << CYAN << "~Dog~ default constructor called" << RESET << std::endl;
+Dog::Dog() : AAnimal("Dog") {
+	std::cout << BLUE << "~Dog~ default constructor called" << RESET << std::endl;
 	this->_type = "Dog";
+	this->_brain = new Brain();
 	return;
 }
 
-Dog::Dog(const Dog& rhs) : AAnimal(rhs._type), _brain(new Brain(*(rhs._brain)))  { // copie profonde du cerveau (Brain)
-	*this = rhs;
-	std::cout << CYAN << "~Dog~ copy constructor called" << RESET << std::endl;
+Dog::Dog(std::string type) : AAnimal("Dog") {
+	std::cout << BLUE << "~Dog~ type constructor called" << RESET << std::endl;
+	this->_type = type;
+	this->_brain = new Brain();
+	return;
+}
+
+Dog::Dog(const Dog& rhs) : AAnimal(rhs._type) {
+	this->_brain = new Brain(*rhs._brain); // copie profonde du cerveau (Brain)
+	std::cout << BLUE << "~Dog~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
@@ -25,25 +33,29 @@ Dog::~Dog() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Dog& Dog::operator=(const Dog& rhs) {
-	std::cout << CYAN << "~Dog~ copy assignment operator called" << RESET << std::endl;
+	std::cout << BLUE << "~Dog~ copy assignment operator called" << RESET << std::endl;
 
-	this->_type = rhs._type;
-	delete _brain;
-	this->_brain = new Brain(*rhs._brain); // copie profonde du cerveau (Brain)
-
-	return (*this);
+	if (this != &rhs) { // Protection contre l'auto-affectation
+		this->_type = rhs._type;
+		delete this->_brain; // Libère la mémoire actuelle de _brain
+		this->_brain = new Brain(*rhs._brain); // Allocation d'un nouveau Brain avec copie profonde
+	}
+	return *this;
 }
-
 
 /****************************** FONCTIONS MEMBRES ******************************/
 
 void	Dog::makeSound() const {
 	std::cout << "\"Waouuuf\" 🐶🐕" << std::endl;
-
+	return ;
 }
 
-Brain	&Dog::getBrain() const{
-	std::cout << "Now I have a brain ! 🐶🐕" << std::endl;
-	return (*_brain);
+Brain*	Dog::getBrain() const{
+	return (this->_brain);
 }
 
+void	Dog::setBrain(std::string idea)
+{
+	this->_brain->setIdea(idea);
+	return ;
+}

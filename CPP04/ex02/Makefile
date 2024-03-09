@@ -1,5 +1,5 @@
 
-NAME = Animal
+NAME = AbstractAnimal
 
 CC = c++
 
@@ -9,7 +9,7 @@ OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
 
 SRCS = main.cpp \
-	Animal.cpp \
+	AAnimal.cpp \
 	Dog.cpp \
 	Cat.cpp \
 	WrongAnimal.cpp \

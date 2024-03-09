@@ -3,14 +3,19 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-WrongCat::WrongCat() {
-	std::cout << CYAN << "~WrongCat~ default constructor called" << RESET << std::endl;
+WrongCat::WrongCat() : WrongAnimal("WrongCat") {
+	std::cout << BLUE << "~WrongCat~ default constructor called" << RESET << std::endl;
 	 this->_type = "WrongCat";
 }
 
-WrongCat::WrongCat(const WrongCat& rhs) : WrongAnimal(rhs._type) { // heritage
+WrongCat::WrongCat(std::string type) : WrongAnimal("WrongCat") {
+	std::cout << BLUE << "~WrongCat~ default constructor called" << RESET << std::endl;
+	 this->_type = type;
+}
+
+WrongCat::WrongCat(const WrongCat& rhs) : WrongAnimal(rhs._type) {
 	*this = rhs;
-	std::cout << CYAN << "~WrongCat~ copy constructor called" << RESET << std::endl;
+	std::cout << BLUE << "~WrongCat~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
@@ -22,7 +27,7 @@ WrongCat::~WrongCat() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 WrongCat& WrongCat::operator=(const WrongCat& rhs) {
-	std::cout << CYAN << "~WrongCat~ copy assignment operator called" << RESET << std::endl;
+	std::cout << BLUE << "~WrongCat~ copy assignment operator called" << RESET << std::endl;
 
 	if (this != &rhs) { 
 		this->_type = rhs._type;

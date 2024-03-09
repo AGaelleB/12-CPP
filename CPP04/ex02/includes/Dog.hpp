@@ -1,7 +1,7 @@
 #ifndef DOG_HPP
 #define DOG_HPP
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Brain.hpp"
 #include <iostream>
 
@@ -13,6 +13,7 @@ class Dog : public AAnimal {
 	public :
 		 // construteur par default, de copie et destructeur
 		Dog();
+		Dog(std::string type);
 		Dog(const Dog& rhs);
 		~Dog();
 
@@ -21,7 +22,8 @@ class Dog : public AAnimal {
 
 		// fonctions membres
 		void	makeSound() const;
-		Brain	&getBrain(void) const;
+		Brain*	getBrain(void) const;
+		void	setBrain(std::string idea);
 
 };
 

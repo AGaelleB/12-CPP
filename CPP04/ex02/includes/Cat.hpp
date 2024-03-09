@@ -1,7 +1,7 @@
 #ifndef CAT_HPP
 #define CAT_HPP
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Brain.hpp"
 #include <iostream>
 
@@ -13,6 +13,7 @@ class Cat : public AAnimal {
 	public :
 		 // construteur par default, de copie et destructeur
 		Cat();
+		Cat(std::string type);
 		Cat(const Cat& rhs);
 		~Cat();
 
@@ -21,7 +22,8 @@ class Cat : public AAnimal {
 
 		// fonctions membres
 		void	makeSound() const;
-		Brain	&getBrain(void) const;
+		Brain*	getBrain(void) const;
+		void	setBrain(std::string idea);
 };
 
 #endif

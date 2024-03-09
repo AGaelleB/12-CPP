@@ -33,9 +33,19 @@ Brain& Brain::operator=(const Brain& rhs) {
 /****************************** FONCTIONS MEMBRES ******************************/
 
 std::string Brain::getIdea(int index) const {
-	return (this->_ideas[index]);
+	if (index >= 0 && index < 100) {
+		return this->_ideas[index];
+	}
+	else
+		return "Index invalide";
 }
 
-void Brain::setIdea(int index, const std::string idea) {
-	this->_ideas[index] = idea;
+void Brain::setIdea(const std::string& idea) {
+	for (int i = 0; i < 100; i++) {
+		if (this->_ideas[i].empty()) {
+			this->_ideas[i] = idea;
+			return;
+		}
+	}
+	std::cout << "Le cerveau est plein, impossible d'ajouter plus d'idées" << std::endl;
 }
