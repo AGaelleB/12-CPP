@@ -5,6 +5,20 @@
 #include "../includes/WrongCat.hpp"
 #include "../includes/Brain.hpp"
 
+void testClassInstanciate() {
+
+	std::cout << "	~~~ CLASSE ANIMAL ~~~\n";
+
+	// Ne fonctionnera pas car AAnimal est abstrait 
+	const Animal* meta = new Animal();
+
+	std::cout << "Type : " << meta->getType() << std::endl;
+	std::cout << "Sounds like : ";
+	meta->makeSound();
+	std::cout << std::endl;
+
+	delete meta;
+}
 
 void testCopyProfonde() {
 
@@ -19,8 +33,9 @@ void testCopyProfonde() {
 	std::cout << "\nAfter the temporary Dog object is destroyed, the basic Dog object remains intact.\n";
 }
 
-
 int main() {
+
+	testClassInstanciate();
 
 	const int	numAnimals = 7;
 	Animal*		animals[numAnimals];
