@@ -1,51 +1,44 @@
-
-NAME = Materia
-
 CC = c++
 
-CPP_FLAGS = -Wall -Wextra -Werror -std=c++98
+FLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
-OBJ_DIR = objs
-OBJS = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.cpp=.o)))
+NAME = FFVII 
 
-SRCS = main.cpp \
-	Character.cpp \
-	Cure.cpp \
-	Ice.cpp \
-	Materia.cpp \
-	MateriaSource.cpp \
+SRC_DIR = ./
 
-RM = rm -rf
+OBJ_DIR = obj/
 
-RED=\033[1;31m
-GREEN=\033[1;32m
-YELLOW=\033[1;33m
-BLUE=\033[1;34m
-MAGENTA=\033[1;35m
-CYAN=\033[1;36m
-RESET=\033[0m
+INC_DIR = ./
 
-all: $(OBJ_DIR) $(NAME)
+SOURCES = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
+
+OBJ = $(SOURCES:.cpp=.o)
+
+OBJS = $(addprefix $(OBJ_DIR), $(OBJ))
+DEPS = $(OBJS:.o=.d)
+
+all: $(NAME) 
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.cpp
+	$(CC) $(FLAGS) -c -MMD -MP $< -o $@ -I $(INC_DIR)
+
+
+$(NAME): $(OBJ_DIR) $(OBJS)
+	$(CC) $(FLAGS) -o  $@ $(OBJS)
 
 $(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+	mkdir  $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: srcs/%.cpp
-	@$(CC) $(CPP_FLAGS) -c $< -o $@
+clean:
+	rm -f $(OBJS)
+	rm -f $(DEPS)
+	rm -fd $(OBJ_DIR)
 
-$(NAME): $(OBJS)
-	@$(CC) $(CPP_FLAGS) $(OBJS) -o $(NAME)
-	@echo "$(GREEN)[Make : '$(NAME)' is done ​​✅​]$(RESET)"
-
-clean :
-	@rm -rf $(OBJ_DIR)
-	@echo "$(BLUE)[clean : .o of $(NAME) have been deleted ​​🗑️ ​🧹​]$(RESET)"
-
-fclean:
-	@$(RM) $(OBJ_DIR)
-	@$(RM) $(NAME)
-	@echo "$(BLUE)[fclean : '$(NAME)' is done ​​🗑️ ​🧹​]$(RESET)"
+fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: fclean all re
+-include $(DEPS)
+
+.PHONY: all clean fclean re
