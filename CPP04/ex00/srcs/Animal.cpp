@@ -3,13 +3,15 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Animal::Animal() : _type("Am I a Animal?"){
+Animal::Animal() {
 	std::cout << BLUE << "~Animal~ default constructor called" << RESET << std::endl;
+	this->_type = "Am I a Animal?";
 	return;
 }
 
-Animal::Animal(const std::string type) : _type(type) {
+Animal::Animal(const std::string type) {
 	std::cout << BLUE << "~Animal~ type constructor called" << RESET << std::endl;
+	this->_type = type;
 	return;
 }
 
@@ -46,9 +48,3 @@ std::string Animal::getType() const {
 void	Animal::makeSound() const {
 	std::cout << "...No noise..." << std::endl;
 }
-
-
-/* 
-	attention mettre le const en amont
-
- */

@@ -5,7 +5,6 @@
 
 Cat::Cat() : Animal("Cat") {
 	std::cout << BLUE << "~Cat~ default constructor called" << RESET << std::endl;
-	 this->_type = "Cat";
 }
 
 Cat::Cat(const Cat& rhs) : Animal("Cat") {

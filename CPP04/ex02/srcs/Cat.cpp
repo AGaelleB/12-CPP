@@ -5,19 +5,11 @@
 
 Cat::Cat() : AAnimal("Cat") {
 	std::cout << BLUE << "~Cat~ default constructor called" << RESET << std::endl;
-	this->_type = "Cat";
-	this->_brain = new Brain(); // creation du brain
+	this->_brain = new Brain();
 	return;
 }
 
-Cat::Cat(std::string type) : AAnimal("Cat") {
-	std::cout << BLUE << "~Cat~ type constructor called" << RESET << std::endl;
-	this->_type = type;
-	this->_brain = new Brain(); // creation du brain
-	return;
-}
-
-Cat::Cat(const Cat& rhs) : AAnimal(rhs._type) {
+Cat::Cat(const Cat& rhs) : AAnimal("Cat") {
 	this->_brain = new Brain(*rhs._brain); // copie profonde du cerveau (Brain)
 	std::cout << BLUE << "~Cat~ copy constructor called" << RESET << std::endl;
 	return;
@@ -36,7 +28,7 @@ Cat::~Cat() {
 Cat& Cat::operator=(const Cat& rhs) { 
 	std::cout << BLUE << "~Cat~ copy assignment operator called" << RESET << std::endl;
 
-	if (this != &rhs) { // Protection contre l'auto-affectation
+	if (this != &rhs) {
 		this->_type = rhs._type;
 		delete this->_brain; // Libère la mémoire actuelle de _brain
 		this->_brain = new Brain(*rhs._brain); // Allocation d'un nouveau Brain avec copie profonde

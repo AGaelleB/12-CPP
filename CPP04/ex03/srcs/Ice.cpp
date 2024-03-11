@@ -5,8 +5,6 @@
 
 Ice::Ice() : AMateria("ice") {
 	std::cout << "~Ice~ default constructor called" << std::endl;
-
-	this->_type = "ice";
 	return;
 }
 

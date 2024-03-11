@@ -5,20 +5,6 @@
 #include "../includes/WrongCat.hpp"
 #include "../includes/Brain.hpp"
 
-void testClassInstanciate() {
-
-	std::cout << "	~~~ CLASSE ANIMAL ~~~\n";
-
-	// Ne fonctionnera pas car AAnimal est abstrait 
-	const Animal* meta = new Animal();
-
-	std::cout << "Type : " << meta->getType() << std::endl;
-	std::cout << "Sounds like : ";
-	meta->makeSound();
-	std::cout << std::endl;
-
-	delete meta;
-}
 
 void testCopyProfonde() {
 
@@ -34,8 +20,6 @@ void testCopyProfonde() {
 }
 
 int main() {
-
-	testClassInstanciate();
 
 	const int	numAnimals = 7;
 	Animal*		animals[numAnimals];
@@ -75,12 +59,11 @@ int main() {
 	// Vérification et affichage de l'idée dans le cerveau du chien copié.
 	if (dog[1]) {
 		Brain* test2 = dog[1]->getBrain();
-		if (test2) {
+		if (test2)
 			std::cout << "\nIdée dans le cerveau du chien copié : " << test2->getIdea(0) << std::endl;
-		}
 	}
 
-	// testCopyProfonde();
+	testCopyProfonde();
 
 	/**************************************************************************************************************/
 	std::cout << "\n	~~~ Suppression des animaux tests pour les copies profondes~~~\n" << std::endl;

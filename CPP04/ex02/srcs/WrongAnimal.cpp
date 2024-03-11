@@ -3,12 +3,14 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-WrongAnimal::WrongAnimal() : _type("Am I a WrongAnimal?"){
+WrongAnimal::WrongAnimal() {
 	std::cout << BLUE << "~WrongAnimal~ default constructor called" << RESET << std::endl;
+	this->_type = "Am I a WrongAnimal?";
 }
 
-WrongAnimal::WrongAnimal(const std::string type) : _type(type) {
+WrongAnimal::WrongAnimal(const std::string type) {
 	std::cout << BLUE << "~WrongAnimal~ type constructor called" << RESET << std::endl;
+	this->_type = type;
 	return;
 }
 

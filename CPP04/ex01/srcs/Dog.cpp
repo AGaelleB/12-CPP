@@ -5,19 +5,11 @@
 
 Dog::Dog() : Animal("Dog") {
 	std::cout << BLUE << "~Dog~ default constructor called" << RESET << std::endl;
-	this->_type = "Dog";
 	this->_brain = new Brain();
 	return;
 }
 
-Dog::Dog(std::string type) : Animal("Dog") {
-	std::cout << BLUE << "~Dog~ type constructor called" << RESET << std::endl;
-	this->_type = type;
-	this->_brain = new Brain();
-	return;
-}
-
-Dog::Dog(const Dog& rhs) : Animal(rhs._type) {
+Dog::Dog(const Dog& rhs) : Animal("Dog") {
 	this->_brain = new Brain(*rhs._brain); // copie profonde du cerveau (Brain)
 	std::cout << BLUE << "~Dog~ copy constructor called" << RESET << std::endl;
 	return;
@@ -35,7 +27,7 @@ Dog::~Dog() {
 Dog& Dog::operator=(const Dog& rhs) {
 	std::cout << BLUE << "~Dog~ copy assignment operator called" << RESET << std::endl;
 
-	if (this != &rhs) { // Protection contre l'auto-affectation
+	if (this != &rhs) {
 		this->_type = rhs._type;
 		delete this->_brain; // Libère la mémoire actuelle de _brain
 		this->_brain = new Brain(*rhs._brain); // Allocation d'un nouveau Brain avec copie profonde

@@ -5,15 +5,9 @@
 
 WrongCat::WrongCat() : WrongAnimal("WrongCat") {
 	std::cout << BLUE << "~WrongCat~ default constructor called" << RESET << std::endl;
-	 this->_type = "WrongCat";
 }
 
-WrongCat::WrongCat(std::string type) : WrongAnimal("WrongCat") {
-	std::cout << BLUE << "~WrongCat~ default constructor called" << RESET << std::endl;
-	 this->_type = type;
-}
-
-WrongCat::WrongCat(const WrongCat& rhs) : WrongAnimal(rhs._type) {
+WrongCat::WrongCat(const WrongCat& rhs) : WrongAnimal("WrongCat") {
 	*this = rhs;
 	std::cout << BLUE << "~WrongCat~ copy constructor called" << RESET << std::endl;
 	return;

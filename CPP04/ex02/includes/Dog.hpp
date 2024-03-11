@@ -13,7 +13,6 @@ class Dog : public AAnimal {
 	public :
 		 // construteur par default, de copie et destructeur
 		Dog();
-		Dog(std::string type);
 		Dog(const Dog& rhs);
 		~Dog();
 

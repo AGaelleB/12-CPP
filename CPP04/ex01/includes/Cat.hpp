@@ -13,7 +13,6 @@ class Cat : public Animal {
 	public :
 		 // construteur par default, de copie et destructeur
 		Cat();
-		Cat(std::string type);
 		Cat(const Cat& rhs);
 		~Cat();
 

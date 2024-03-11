@@ -29,7 +29,6 @@ class Animal {
 		// fonctions membres
 		std::string		getType() const;
 		virtual void	makeSound() const; // déclarée virtual pour permettre le polymorphisme
-
 };
 
 #endif

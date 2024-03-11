@@ -5,8 +5,6 @@
 
 Cure::Cure() : AMateria("cure") {
 	std::cout << "~Cure~ default constructor called" << std::endl;
-
-	this->_type = "cure";
 	return;
 }
 
