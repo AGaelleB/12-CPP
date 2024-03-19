@@ -37,7 +37,7 @@ class ScalarConverter {
 		ScalarConverter& operator=(const ScalarConverter& rhs);
 	
 		static void		_checkIfValid(const std::string& input);
-		static bool			_ParticularCase(const std::string& input);
+		static bool		_ParticularCase(const std::string& input);
 
 
 		// vérifier le type de valeur littérale
@@ -62,8 +62,11 @@ class ScalarConverter {
 		// afficher les résultats
 		void			_printResult(int index);
 		void			_shortPrintResult(void);
+		std::string		_formatNumber(double number);
 };
 
+// // surcharge de l’opérateur d’insertion
+// std::ostream& operator<<(std::ostream& os, const ScalarConverter& obj);
 
 #endif
 

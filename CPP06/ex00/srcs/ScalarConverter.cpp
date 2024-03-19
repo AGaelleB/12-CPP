@@ -2,18 +2,26 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-ScalarConverter::ScalarConverter() : _castChar(0), _castInt(0), _castFloat(0.0f), _castDouble(0.0) {
+ScalarConverter::ScalarConverter() {
 	// std::cout << CYAN << "~ScalarConverter~ default constructor called" << RESET << std::endl;
+
+	this->_castChar = 0;
+	this->_castInt = 0;
+	this->_castFloat = 0.0f;
+	this->_castDouble = 0.0;
+
 	return;
 }
 
 
-ScalarConverter::ScalarConverter(const ScalarConverter& rhs):	_castChar(rhs._castChar),
-																_castInt(rhs._castInt),
-																_castFloat(rhs._castFloat),
-																_castDouble(rhs._castDouble) {
+ScalarConverter::ScalarConverter(const ScalarConverter& rhs) {
 	// std::cout << CYAN << "~ScalarConverter~ copy constructor called" << RESET << std::endl;
-	*this = rhs;
+	
+	this->_castChar = rhs._castChar;
+	this->_castInt = rhs._castInt;
+	this->_castFloat = rhs._castFloat;
+	this->_castDouble = rhs._castDouble;
+
 	return;
 }
 
@@ -57,9 +65,9 @@ bool ScalarConverter::_ParticularCase(const std::string& input) {
 		std::cout << "int:	impossible" << std::endl;
 		std::cout << "float:	nanf" << std::endl;
 		std::cout << "double:	nan\n" << std::endl;
-		return true; // Indique que le cas a été géré
+		return true;
 	}
-	return false; // Indique que le cas n'a pas été géré
+	return false;
 }
 
 
@@ -72,8 +80,6 @@ bool ScalarConverter::_isCharLiteral(const std::string& input) {
 		return false;
 	}
 }
-
-
 
 bool ScalarConverter::_isIntLiteral(const std::string& input) {
 
@@ -274,18 +280,37 @@ void ScalarConverter::convert(const std::string& input) {
 
 /****************************** UTILS ******************************/
 
+std::string ScalarConverter::_formatNumber(double number) {
+	std::ostringstream oss; // Créer un objet ostringstream pour formater le nombre en chaîne de caractères
+	oss << std::fixed << std::setprecision(4) << number; // Insérer le nombre dans le flux avec une précision fixe de 4 chiffres après la virgule
+	std::string str = oss.str(); // Récupérer la chaîne de caractères formatée à partir du flux
+
+	// supprime les 0 si inutiles apres la virgule
+	size_t end = str.find_last_not_of('0');
+	if (end != std::string::npos) {
+		if (str[end] == '.') {
+			end--;
+		}
+		str.erase(end + 1, std::string::npos);
+	}
+
+	// Ajoute ".0" si c est un int
+	if (str.find('.') == std::string::npos)
+		str += ".0";
+
+	return str;
+}
 
 void ScalarConverter::_shortPrintResult(void) {
-
 	if (std::isprint(_castChar))
 		std::cout << "char:	" << _castChar << std::endl;
 	else
 		std::cout << "char:	Non displayable" << std::endl;
 	std::cout << "int:	" << _castInt << std::endl;
-	std::cout << "float:	" << std::fixed << std::setprecision(1) << _castFloat << "f" << std::endl; // pour avoir les chiffres apres la virgule
-	std::cout << "double:	" << std::fixed << std::setprecision(1) << _castDouble << std::endl << std::endl; // pour avoir les chiffres apres la virgule
-
+	std::cout << "float:	" << _formatNumber(_castFloat) << "f" << std::endl;
+	std::cout << "double:	" << _formatNumber(_castDouble) << std::endl << std::endl;
 }
+
 
 void ScalarConverter::_printResult(int index) {
 
@@ -309,6 +334,8 @@ void ScalarConverter::_printResult(int index) {
 	// else
 	// 	std::cout << "double:	impossible\n\n";
 }
+
+
 
 /* CAST EN C++
 
