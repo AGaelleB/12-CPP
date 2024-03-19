@@ -8,6 +8,7 @@
 #include <string>
 #include <iomanip> // Pour std::fixed et std::setprecision
 #include <cctype> // Inclure la bibliothèque pour std::isalpha
+#include <cstdlib> // Pour std::strtod
 
 
 #define RED		"\033[1;31m"
@@ -18,6 +19,7 @@
 #define CYAN	"\033[1;36m"
 #define RESET	"\033[0m"
 
+#define INT_MAX	2147483647
 
 class ScalarConverter {
 

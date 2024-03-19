@@ -49,13 +49,10 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& rhs) {
 
 void ScalarConverter::_checkIfValid(const std::string& input) {
 
-	// Vérifie que ce ne soit pas vide
 	if (input.empty()) {
 		std::cout << "Invalid argument : it's empty" << std::endl;
 		return ;
 	}
-
-	// a ameliorer
 }
 
 bool ScalarConverter::_ParticularCase(const std::string& input) {
@@ -65,6 +62,22 @@ bool ScalarConverter::_ParticularCase(const std::string& input) {
 		std::cout << "int:	impossible" << std::endl;
 		std::cout << "float:	nanf" << std::endl;
 		std::cout << "double:	nan\n" << std::endl;
+		return true;
+	}
+	if (input == "-inf") {
+		
+		std::cout << "char:	impossible" << std::endl;
+		std::cout << "int:	impossible" << std::endl;
+		std::cout << "float:	-inff" << std::endl;
+		std::cout << "double:	-inf\n" << std::endl;
+		return true;
+	}
+	if (input == "inf" || input == "+inf") {
+		
+		std::cout << "char:	impossible" << std::endl;
+		std::cout << "int:	impossible" << std::endl;
+		std::cout << "float:	inff" << std::endl;
+		std::cout << "double:	inf\n" << std::endl;
 		return true;
 	}
 	return false;
@@ -85,7 +98,7 @@ bool ScalarConverter::_isIntLiteral(const std::string& input) {
 
 	if (input.empty())
 		return false;
-	
+
 	size_t start = 0;
 	if (input[0] == '-') {
 		if (input.length() == 1)
@@ -93,83 +106,82 @@ bool ScalarConverter::_isIntLiteral(const std::string& input) {
 		start = 1;
 	}
 
+	long long intVal = 0;
 	for (size_t i = start; i < input.length(); i++) {
 		if (!isdigit(input[i]))
+			return false;
+		intVal = intVal * 10 + (input[i] - '0');
+		if (intVal > INT_MAX)
 			return false;
 	}
 
 	return true;
 }
 
-
-// Float : 32 bits en mémoire, environ 7 chiffres
 bool ScalarConverter::_isFloatLiteral(const std::string& input) {
 
+	if (input.empty())
+		return false;
+	
+	size_t start = 0;
+	if (input[0] == '-')
+		start = 1;
+
 	bool hasPoint = false;
 	bool hasDigitBeforePoint = false;
 	bool hasDigitAfterPoint = false;
 	bool hasSuffixF = false;
 
-	for (size_t i = 0; i < input.length(); i++) {
+	for (size_t i = start; i < input.length(); i++) {
 		if (input[i] == '.') {
-			if (!hasDigitBeforePoint)
-				return false;
+			if (hasPoint)
+				return false; // Plus d'un point dans le nombre
 			hasPoint = true;
 		}
-		
-		else if (std::isdigit(input[i])) {
+		else if (isdigit(input[i])) {
 			if (!hasPoint)
 				hasDigitBeforePoint = true;
 			else
 				hasDigitAfterPoint = true;
 		}
-		
 		else if (input[i] == 'f' && i == input.length() - 1)
 			hasSuffixF = true;
-		
 		else
 			return false;
 	}
 
-	if (hasPoint && hasSuffixF && hasDigitBeforePoint && hasDigitAfterPoint)
-		return true;
-	else
-		return false;
+	return hasPoint && hasSuffixF && hasDigitBeforePoint && hasDigitAfterPoint;
 }
 
-// Double : 64 bits en mémoire, environ 15 à 16 chiffres
 bool ScalarConverter::_isDoubleLiteral(const std::string& input) {
+	if (input.empty()) return false;
+	
+	size_t start = 0;
+	if (input[0] == '-') {
+		start = 1;
+	}
 
 	bool hasPoint = false;
 	bool hasDigitBeforePoint = false;
 	bool hasDigitAfterPoint = false;
-	bool hasSuffixF = false;
 
-	for (size_t i = 0; i < input.length(); i++) {
+	for (size_t i = start; i < input.length(); i++) {
 		if (input[i] == '.') {
-			if (!hasDigitBeforePoint)
-				return false;
+			if (hasPoint)
+				return false; // Plus d'un point dans le nombre
 			hasPoint = true;
 		}
-		
-		else if (std::isdigit(input[i])) {
+		else if (isdigit(input[i])) {
 			if (!hasPoint)
 				hasDigitBeforePoint = true;
 			else
 				hasDigitAfterPoint = true;
 		}
-		
-		else if (input[i] == 'f' && i == input.length() - 1)
-			hasSuffixF = true;
-		
 		else
 			return false;
 	}
 
-	if (hasPoint && !hasSuffixF && hasDigitBeforePoint && hasDigitAfterPoint) // ici je verif qu il n y a pas de f
-		return true;
-	else
-		return false;
+	return hasPoint && hasDigitBeforePoint && hasDigitAfterPoint && input[input.length() - 1] != 'f'; // Pas de 'f' à la fin pour un double
 }
 
 
@@ -234,7 +246,6 @@ int ScalarConverter::_convertFromInt(const std::string& input) {
 	return _castInt;
 }
 
-
 void ScalarConverter::convert(const std::string& input) {
 	_checkIfValid(input); // Vérifie si l'entrée est valide.
 	if (_ParticularCase(input)) {
@@ -245,25 +256,25 @@ void ScalarConverter::convert(const std::string& input) {
 
 	int index = 0;
 	if (converter._isCharLiteral(input)) {
-		std::cout << "Detected type: Char\n" << std::endl;
+		// std::cout << "Detected type: Char\n" << std::endl;
 		converter._convertFromChar(input);
 		index = 1;
 	}
 	
 	else if (converter._isIntLiteral(input)) {
-		std::cout << "Detected type: Int\n" << std::endl;
+		// std::cout << "Detected type: Int\n" << std::endl;
 		converter._convertFromInt(input);
 		index = 2;
 	}
 	
 	else if (converter._isFloatLiteral(input)) {
-		std::cout << "Detected type: Float\n" << std::endl;
+		// std::cout << "Detected type: Float\n" << std::endl;
 		converter._convertFromFloat(input);
 		index = 3;
 	}
 	
 	else if (converter._isDoubleLiteral(input)) {
-		std::cout << "Detected type: Double\n" << std::endl;
+		// std::cout << "Detected type: Double\n" << std::endl;
 		converter._convertFromDouble(input);
 		index = 4;
 	}
@@ -277,15 +288,19 @@ void ScalarConverter::convert(const std::string& input) {
 }
 
 
-
 /****************************** UTILS ******************************/
 
 std::string ScalarConverter::_formatNumber(double number) {
-	std::ostringstream oss; // Créer un objet ostringstream pour formater le nombre en chaîne de caractères
-	oss << std::fixed << std::setprecision(4) << number; // Insérer le nombre dans le flux avec une précision fixe de 4 chiffres après la virgule
-	std::string str = oss.str(); // Récupérer la chaîne de caractères formatée à partir du flux
+	std::ostringstream oss;
+	if ((std::abs(number) > 0 && std::abs(number) < 1e-5) || std::abs(number) > 1e8) {
+		oss << std::scientific << std::setprecision(5);
+	} else {
+		oss << std::fixed << std::setprecision(4);
+	}
+	oss << number;
 
-	// supprime les 0 si inutiles apres la virgule
+	std::string str = oss.str();
+	// Supprimer les zéros inutiles après la virgule
 	size_t end = str.find_last_not_of('0');
 	if (end != std::string::npos) {
 		if (str[end] == '.') {
@@ -294,12 +309,14 @@ std::string ScalarConverter::_formatNumber(double number) {
 		str.erase(end + 1, std::string::npos);
 	}
 
-	// Ajoute ".0" si c est un int
-	if (str.find('.') == std::string::npos)
+	// Ajouter ".0" si c'est un entier
+	if (str.find('.') == std::string::npos) {
 		str += ".0";
+	}
 
 	return str;
 }
+
 
 void ScalarConverter::_shortPrintResult(void) {
 	if (std::isprint(_castChar))
@@ -316,23 +333,15 @@ void ScalarConverter::_printResult(int index) {
 
 	if (index == 1)
 		ScalarConverter::_shortPrintResult();
-	// else
-	// 	std::cout << "char:	impossible\n";
 
 	if (index == 2)
 		ScalarConverter::_shortPrintResult();
-	// else
-	// 	std::cout << "int:	impossible\n";
 
 	if (index == 3)
 		ScalarConverter::_shortPrintResult();
-	// else
-	// 	std::cout << "float:	impossible\n";
 
 	if (index == 4)
 		ScalarConverter::_shortPrintResult();
-	// else
-	// 	std::cout << "double:	impossible\n\n";
 }
 
 

@@ -15,18 +15,27 @@ int	main(int ac, char **av)
 	return 0;
 }
 
-// int main() {
-//     ScalarConverter::convert("42");
-//     ScalarConverter::convert("42.0f");
-//     ScalarConverter::convert("-42.0");
-//     ScalarConverter::convert("nanf");
-//     ScalarConverter::convert("-inf");
-//     ScalarConverter::convert("'c'");
-//     ScalarConverter::convert("");
-//     ScalarConverter::convert("99999999999999999999999999999999999999"); // Out of range for int
-//     ScalarConverter::convert("3.4028235e+38f"); // Out of range for float
-//     ScalarConverter::convert("1.7976931348623157e+308"); // Out of range for double
-//     ScalarConverter::convert("a"); // Non-numeric input
-//     ScalarConverter::convert("test"); // Non-numeric input
-//     return 0;
-// }
+/* 
+
+./convert 42
+./convert 42.0f
+./convert -42.0
+./convert nanf
+./convert -inf
+./convert +inf
+./convert 'c'
+./convert ""
+./convert 99999999999999999999999999999999999999
+./convert 3.4028235e+38f								// error mais je pense c ok
+./convert -3.4028235e+38f								// error mais je pense c ok
+./convert 1.7976931348623157e+308						// error mais je pense c ok
+./convert -1.7976931348623157e+308						// error mais je pense c ok
+./convert 4.9406564584124654e-324						// error mais je pense c ok
+./convert -4.9406564584124654e-324						// error mais je pense c ok
+./convert a
+./convert test
+./convert -0.0000000000012345678901234567890
+./convert 0.0000000000012345678901234567890
+
+
+ */
