@@ -1,28 +1,28 @@
 #include "../includes/ShrubberyCreationForm.hpp"
 #include <fstream>
+#include "../includes/main.hpp"
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm 🌳", 145, 137), _target("default_target") {
-	// std::cout << CYAN << "~ShrubberyCreationForm~ default constructor called" << RESET << std::endl;
+	std::cout << CYAN << "~ShrubberyCreationForm~ default constructor called" << RESET << std::endl;
 	return;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("ShrubberyCreationForm 🌳", 145, 137), _target(target) {
 
-	// std::cout << CYAN << "~ShrubberyCreationForm~ type constructor called" << RESET << std::endl;
-
+	std::cout << CYAN << "~ShrubberyCreationForm~ type constructor called" << RESET << std::endl;
 	return;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& rhs) : AForm(rhs) {
-	// std::cout << CYAN << "~ShrubberyCreationForm~ copy constructor called" << RESET << std::endl;
+	std::cout << CYAN << "~ShrubberyCreationForm~ copy constructor called" << RESET << std::endl;
 	*this = rhs;
 	return;
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {
-	// std::cout << RED << "~ShrubberyCreationForm~ destructor called" << RESET << std::endl;
+	std::cout << RED << "~ShrubberyCreationForm~ destructor called" << RESET << std::endl;
 	return;
 }
 

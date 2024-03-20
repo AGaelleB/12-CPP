@@ -1,15 +1,15 @@
 #include "../includes/Form.hpp"
-
+#include "../includes/main.hpp"
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
 Form::Form() : _nameForm("Form0"), _isSigned(false), _gradeToSign(150), _gradeToExecute(150) {
-	// std::cout << CYAN << "~Form~ default constructor called" << RESET << std::endl;
+	std::cout << CYAN << "~Form~ default constructor called" << RESET << std::endl;
 	return;
 }
 
 Form::Form(const std::string& name, int gradeToSign, int gradeToExecute): _nameForm(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
-	// std::cout << CYAN << "~Form~ type constructor called" << RESET << std::endl;
+	std::cout << CYAN << "~Form~ type constructor called" << RESET << std::endl;
 
 	if (this->_gradeToSign < 1 || this->_gradeToExecute < 1)
 		throw (GradeTooHighException());
@@ -19,14 +19,14 @@ Form::Form(const std::string& name, int gradeToSign, int gradeToExecute): _nameF
 	return;
 }
 
-Form::Form(const Form& rhs) {
-	// std::cout << CYAN << "~Form~ copy constructor called" << RESET << std::endl;
-	*this = rhs;
+
+Form::Form(const Form& rhs) : _nameForm(rhs._nameForm), _isSigned(rhs._isSigned), _gradeToSign(rhs._gradeToSign), _gradeToExecute(rhs._gradeToExecute) {
+	std::cout << CYAN << "~Form~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
 Form::~Form() {
-	// std::cout << RED << "~Form~ destructor called" << RESET << std::endl;
+	std::cout << RED << "~Form~ destructor called" << RESET << std::endl;
 	return;
 }
 
@@ -34,12 +34,11 @@ Form::~Form() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Form& Form::operator=(const Form& rhs) {
-	// std::cout << CYAN << "~Form~ copy assignment operator called" << RESET << std::endl;
+	std::cout << CYAN << "~Form~ copy assignment operator called" << RESET << std::endl;
 
-	this->_nameForm = rhs._nameForm;
+	if (this == &rhs)
+		return (*this);
 	this->_isSigned = rhs._isSigned;
-	this->_gradeToSign = rhs._gradeToSign;
-	this->_gradeToExecute = rhs._gradeToExecute;
 
 	return (*this);
 }
@@ -82,7 +81,7 @@ void	Form::beSigned(const Bureaucrat& bureaucrat) {
 /*************************** OPERATEUR D'INSERTION ****************************/
 
 std::ostream& operator<<(std::ostream& os, const Form& form) {
-	os << "\n~~ FORM INFO ~~\n";
+	os << WHITE << "\n~~~~ FORM INFO ~~~~\n" << RESET;
 	os << "Form name : " << form.getNameForm() \
 	<< "\nForm grade to sign: " << form.getGradeToSign() \
 	<< "\nForm grade to execute: " << form.getGradeToExecute();

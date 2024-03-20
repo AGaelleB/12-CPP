@@ -8,10 +8,10 @@
 class AForm {
 
 	private :
-		std::string	_nameForm;
-		bool		_isSigned;
-		int			_gradeToSign;
-		int			_gradeToExecute;
+		const std::string	_nameForm;
+		bool				_isSigned;
+		const int			_gradeToSign;
+		const int			_gradeToExecute;
 
 	public :
 		// construteur par default, de copie et destructeur
@@ -24,10 +24,10 @@ class AForm {
 		AForm& operator=(const AForm& rhs);
 
 		// getters  & setters
-		std::string	getNameForm() const;
-		bool		getIsSigned() const;
-		int			getGradeToSign() const;
-		int			getGradeToExecute() const;
+		std::string		getNameForm() const;
+		bool			getIsSigned() const;
+		int				getGradeToSign() const;
+		int				getGradeToExecute() const;
 		virtual void	execute(Bureaucrat const & executor) const = 0;
 
 

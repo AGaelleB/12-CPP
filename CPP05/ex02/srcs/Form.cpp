@@ -1,15 +1,16 @@
 #include "../includes/AForm.hpp"
+#include "../includes/main.hpp"
 
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-AForm::AForm() : _nameForm("AForm0"), _isSigned(false), _gradeToSign(150), _gradeToExecute(150) {
-	// std::cout << CYAN << "~AForm~ default constructor called" << RESET << std::endl;
+ AForm:: AForm() : _nameForm(" AForm0"), _isSigned(false), _gradeToSign(150), _gradeToExecute(150) {
+	std::cout << CYAN << "~AForm~ default constructor called" << RESET << std::endl;
 	return;
 }
 
-AForm::AForm(const std::string& name, int gradeToSign, int gradeToExecute): _nameForm(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
-	// std::cout << CYAN << "~AForm~ type constructor called" << RESET << std::endl;
+ AForm:: AForm(const std::string& name, int gradeToSign, int gradeToExecute): _nameForm(name), _isSigned(false), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute) {
+	std::cout << CYAN << "~AForm~ type constructor called" << RESET << std::endl;
 
 	if (this->_gradeToSign < 1 || this->_gradeToExecute < 1)
 		throw (GradeTooHighException());
@@ -19,31 +20,29 @@ AForm::AForm(const std::string& name, int gradeToSign, int gradeToExecute): _nam
 	return;
 }
 
-AForm::AForm(const AForm& rhs) {
-	// std::cout << CYAN << "~AForm~ copy constructor called" << RESET << std::endl;
-	*this = rhs;
+
+ AForm:: AForm(const  AForm& rhs) : _nameForm(rhs._nameForm), _isSigned(rhs._isSigned), _gradeToSign(rhs._gradeToSign), _gradeToExecute(rhs._gradeToExecute) {
+	std::cout << CYAN << "~AForm~ copy constructor called" << RESET << std::endl;
 	return;
 }
 
 AForm::~AForm() {
-	// std::cout << RED << "~AForm~ destructor called" << RESET << std::endl;
+	std::cout << RED << "~AForm~ destructor called" << RESET << std::endl;
 	return;
 }
 
 
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
-AForm& AForm::operator=(const AForm& rhs) {
-	// std::cout << CYAN << "~AForm~ copy assignment operator called" << RESET << std::endl;
+ AForm&  AForm::operator=(const  AForm& rhs) {
+	std::cout << CYAN << "~ AForm~ copy assignment operator called" << RESET << std::endl;
 
-	this->_nameForm = rhs._nameForm;
+	if (this == &rhs)
+		return (*this);
 	this->_isSigned = rhs._isSigned;
-	this->_gradeToSign = rhs._gradeToSign;
-	this->_gradeToExecute = rhs._gradeToExecute;
 
 	return (*this);
 }
-
 
 /*********************************** GETTERS **********************************/
 
@@ -82,7 +81,7 @@ void	AForm::beSigned(const Bureaucrat& bureaucrat) {
 /*************************** OPERATEUR D'INSERTION ****************************/
 
 std::ostream& operator<<(std::ostream& os, const AForm& AForm) {
-	os << "\n~~ FORM INFO ~~\n";
+	os << WHITE << "\n~~~~ FORM INFO ~~~~\n" << RESET;
 	os << "Form name : " << AForm.getNameForm() \
 	<< "\nForm grade to sign: " << AForm.getGradeToSign() \
 	<< "\nForm grade to execute: " << AForm.getGradeToExecute();

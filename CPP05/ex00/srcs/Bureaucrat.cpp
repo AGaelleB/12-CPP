@@ -4,12 +4,13 @@
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
 Bureaucrat::Bureaucrat() : _name("noNameSet"), _grade(150) {
-	// std::cout << CYAN << "~Bureaucrat~ default constructor called" << RESET << std::endl;
+	std::cout << CYAN << "~Bureaucrat~ default constructor called for " << getName() << " with the grade " << getGrade() << RESET << std::endl;
 	return;
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(grade) {
-	// std::cout << CYAN << "~Bureaucrat~ type constructor called" << RESET << std::endl;
+	std::cout << CYAN << "~Bureaucrat~ type constructor called for " << getName() << " with the grade " << getGrade() << RESET << std::endl;
+
 
 	if (this->_grade > 150)
 		throw (GradeTooLowException());
@@ -21,13 +22,13 @@ Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& rhs) {
-	// std::cout << CYAN << "~Bureaucrat~ copy constructor called" << RESET << std::endl;
+	std::cout << CYAN << "~Bureaucrat~ copy constructor called" << RESET << std::endl;
 	*this = rhs;
 	return;
 }
 
 Bureaucrat::~Bureaucrat() {
-	// std::cout << RED << "~Bureaucrat~ destructor called" << RESET << std::endl;
+	std::cout << RED << "~Bureaucrat~ destructor called" << RESET << std::endl;
 	return;
 }
 
@@ -35,9 +36,10 @@ Bureaucrat::~Bureaucrat() {
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& rhs) {
-	// std::cout << CYAN << "~Bureaucrat~ copy assignment operator called" << RESET << std::endl;
+	std::cout << CYAN << "~Bureaucrat~ copy assignment operator called" << RESET << std::endl;
 
-	this->_name = rhs._name;
+	if (this == &rhs)
+		return (*this);
 	this->_grade = rhs._grade;
 
 	return (*this);
@@ -58,19 +60,16 @@ void Bureaucrat::incrementGrade() {
 
 	if (this->_grade > 1) {
 		this->_grade--;
-		std::cout << getName() << "'s grade incremented, it's now at grade " << getGrade() << std::endl;
 	}
 	else {
 		throw (GradeTooHighException());
 	}
-
 }
 
 void Bureaucrat::decrementGrade() {
 
 	if (this->_grade < 150) {
 		this->_grade++;
-		std::cout << getName() << "'s grade decremented, it's now at grade " << getGrade() << std::endl;
 	}
 	else {
 		throw (GradeTooLowException());
@@ -81,6 +80,6 @@ void Bureaucrat::decrementGrade() {
 /*************************** OPERATEUR D'INSERTION ****************************/
 
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& bureaucrat) {
-	os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
+	os << WHITE << bureaucrat.getName() << RESET << ", bureaucrat grade " << WHITE << bureaucrat.getGrade() << RESET;
 	return (os);
 }

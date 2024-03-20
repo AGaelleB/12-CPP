@@ -9,13 +9,14 @@
 #define BLUE	"\033[1;34m"
 #define MAGENTA	"\033[1;35m"
 #define CYAN	"\033[1;36m"
+#define WHITE	"\033[1m\033[37m"
 #define RESET	"\033[0m"
 
 class Bureaucrat {
 
 	private :
-		std::string	_name;
-		int			_grade;
+		const std::string	_name;
+		int					_grade;
 
 	public :
 		// construteur par default, de copie et destructeur

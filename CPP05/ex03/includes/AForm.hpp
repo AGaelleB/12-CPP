@@ -8,10 +8,10 @@
 class AForm {
 
 	private :
-		std::string	_nameForm;
-		bool		_isSigned;
-		int			_gradeToSign;
-		int			_gradeToExecute;
+		const std::string	_nameForm;
+		bool				_isSigned;
+		const int			_gradeToSign;
+		const int			_gradeToExecute;
 
 	public :
 		// construteur par default, de copie et destructeur

@@ -8,49 +8,51 @@
 int	main (void) {
 
 	try {
-		std::cout << GREEN << "~~~ Welcome to the company! ~~~\n" << RESET << std::endl;
+		std::cout << GREEN << "		~~~ Welcome to the company! ~~~\n" << RESET << std::endl;
 
-		// Je cree deux nvz employés
-		Bureaucrat bureaucratA("Tom", 149);
-		std::cout << "A new employee has joined the company :" << std::endl;
-		std::cout << bureaucratA << std::endl;
-		
-		Bureaucrat bureaucratB("Gaga", 2);
-		std::cout << "\nA new employee has joined the company :" << std::endl;
-		std::cout << bureaucratB << std::endl;
-
-
+		// Je cree deux nvx employés
+		Bureaucrat	bureaucratA("Tom", 149);
+		Bureaucrat	bureaucratB("Gaga", 2);
+		Bureaucrat	defaultBureaucrat;
 
 		// Incrémentation du grade
 		std::cout << std::endl;
 		std::cout << bureaucratA.getName() << " has been promoted!!" << std::endl;
 		bureaucratA.incrementGrade();
+		std::cout << bureaucratA << std::endl;
 
 		std::cout << std::endl;
 		std::cout << bureaucratB.getName() << " has been promoted!!" << std::endl;
 		bureaucratB.incrementGrade();
+		std::cout << bureaucratB << std::endl;
 
-
+		// std::cout << std::endl;
+		// std::cout << bureaucratB.getName() << " has been promoted!!" << std::endl;
+		// bureaucratB.incrementGrade();
+		// std::cout << bureaucratB << std::endl;
 
 		// Décrémentation du grade
 		std::cout << std::endl;
 		std::cout << bureaucratA.getName() << " made a mistake..." << std::endl;
 		bureaucratA.decrementGrade();
+		std::cout << bureaucratA << std::endl;
 
 		std::cout << std::endl;
 		std::cout << bureaucratB.getName() << " made a mistake..." << std::endl;
 		bureaucratB.decrementGrade();
+		std::cout << bureaucratB << std::endl;
 
 		std::cout << std::endl;
 		std::cout << bureaucratA.getName() << " made 2 new mistakes..." << std::endl;
 		bureaucratA.decrementGrade();
+		std::cout << bureaucratA << std::endl;
 		bureaucratA.decrementGrade();
+		std::cout << bureaucratA << std::endl;
 	
 	}
 	catch (const std::exception& exception) {
-		std::cerr << "Exception caught: " << exception.what() << std::endl;
+		std::cerr << MAGENTA << "\nException caught: " << exception.what() << RESET << std::endl;
 	}
 
 	return (0);
 }
-

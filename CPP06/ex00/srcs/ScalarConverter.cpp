@@ -55,7 +55,7 @@ void ScalarConverter::_checkIfValid(const std::string& input) {
 	}
 }
 
-bool ScalarConverter::_ParticularCase(const std::string& input) {
+bool ScalarConverter::_particularCase(const std::string& input) {
 	if (input == "nan" || input == "nanf") {
 		
 		std::cout << "char:	impossible" << std::endl;
@@ -64,7 +64,7 @@ bool ScalarConverter::_ParticularCase(const std::string& input) {
 		std::cout << "double:	nan\n" << std::endl;
 		return true;
 	}
-	if (input == "-inf") {
+	if (input == "-inf" || input == "-inff") {
 		
 		std::cout << "char:	impossible" << std::endl;
 		std::cout << "int:	impossible" << std::endl;
@@ -72,7 +72,7 @@ bool ScalarConverter::_ParticularCase(const std::string& input) {
 		std::cout << "double:	-inf\n" << std::endl;
 		return true;
 	}
-	if (input == "inf" || input == "+inf") {
+	if (input == "inf" || input == "inff" || input == "+inf" || input == "+inff") {
 		
 		std::cout << "char:	impossible" << std::endl;
 		std::cout << "int:	impossible" << std::endl;
@@ -207,10 +207,6 @@ double	ScalarConverter::getCastDouble(void) const {
 
 /****************************** CONVERSIONS ******************************/
 
-/* 
-	il faudra que je bloque les conversion impossible (ex valeurs trop grandes pour être converties en un type plus petit)
- */
-
 char ScalarConverter::_convertFromChar(const std::string& input) {
 	_castChar = input[0];
 	_castInt = static_cast<int>(_castChar);
@@ -248,7 +244,7 @@ int ScalarConverter::_convertFromInt(const std::string& input) {
 
 void ScalarConverter::convert(const std::string& input) {
 	_checkIfValid(input); // Vérifie si l'entrée est valide.
-	if (_ParticularCase(input)) {
+	if (_particularCase(input)) {
 		return; // Si le cas particulier a été géré, termine l'exécution de la fonction
 	}
 
@@ -320,7 +316,7 @@ std::string ScalarConverter::_formatNumber(double number) {
 
 void ScalarConverter::_shortPrintResult(void) {
 	if (std::isprint(_castChar))
-		std::cout << "char:	" << _castChar << std::endl;
+		std::cout << "char:	'" << _castChar << "'" << std::endl;
 	else
 		std::cout << "char:	Non displayable" << std::endl;
 	std::cout << "int:	" << _castInt << std::endl;

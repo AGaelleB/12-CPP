@@ -1,17 +1,17 @@
 #ifndef FORM_HPP
-#define FORM_HPP
+# define FORM_HPP
 
 #include <iostream>
 
-#include "Bureaucrat.hpp" 
+#include "Bureaucrat.hpp"
 
 class Form {
 
 	private :
-		std::string	_nameForm;
-		bool		_isSigned;
-		int			_gradeToSign;
-		int			_gradeToExecute;
+		const std::string	_nameForm;
+		bool				_isSigned;
+		const int			_gradeToSign;
+		const int			_gradeToExecute;
 
 	public :
 		// construteur par default, de copie et destructeur

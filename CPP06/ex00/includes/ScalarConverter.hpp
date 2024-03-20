@@ -1,5 +1,5 @@
-#ifndef ScalarConverter_HPP
-#define ScalarConverter_HPP
+#ifndef SCALARCONVERTER_HPP
+#define SCALARCONVERTER_HPP
 
 #include <iostream>
 #include <sstream>	// Pour std::istringstream
@@ -39,7 +39,7 @@ class ScalarConverter {
 		ScalarConverter& operator=(const ScalarConverter& rhs);
 	
 		static void		_checkIfValid(const std::string& input);
-		static bool		_ParticularCase(const std::string& input);
+		static bool		_particularCase(const std::string& input);
 
 
 		// vérifier le type de valeur littérale

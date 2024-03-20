@@ -36,6 +36,8 @@ int	main(int ac, char **av)
 ./convert test
 ./convert -0.0000000000012345678901234567890
 ./convert 0.0000000000012345678901234567890
-
+./convert $$$$$$$$$										// je fais un truc bizare
+./convert $$$$$$$$$123									// je fais un truc bizare
 
  */
+
