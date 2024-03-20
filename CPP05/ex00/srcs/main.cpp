@@ -11,6 +11,7 @@ int	main (void) {
 		std::cout << GREEN << "		~~~ Welcome to the company! ~~~\n" << RESET << std::endl;
 
 		// Je cree deux nvx employés
+		std::cout << BLUE << "-> Employees have been created" << RESET << std::endl;
 		Bureaucrat	bureaucratA("Tom", 149);
 		Bureaucrat	bureaucratB("Gaga", 2);
 		Bureaucrat	defaultBureaucrat;

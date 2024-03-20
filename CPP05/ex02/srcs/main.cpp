@@ -11,10 +11,12 @@ int	main (void) {
 		std::cout << GREEN << "		~~~ Welcome to the company! ~~~\n" << RESET << std::endl;
 
 		// Je cree une nvlle employée
+		std::cout << BLUE << "-> Employee have been created" << RESET << std::endl;
 		Bureaucrat bureaucratA("Gaga", 45);
 		std::cout << bureaucratA << std::endl;
 
 		// Création des formulaires
+		std::cout << BLUE << "\n-> Form have been created" << RESET << std::endl;
 		// Form	a = Form();							// class abstraite ne s execute plus
 		// std::cout << a << "\n\n";
 		ShrubberyCreationForm form1("Garden");		// sign 145, exec 137

@@ -8,11 +8,12 @@ int	main (void) {
 		std::cout << GREEN << "		~~~ Welcome to the company! ~~~\n" << RESET << std::endl;
 
 		// Je cree deux nvx employés
+		std::cout << BLUE << "-> Employee have been created" << RESET << std::endl;
 		Bureaucrat bureaucratA("Gaga", 51);
 		std::cout << bureaucratA << std::endl;
 
 		// Création des formulaires
-		std::cout << BLUE << "-> Form have been created" << RESET;
+		std::cout << BLUE << "\n-> Form have been created" << RESET << std::endl;
 		Form	formA = Form();
 		Form	formB = Form("A21", 50, 10);
 		std::cout << formA << std::endl;
@@ -25,7 +26,7 @@ int	main (void) {
 		std::cout << std::endl;
 
 		// status a jour
-		std::cout << BLUE << "-> " "Update" << RESET;
+		std::cout << BLUE << "-> Update" << RESET;
 		std::cout << formA << std::endl;
 		std::cout << formB << std::endl << std::endl;
 
