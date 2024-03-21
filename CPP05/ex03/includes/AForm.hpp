@@ -40,16 +40,16 @@ class AForm {
 		class GradeTooHighException : public std::exception {
 			public :
 				virtual const char* what() const throw() {
-					return("Grade is too high!");
+					return("Grade Form is too high!");
 				}
 		};
 
 		class GradeTooLowException : public std::exception {
 			public :
 				virtual const char* what() const throw() {
-					return("Grade is too low!");
+					return("Grade Form is too low!");
 				}
-		};
+		};;
 
 };
 

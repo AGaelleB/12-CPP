@@ -4,48 +4,50 @@
 
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
-Intern::Intern() : AForm("Intern 🧑‍⚖️", 25, 5), _target("default_target") {
-
+Intern::Intern() {
 	std::cout << CYAN << "~Intern~ default constructor called" << RESET << std::endl;
-	return;
 }
 
-Intern::Intern(const std::string& target) : AForm("Intern 🧑‍⚖️", 25, 5), _target(target) {
-
-	std::cout << CYAN << "~Intern~ type constructor called" << RESET << std::endl;
-	return;
-}
-
-Intern::Intern(const Intern& rhs) : AForm(rhs) {
+Intern::Intern(const Intern& rhs) {
 	std::cout << CYAN << "~Intern~ copy constructor called" << RESET << std::endl;
-	*this = rhs;
-	return;
 }
 
 Intern::~Intern() {
 	std::cout << RED << "~Intern~ destructor called" << RESET << std::endl;
-	return;
 }
 
 
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Intern& Intern::operator=(const Intern& rhs) {
-	if (this != &rhs) {
-		this->_target = rhs._target;
-	}
-	return (*this);
+	(void)rhs;
+	return *this;
 }
 
-// /*********************************** GETTERS **********************************/
-
-// std::string	Intern::getTarget() const {
-// 	return (this->_target);
-// }
 
 /****************************** FONCTIONS MEMBRES ******************************/
 
-void	Intern::makeForm() const {
-	
-	
+
+AForm* Intern::makeForm(std::string& nameOfTheForm, std::string& targetOfTheForm) {
+	static const char* formNames[] = {
+		"robotomy request",
+		"presidential pardon",
+		"shrubbery creation"
+	};
+
+	static AForm* forms[] = {
+		new RobotomyRequestForm(targetOfTheForm),
+		new PresidentialPardonForm(targetOfTheForm),
+		new ShrubberyCreationForm(targetOfTheForm)
+	};
+
+	for (int i = 0; i < 3; ++i) {
+		if (nameOfTheForm == formNames[i]) {
+			std::cout << "Intern creates \"" << formNames[i] << "\"" << std::endl;
+			return forms[i];
+		}
+	}
+
+	std::cout << "Intern cannot create " << nameOfTheForm << " form" << std::endl;
+	return NULL;
 }

@@ -4,25 +4,21 @@
 #include <iostream>
 
 #include "AForm.hpp"
+#include "Intern.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
+#include "ShrubberyCreationForm.hpp"
 
-class Intern : public AForm {
-
-	private :
-		std::string	_target;
-
-	public :
-		// construteur par default, de copie et destructeur
+class Intern {
+	public:
 		Intern();
-		Intern(const std::string& target);
 		Intern(const Intern& rhs);
 		~Intern();
 
-		// Opérateur d'affectation, surcharge d'operateur '='
 		Intern& operator=(const Intern& rhs);
 
-		// fonctions membres
-		void	makeForm(std::string resquestForm, std::string formName) const ;
-
+		AForm* makeForm(std::string& nameOfTheForm, std::string& targetOfTheForm);
 };
+
 
 #endif
