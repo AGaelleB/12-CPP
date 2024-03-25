@@ -62,8 +62,8 @@ int main() {
 
 	std::cout << BLUE << "\n-> Test d'accès à un index hors limites" << RESET << std::endl;
 	try {
-		std::cout << "Trying to access  array2[10]..." << std::endl;
-		std::cout <<  array2[10] << std::endl; // rentre dans l'exception
+		std::cout << "Trying to access  array2[42]..." << std::endl;
+		std::cout <<  array2[42] << std::endl; // rentre dans l'exception
 	}
 	catch (const std::exception& e) {
 		std::cerr << "Exception caught: " << e.what() << std::endl;

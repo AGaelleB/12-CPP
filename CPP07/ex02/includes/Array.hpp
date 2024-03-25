@@ -13,7 +13,7 @@ class Array {
 
 	public:
 		// Constructeurs
-		Array() : elements(NULL), size(0) {} // Constructeur par défaut (tableau vide)
+		Array() : elements(0), size(0) {} // Constructeur par défaut (tableau vide)
 
 		Array(unsigned int n) : size(n) {
 			elements = new T[size]; // Alloue la mémoire pour le tableau
@@ -52,7 +52,7 @@ class Array {
 		// Opérateur de sous-script []
 		T& operator[](unsigned int index) {
 			if (index >= size) {
-				throw std::out_of_range("Index out of bounds");
+				throw std::out_of_range("Index is out of range");
 			}
 			return elements[index];
 		}
