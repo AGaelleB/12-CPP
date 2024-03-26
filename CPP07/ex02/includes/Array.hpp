@@ -8,8 +8,17 @@ template<typename T>
 class Array {
 
 	private:
-		T* elements; // Tableau pour stocker les éléments de type T
-		unsigned int size; // Taille du tableau
+		T*				elements; // Tableau pour stocker les éléments de type T
+		unsigned int	size; // Taille du tableau
+
+		class	ArrayIndexOutOfBoundsException: public std::exception
+				{
+					public:
+						virtual const char *what() const throw() {
+							return ("Index is out of range");
+						}
+				};
+
 
 	public:
 		// Constructeurs
@@ -17,28 +26,27 @@ class Array {
 
 		Array(unsigned int n) : size(n) {
 			elements = new T[size]; // Alloue la mémoire pour le tableau
-			// Initialise les éléments par défaut
-			for (unsigned int i = 0; i < size; ++i) {
+			for (unsigned int i = 0; i < size; i++) {
 				elements[i] = T(); // Appelle le constructeur par défaut de T
 			}
 		}
 
 		// Constructeur par copie
-		Array(const Array<T>& other) : size(other.size) {
+		Array(const Array<T>& rhs) : size(rhs.size) {
 			elements = new T[size];
-			for (unsigned int i = 0; i < size; ++i) {
-				elements[i] = other.elements[i]; // Copie des éléments de l'autre tableau
+			for (unsigned int i = 0; i < size; i++) {
+				elements[i] = rhs.elements[i];
 			}
 		}
 
 		// Opérateur d'affectation
-		Array<T>& operator=(const Array<T>& other) {
-			if (this != &other) { // Vérifie que ce n'est pas la même instance
+		Array<T>& operator=(const Array<T>& rhs) {
+			if (this != &rhs) {
 				delete[] elements; // Libère la mémoire du tableau actuel
-				size = other.size;
+				size = rhs.size;
 				elements = new T[size];
-				for (unsigned int i = 0; i < size; ++i) {
-					elements[i] = other.elements[i]; // Copie des éléments de l'autre tableau
+				for (unsigned int i = 0; i < size; i++) {
+					elements[i] = rhs.elements[i]; // Copie des éléments de l'autre tableau
 				}
 			}
 			return *this;
@@ -49,10 +57,10 @@ class Array {
 			delete[] elements;
 		}
 
-		// Opérateur de sous-script []
+		// Opérateur de sous-script [] permet d'acceder a un index du tableau
 		T& operator[](unsigned int index) {
 			if (index >= size) {
-				throw std::out_of_range("Index is out of range");
+				throw ArrayIndexOutOfBoundsException(); 
 			}
 			return elements[index];
 		}
