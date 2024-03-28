@@ -2,6 +2,7 @@
 
 #define BLUE		"\033[1;34m"
 #define RESET		"\033[0m"
+#define MAX_VAL		42
 
 int main() {
 
@@ -56,8 +57,8 @@ int main() {
 
 	std::cout << BLUE << "\n-> Test d'accès à un index hors limites" << RESET << std::endl;
 	try {
-		std::cout << "Trying to access array2[42]" << std::endl;
-		std::cout << array2[42] << std::endl; // rentre dans l'exception
+		std::cout << "Trying to access array2[MAX_VAL]" << std::endl;
+		std::cout << array2[MAX_VAL] << std::endl; // rentre dans l'exception
 	}
 	catch (const std::exception& e) {
 		std::cerr << "Exception caught: " << e.what() << std::endl;
@@ -66,3 +67,62 @@ int main() {
 
 	return 0;
 }
+
+
+
+/* 
+// main du sujet
+#include <cstdlib> // Pour rand() et srand()
+#include <ctime>   // Pour time()
+
+#define MAX_VAL 750
+int main(int, char**)
+{
+	Array<int> numbers(MAX_VAL);
+	int* mirror = new int[MAX_VAL];
+	srand(time(NULL));
+	for (int i = 0; i < MAX_VAL; i++)
+	{
+		const int value = rand();
+		numbers[i] = value;
+		mirror[i] = value;
+	}
+	//SCOPE
+	{
+		Array<int> tmp = numbers;
+		Array<int> test(tmp);
+	}
+
+	for (int i = 0; i < MAX_VAL; i++)
+	{
+		if (mirror[i] != numbers[i])
+		{
+			std::cerr << "didn't save the same value!!" << std::endl;
+			return 1;
+		}
+	}
+	try
+	{
+		numbers[-2] = 0;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	try
+	{
+		numbers[MAX_VAL] = 0;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+
+	for (int i = 0; i < MAX_VAL; i++)
+	{
+		numbers[i] = rand();
+	}
+	delete [] mirror;//
+	return 0;
+}
+ */
