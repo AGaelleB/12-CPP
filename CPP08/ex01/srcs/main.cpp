@@ -10,7 +10,7 @@
 #define RESET		"\033[0m"
 
 
-void	Subjectmain() {
+void	subjectMain() {
 
 	Span sp = Span(5);
 
@@ -25,7 +25,7 @@ void	Subjectmain() {
 }
 
 
- void	Mymain() {
+ void	myMain() {
 
 	std::cout << BLUE << "TEST #1" << RESET << std::endl;
 	try {
@@ -87,10 +87,11 @@ void	Subjectmain() {
 int	main() {
 
 	std::cout << BLUE << "\n	~~~ Tests subject main ~~~\n" << RESET << std::endl;
-	Subjectmain();
+	subjectMain();
 
 	std::cout << BLUE << "\n	~~~ Tests my main ~~~\n" << RESET << std::endl;
-	Mymain();
+	myMain();
+
 	return 0;
 }
 
