@@ -10,6 +10,8 @@ Intern::Intern() {
 
 Intern::Intern(const Intern& rhs) {
 	std::cout << CYAN << "~Intern~ copy constructor called" << RESET << std::endl;
+	*this = rhs;
+	return;
 }
 
 Intern::~Intern() {
@@ -28,26 +30,26 @@ Intern& Intern::operator=(const Intern& rhs) {
 /****************************** FONCTIONS MEMBRES ******************************/
 
 
-AForm* Intern::makeForm(std::string& nameOfTheForm, std::string& targetOfTheForm) {
+AForm* Intern::makeForm(std::string nameOfTheForm, std::string targetOfTheForm) {
 	static const char* formNames[] = {
-		"robotomy request",
-		"presidential pardon",
-		"shrubbery creation"
+		"RobotomyRequestForm",
+		"ShrubberyCreationForm",
+		"PresidentialPardonForm"
 	};
 
 	static AForm* forms[] = {
 		new RobotomyRequestForm(targetOfTheForm),
-		new PresidentialPardonForm(targetOfTheForm),
-		new ShrubberyCreationForm(targetOfTheForm)
+		new ShrubberyCreationForm(targetOfTheForm),
+		new PresidentialPardonForm(targetOfTheForm)
 	};
 
 	for (int i = 0; i < 3; ++i) {
 		if (nameOfTheForm == formNames[i]) {
-			std::cout << "Intern creates \"" << formNames[i] << "\"" << std::endl;
+			std::cout << "Intern creates \"" << WHITE << formNames[i] << RESET << "\"" << std::endl;
 			return forms[i];
 		}
 	}
 
-	std::cout << "Intern cannot create " << nameOfTheForm << " form" << std::endl;
+	std::cout << "Intern cannot create \"" << WHITE << nameOfTheForm << RESET << "\" form because it doesn't exist" << std::endl;
 	return NULL;
 }

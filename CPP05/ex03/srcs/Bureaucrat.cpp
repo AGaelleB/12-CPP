@@ -2,7 +2,6 @@
 #include "../includes/AForm.hpp"
 #include "../includes/main.hpp"
 
-
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
 Bureaucrat::Bureaucrat() : _name("noNameSet"), _grade(150) {
@@ -10,18 +9,21 @@ Bureaucrat::Bureaucrat() : _name("noNameSet"), _grade(150) {
 	return;
 }
 
-Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(grade) {
-	std::cout << CYAN << "~Bureaucrat~ type constructor called for " << getName() << " with the grade " << getGrade() << RESET << std::endl;
+Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name) {
 
-
-	if (this->_grade > 150)
+	if (grade > 150)
 		throw (GradeTooLowException());
 
-	else if (this->_grade < 1)
+	else if (grade < 1)
 		throw (GradeTooHighException());
+	else
+		this->_grade = grade;
 
+	std::cout << CYAN << "~Bureaucrat~ type constructor called for " << getName() << " with the grade " << getGrade() << RESET << std::endl;
+	
 	return;
 }
+
 
 Bureaucrat::Bureaucrat(const Bureaucrat& rhs) {
 	std::cout << CYAN << "~Bureaucrat~ copy constructor called" << RESET << std::endl;
@@ -62,7 +64,6 @@ void Bureaucrat::incrementGrade() {
 
 	if (this->_grade > 1) {
 		this->_grade--;
-		std::cout << getName() << "'s grade incremented, it's now at grade " << getGrade() << std::endl;
 	}
 	else {
 		throw (GradeTooHighException());
@@ -73,7 +74,6 @@ void Bureaucrat::decrementGrade() {
 
 	if (this->_grade < 150) {
 		this->_grade++;
-		std::cout << getName() << "'s grade decremented, it's now at grade " << getGrade() << std::endl;
 	}
 	else {
 		throw (GradeTooLowException());

@@ -2,6 +2,7 @@
 #define INTERN_HPP
 
 #include <iostream>
+#include <stdexcept> // For std::invalid_argument
 
 #include "AForm.hpp"
 #include "Intern.hpp"
@@ -17,7 +18,7 @@ class Intern {
 
 		Intern& operator=(const Intern& rhs);
 
-		AForm* makeForm(std::string& nameOfTheForm, std::string& targetOfTheForm);
+		AForm* makeForm(std::string nameOfTheForm, std::string targetOfTheForm);
 };
 
 

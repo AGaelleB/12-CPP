@@ -44,7 +44,6 @@ AForm::~AForm() {
 	return (*this);
 }
 
-
 /*********************************** GETTERS **********************************/
 
 std::string	AForm::getNameForm() const {
@@ -72,11 +71,13 @@ void	AForm::beSigned(const Bureaucrat& bureaucrat) {
 		throw (GradeTooLowException());
 	}
 	else {
-		std::cout << bureaucrat.getName() << " signed \"" << this->_nameForm << "\"" <<std::endl;
-		
-		this->_isSigned = true;
+		if (this->_isSigned == true)
+			std::cout << bureaucrat.getName() << " try to sign form \"" << this->_nameForm << "\" but it's already signed" <<std::endl;
+		else {
+			std::cout << bureaucrat.getName() << " signed \"" << this->_nameForm << "\"" <<std::endl;
+			this->_isSigned = true;
+		}
 	}
-
 }
 
 /*************************** OPERATEUR D'INSERTION ****************************/
@@ -88,9 +89,9 @@ std::ostream& operator<<(std::ostream& os, const AForm& AForm) {
 	<< "\nForm grade to execute: " << AForm.getGradeToExecute();
 
 	if (AForm.getIsSigned() == true)
-		os << "\nForm status : is signed";
+		os << "\nForm status : is signed ✅";
 	else if (AForm.getIsSigned() == false)
-		os << "\nForm status : is not signed";
+		os << "\nForm status : is not signed ❌";
 
 	return os;
 }

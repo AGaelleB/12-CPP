@@ -9,18 +9,20 @@ Bureaucrat::Bureaucrat() : _name("noNameSet"), _grade(150) {
 	return;
 }
 
-Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(grade) {
-	std::cout << CYAN << "~Bureaucrat~ type constructor called for " << getName() << " with the grade " << getGrade() << RESET << std::endl;
+Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name) {
 
-
-	if (this->_grade > 150)
+	if (grade > 150)
 		throw (GradeTooLowException());
-
-	else if (this->_grade < 1)
+	else if (grade < 1)
 		throw (GradeTooHighException());
+	else
+		this->_grade = grade;
 
+	std::cout << CYAN << "~Bureaucrat~ type constructor called for " << getName() << " with the grade " << getGrade() << RESET << std::endl;
+	
 	return;
 }
+
 
 Bureaucrat::Bureaucrat(const Bureaucrat& rhs) {
 	std::cout << CYAN << "~Bureaucrat~ copy constructor called" << RESET << std::endl;

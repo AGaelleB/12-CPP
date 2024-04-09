@@ -18,7 +18,7 @@ class AForm {
 		AForm();
 		AForm(const std::string& name, int gradeToSign, int gradeToExecute);
 		AForm(const AForm& rhs);
-		~AForm();
+		virtual ~AForm();
 
 		// Opérateur d'affectation, surcharge d'operateur '='
 		AForm& operator=(const AForm& rhs);
@@ -30,11 +30,8 @@ class AForm {
 		int				getGradeToExecute() const;
 		virtual void	execute(Bureaucrat const & executor) const = 0;
 
-
-
 		// fonctions memebres
 		void		beSigned(const Bureaucrat& bureaucrat); // Méthode pour signer le formulaire
-
 
 		// exceptions
 		class GradeTooHighException : public std::exception {

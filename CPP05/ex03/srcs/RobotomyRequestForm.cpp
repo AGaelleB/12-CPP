@@ -6,11 +6,13 @@
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm 🔧", 72, 45), _target("default_target") { // AForm pour init les donnees
+
 	std::cout << CYAN << "~RobotomyRequestForm~ default constructor called" << RESET << std::endl;
 	return;
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string &target) : AForm("RobotomyRequestForm 🔧", 72, 45), _target(target) {
+
 	std::cout << CYAN << "~RobotomyRequestForm~ type constructor called" << RESET << std::endl;
 	return;
 }

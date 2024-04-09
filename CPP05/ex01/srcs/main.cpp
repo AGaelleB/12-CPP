@@ -23,6 +23,7 @@ int	main (void) {
 		std::cout << BLUE << "-> " << bureaucratA.getName() << " try to sign the form" << RESET << std::endl;
 		bureaucratA.signForm(formA);
 		bureaucratA.signForm(formB);
+		bureaucratA.signForm(formA);
 		std::cout << std::endl;
 
 		// status a jour

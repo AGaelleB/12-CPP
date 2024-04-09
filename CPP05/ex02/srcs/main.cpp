@@ -17,7 +17,7 @@ int	main (void) {
 
 		// Création des formulaires
 		std::cout << BLUE << "\n-> Form have been created" << RESET << std::endl;
-		// Form	a = Form();							// class abstraite ne s execute plus
+		// AForm	a = AForm();							// class abstraite ne s execute plus
 		// std::cout << a << "\n\n";
 		ShrubberyCreationForm form1("Garden");		// sign 145, exec 137
 		RobotomyRequestForm form2("Labo");			// sign 72, exec 45
@@ -47,7 +47,6 @@ int	main (void) {
 		std::cout << std::endl;
 		bureaucratA.executeForm(form3);
 		std::cout << std::endl;
-
 	}
 	catch (const std::exception& exception) {
 		std::cerr << "Exception caught: " << exception.what() << std::endl;

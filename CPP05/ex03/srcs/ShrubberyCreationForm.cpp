@@ -12,6 +12,7 @@ ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm ðŸ
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target) : AForm("ShrubberyCreationForm ðŸŒ³", 145, 137), _target(target) {
 
 	std::cout << CYAN << "~ShrubberyCreationForm~ type constructor called" << RESET << std::endl;
+
 	return;
 }
 

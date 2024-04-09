@@ -5,11 +5,13 @@
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
 PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm 🧑‍⚖️", 25, 5), _target("default_target") {
+
 	std::cout << CYAN << "~PresidentialPardonForm~ default constructor called" << RESET << std::endl;
 	return;
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target) : AForm("PresidentialPardonForm 🧑‍⚖️", 25, 5), _target(target) {
+
 	std::cout << CYAN << "~PresidentialPardonForm~ type constructor called" << RESET << std::endl;
 	return;
 }
