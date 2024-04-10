@@ -2,13 +2,13 @@
 #define SCALARCONVERTER_HPP
 
 #include <iostream>
-#include <sstream>	// Pour std::istringstream
-#include <limits>	// Pour std::numeric_limits
-#include <cmath>	// Pour std::isnan, std::isinf
+#include <sstream>
+#include <limits>
+#include <cmath>
 #include <string>
-#include <iomanip> // Pour std::fixed et std::setprecision
-#include <cctype> // Inclure la bibliothèque pour std::isalpha
-#include <cstdlib> // Pour std::strtod
+#include <iomanip>
+#include <cctype>
+#include <cstdlib>
 
 
 #define RED		"\033[1;31m"
@@ -20,6 +20,10 @@
 #define RESET	"\033[0m"
 
 #define INT_MAX	2147483647
+#define INT_MIN -2147483648
+#define INT_OVERFLOW -28678
+
+// attention int min et max les doit pas tout bloquer, le float et double doivent s afficher 
 
 class ScalarConverter {
 
@@ -35,12 +39,11 @@ class ScalarConverter {
 	private :
 		ScalarConverter(); // en privée pour ne pas que la class soit instanciable
 		ScalarConverter(const ScalarConverter& rhs);
-		~ScalarConverter();
 		ScalarConverter& operator=(const ScalarConverter& rhs);
+		~ScalarConverter();
 	
 		static void		_checkIfValid(const std::string& input);
 		static bool		_particularCase(const std::string& input);
-
 
 		// vérifier le type de valeur littérale
 		static bool		_isCharLiteral(const std::string& input);
@@ -66,9 +69,6 @@ class ScalarConverter {
 		void			_shortPrintResult(void);
 		std::string		_formatNumber(double number);
 };
-
-// // surcharge de l’opérateur d’insertion
-// std::ostream& operator<<(std::ostream& os, const ScalarConverter& obj);
 
 #endif
 

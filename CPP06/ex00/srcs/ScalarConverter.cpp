@@ -46,7 +46,6 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& rhs) {
 
 /****************************** FONCTIONS MEMBRES ******************************/
 
-
 void ScalarConverter::_checkIfValid(const std::string& input) {
 
 	if (input.empty()) {
@@ -56,6 +55,7 @@ void ScalarConverter::_checkIfValid(const std::string& input) {
 }
 
 bool ScalarConverter::_particularCase(const std::string& input) {
+
 	if (input == "nan" || input == "nanf") {
 		
 		std::cout << "char:	impossible" << std::endl;
@@ -87,11 +87,10 @@ bool ScalarConverter::_particularCase(const std::string& input) {
 /****************************** DETECTION DU TYPE ******************************/
 
 bool ScalarConverter::_isCharLiteral(const std::string& input) {
-	if (input.length() == 1 && !std::isdigit(input[0])) {
+	if (input.length() == 1 && !std::isdigit(input[0]))
 		return true;
-	} else {
+	else
 		return false;
-	}
 }
 
 bool ScalarConverter::_isIntLiteral(const std::string& input) {
@@ -111,8 +110,6 @@ bool ScalarConverter::_isIntLiteral(const std::string& input) {
 		if (!isdigit(input[i]))
 			return false;
 		intVal = intVal * 10 + (input[i] - '0');
-		if (intVal > INT_MAX)
-			return false;
 	}
 
 	return true;
@@ -218,7 +215,10 @@ char ScalarConverter::_convertFromChar(const std::string& input) {
 float ScalarConverter::_convertFromFloat(const std::string& input) {
 	std::istringstream iss(input); // permet de lire les valeurs numériques à partir de la chaîne d'entrée
 	iss >> _castFloat;
-	_castInt = static_cast<int>(_castFloat);
+	if (static_cast<double>(_castFloat) <= INT_MAX && static_cast<double>(_castFloat) >= INT_MIN)
+		_castInt = static_cast<int>(_castFloat);
+	else
+		_castInt = INT_OVERFLOW;
 	_castDouble = static_cast<double>(_castFloat);
 	_castChar = static_cast<char>(_castFloat);
 	return _castFloat;
@@ -227,7 +227,10 @@ float ScalarConverter::_convertFromFloat(const std::string& input) {
 double ScalarConverter::_convertFromDouble(const std::string& input) {
 	std::istringstream iss(input);
 	iss >> _castDouble;
-	_castInt = static_cast<int>(_castDouble);
+	if (_castDouble <= INT_MAX && _castDouble >= INT_MIN)
+		_castInt = static_cast<int>(_castDouble);
+	else
+		_castInt = INT_OVERFLOW;
 	_castFloat = static_cast<float>(_castDouble);
 	_castChar = static_cast<char>(_castDouble);
 	return _castDouble;
@@ -235,42 +238,45 @@ double ScalarConverter::_convertFromDouble(const std::string& input) {
 
 int ScalarConverter::_convertFromInt(const std::string& input) {
 	std::istringstream iss(input);
-	iss >> _castInt;
-	_castFloat = static_cast<float>(_castInt);
-	_castDouble = static_cast<double>(_castInt);
-	_castChar = static_cast<char>(_castInt);
+	long long tempInt;
+	iss >> tempInt;
+
+	if (tempInt < 127 && tempInt > 31)
+		_castChar = static_cast<char>(tempInt);
+	if (tempInt <= INT_MAX && tempInt >= INT_MIN)
+		_castInt = static_cast<int>(tempInt);
+	else
+		_castInt = INT_OVERFLOW;
+	_castFloat = static_cast<float>(tempInt);
+	_castDouble = static_cast<double>(tempInt);
 	return _castInt;
 }
 
 void ScalarConverter::convert(const std::string& input) {
-	_checkIfValid(input); // Vérifie si l'entrée est valide.
+	_checkIfValid(input);
 	if (_particularCase(input)) {
-		return; // Si le cas particulier a été géré, termine l'exécution de la fonction
+		return;
 	}
 
 	ScalarConverter converter; // Crée une instance de la classe
 
 	int index = 0;
 	if (converter._isCharLiteral(input)) {
-		// std::cout << "Detected type: Char\n" << std::endl;
 		converter._convertFromChar(input);
 		index = 1;
 	}
 	
 	else if (converter._isIntLiteral(input)) {
-		// std::cout << "Detected type: Int\n" << std::endl;
 		converter._convertFromInt(input);
 		index = 2;
 	}
 	
 	else if (converter._isFloatLiteral(input)) {
-		// std::cout << "Detected type: Float\n" << std::endl;
 		converter._convertFromFloat(input);
 		index = 3;
 	}
 	
 	else if (converter._isDoubleLiteral(input)) {
-		// std::cout << "Detected type: Double\n" << std::endl;
 		converter._convertFromDouble(input);
 		index = 4;
 	}
@@ -313,17 +319,19 @@ std::string ScalarConverter::_formatNumber(double number) {
 	return str;
 }
 
-
 void ScalarConverter::_shortPrintResult(void) {
 	if (std::isprint(_castChar))
 		std::cout << "char:	'" << _castChar << "'" << std::endl;
 	else
 		std::cout << "char:	Non displayable" << std::endl;
-	std::cout << "int:	" << _castInt << std::endl;
+	if (_castInt != INT_OVERFLOW)
+		std::cout << "int:	" << _castInt << std::endl;
+	else
+		std::cout << "int:	Non displayable" << std::endl;
+
 	std::cout << "float:	" << _formatNumber(_castFloat) << "f" << std::endl;
 	std::cout << "double:	" << _formatNumber(_castDouble) << std::endl << std::endl;
 }
-
 
 void ScalarConverter::_printResult(int index) {
 
@@ -339,7 +347,6 @@ void ScalarConverter::_printResult(int index) {
 	if (index == 4)
 		ScalarConverter::_shortPrintResult();
 }
-
 
 
 /* CAST EN C++
