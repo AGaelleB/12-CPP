@@ -4,26 +4,23 @@
 
 
 int main() {
-	// Création d'un objet Data avec une valeur spécifique pour son membre
+
 	Data myData;
 	myData.data = 42;
 	std::cout << "Data = " << myData.data << std::endl;
 
-	// Sérialisation : conversion de l'adresse mémoire de l'objet Data en une valeur entière
-	uintptr_t serialized = Serializer::serialize(&myData);
+	uintptr_t ptr = Serializer::serialize(&myData);
 	std::cout << WHITE << "\nSérialisation :" << RESET << \
-	 "\nL'adresse de myData est convertie en entier : " << serialized << std::endl;
+	 "\nL'adresse de myData est convertie en entier : " << ptr << std::endl;
 
-	// Désérialisation : conversion de la valeur entière précédemment obtenue en adresse mémoire de type Data*
-	Data* deserialized = Serializer::deserialize(serialized);
+	Data* raw = Serializer::deserialize(ptr);
 	std::cout << WHITE << "\nDésérialisation :" << RESET << \
-	"\nL'entier est reconverti en adresse mémoire de type Data* : " << deserialized << std::endl;
+	"\nL'entier est reconverti en adresse mémoire de type Data* : " << raw << std::endl;
 
-	// Vérification que l'adresse obtenue après désérialisation est la même que l'adresse originale de l'objet Data
-	if (deserialized == &myData)
-		std::cout << GREEN << "\nSuccès" << RESET << " : La désérialisation a correctement récupéré l'adresse originale de l'objet Data" << std::endl;
+	if (raw == &myData)
+		std::cout << GREEN << "\nSuccès" << RESET << " : La désérialisation a correctement récupéré l'adresse d'origine de l'objet Data" << std::endl;
 	else
-		std::cout << RED << "\nÉchec" << RESET << " : L'adresse obtenue après désérialisation ne correspond pas à l'adresse originale" << std::endl;
+		std::cout << RED << "\nÉchec" << RESET << " : L'adresse obtenue après désérialisation ne correspond pas à l'adresse d'origine" << std::endl;
 
 	return 0;
 }

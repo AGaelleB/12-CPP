@@ -8,9 +8,7 @@
 
 Base::~Base() {
 	// std::cout << RED << "~Base~ destructor called" << RESET << std::endl;
-	return;
 }
-
 
 /*************************** FONCTIONS ***************************/
 
@@ -33,35 +31,42 @@ Base* generate() {
 }
 
 void identify(Base* p) {
-	if (dynamic_cast<A*>(p)) {
+	if (dynamic_cast<A*>(p) != NULL) {
 		std::cout << "Identified object as " << WHITE << "class A" << RESET << std::endl;
 	}
-	else if (dynamic_cast<B*>(p)) {
+	else if (dynamic_cast<B*>(p) != NULL) {
 		std::cout << "Identified object as " << WHITE << "class B" << RESET << std::endl;
 	}
-	else if (dynamic_cast<C*>(p)) {
+	else if (dynamic_cast<C*>(p) != NULL) {
 		std::cout << "Identified object as " << WHITE << "class C" << RESET << std::endl;
 	}
-	else {
+	else
 		std::cerr << "Unable to identify object" << std::endl;
-	}
 }
-
 
 void identify(Base& p) {
-	if (typeid(p) == typeid(A)) {
-		std::cout << "Identified object as " << WHITE << "class A" << RESET << \
-		" with address " << WHITE << &p << RESET << std::endl;
+	try {
+		(void)dynamic_cast<A&>(p);
+		std::cout << "Identified object as " << WHITE << "class A" << RESET << std::endl;
+		return;
 	}
-	else if (typeid(p) == typeid(B)) {
-		std::cout << "Identified object as " << WHITE << "class B" << RESET << \
-		" with address " << WHITE << &p << RESET << std::endl;
+	catch (...) {}
+	try {
+		(void)dynamic_cast<B&>(p);
+		std::cout << "Identified object as " << WHITE << "class B" << RESET << std::endl;
+		return;
 	}
-	else if (typeid(p) == typeid(C)) {
-		std::cout << "Identified object as " << WHITE << "class C" << RESET << \
-		" with address " << WHITE << &p << RESET << std::endl;
+	catch (...) {}
+	try {
+		(void)dynamic_cast<C&>(p);
+		std::cout << "Identified object as " << WHITE << "class C" << RESET << std::endl;
+		return;
 	}
-	else {
-		std::cerr << "Unable to identify object" << std::endl;
-	}
+	catch (...) {}
+	std::cerr << "Unable to identify object" << std::endl;
 }
+
+/* 
+	** le dynamic cast ** 
+	a lieu lors de l'execution s'utilise en cas de polymorphisme (doit avoir une methode virtuel)
+ */

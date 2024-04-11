@@ -2,7 +2,6 @@
 # define MAIN_HPP
 
 # include <iostream>
-# include <string>
 # include <stdint.h> // pour uintptr_t
 
 # define RED		"\033[1;31m"

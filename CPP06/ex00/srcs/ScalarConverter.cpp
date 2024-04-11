@@ -3,31 +3,22 @@
 /************************* CONSTRUCTEURS ET DESTRUCTEUR  *************************/
 
 ScalarConverter::ScalarConverter() {
-	// std::cout << CYAN << "~ScalarConverter~ default constructor called" << RESET << std::endl;
-
 	this->_castChar = 0;
 	this->_castInt = 0;
 	this->_castFloat = 0.0f;
 	this->_castDouble = 0.0;
-
 	return;
 }
 
-
 ScalarConverter::ScalarConverter(const ScalarConverter& rhs) {
-	// std::cout << CYAN << "~ScalarConverter~ copy constructor called" << RESET << std::endl;
-	
 	this->_castChar = rhs._castChar;
 	this->_castInt = rhs._castInt;
 	this->_castFloat = rhs._castFloat;
 	this->_castDouble = rhs._castDouble;
-
 	return;
 }
 
 ScalarConverter::~ScalarConverter() {
-	// std::cout << RED << "~ScalarConverter~ destructor called" << RESET << std::endl;
-	return;
 }
 
 
@@ -302,7 +293,7 @@ std::string ScalarConverter::_formatNumber(double number) {
 	oss << number;
 
 	std::string str = oss.str();
-	// Supprimer les zéros inutiles après la virgule
+	// Supprime les 0 inutiles après la virgule
 	size_t end = str.find_last_not_of('0');
 	if (end != std::string::npos) {
 		if (str[end] == '.') {
@@ -311,7 +302,7 @@ std::string ScalarConverter::_formatNumber(double number) {
 		str.erase(end + 1, std::string::npos);
 	}
 
-	// Ajouter ".0" si c'est un entier
+	// Ajoute ".0" si c'est un entier
 	if (str.find('.') == std::string::npos) {
 		str += ".0";
 	}
@@ -349,48 +340,11 @@ void ScalarConverter::_printResult(int index) {
 }
 
 
-/* CAST EN C++
+/* STATIC CAST EN C++
 
-	C++ autorise systematiquement les casts implicitent (un int vers un double)
-
-	** implicit cast **
-	un int vers un double, vers un type plus precise
-
-
-	** static cast **
 	cast d'une valeure "b" vers un "int" s ecrit : 
 	int a = 42;
 	double b = a;
 	int d = static_cast<int>(b); // ici je cast donc un double en un int
 	Le static_cast est vérifié lors de la compilation et peut entraîner une perte de données si la conversion n'est pas sûre.
-
-
-	** le dynamic cast ** 
-	a lieu lors de l'execution
-	s'utilise en cas de polymorphisme (doit avoir une methode virtuel)
-
-
-	** Reinterpret cast **
-	utile pour le retypage par exemple d'un void vers un char
-
-
-	** const cast **
-	exemple : 
-		int a = 42;
-		int cont *b = &a;
-		int *c = b;
-		int *d = const_cast<int *>(b);
-	mieux vaut ne pas utiliser le const cast, veut souvent dire qu'on a un probleme de design de notre code
-
  */
-
-
-/* Non displayable et impossible
-
-	"Non displayable" : lors d une conversion d un caractère en d'autres types.
-	Si le caractère n'est pas imprimable, afficher "Non displayable".
-
-	"Impossible" : Lorsqu une conversion ne peut pas être effectuée.
-	ex: convertir un caractère qui n'est pas un chiffre en un type numérique
- */
-

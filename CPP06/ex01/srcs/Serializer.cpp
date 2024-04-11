@@ -5,7 +5,6 @@
 
 Serializer::Serializer() {
 	// std::cout << CYAN << "~Serializer~ default constructor called" << RESET << std::endl;
-
 	return;
 }
 
@@ -20,9 +19,6 @@ Serializer::~Serializer() {
 	// std::cout << RED << "~Serializer~ destructor called" << RESET << std::endl;
 	return;
 }
-
-
-/*************************** OPERATEUR D'AFFECTATION  **************************/
 
 Serializer& Serializer::operator=(const Serializer& rhs) {
 	// std::cout << CYAN << "~Serializer~ copy assignment operator called" << RESET << std::endl;
@@ -41,16 +37,7 @@ Data* Serializer::deserialize(uintptr_t raw) {
 	return reinterpret_cast<Data*>(raw);
 }
 
-
 /* 
-	** static cast **
-	cast d'une valeure "b" vers un "int" s ecrit : 
-	int a = 42;
-	double b = a;
-	int d = static_cast<int>(b); // ici je cast donc un double en un int
-	Le static_cast est vérifié lors de la compilation et peut entraîner une perte de données si la conversion n'est pas sûre.
-
-
 	** Reinterpret cast **
 	utile pour le retypage par exemple d'un void vers un char
  */

@@ -10,7 +10,6 @@
 #include <cctype>
 #include <cstdlib>
 
-
 #define RED		"\033[1;31m"
 #define GREEN	"\033[1;32m"
 #define YELLOW	"\033[1;33m"
@@ -18,12 +17,9 @@
 #define MAGENTA	"\033[1;35m"
 #define CYAN	"\033[1;36m"
 #define RESET	"\033[0m"
-
 #define INT_MAX	2147483647
 #define INT_MIN -2147483648
-#define INT_OVERFLOW -28678
-
-// attention int min et max les doit pas tout bloquer, le float et double doivent s afficher 
+#define INT_OVERFLOW -28178
 
 class ScalarConverter {
 
