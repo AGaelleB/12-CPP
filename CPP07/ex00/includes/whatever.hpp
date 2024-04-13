@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-
 template <typename T>
 class whatever {
 
@@ -13,23 +12,25 @@ class whatever {
 		T const&	max(T const& a, T const& b);
 };
 
-
 template <typename T>
 void swap(T& a, T& b) {
-	T	c = a;
+	T	tmp = a;
 	a = b;
-	b = c;
+	b = tmp;
 }
 
-template <typename T>
-T const& min(T const& a, T const& b) {
-	return ((a <= b) ? a : b);
+template<typename T>
+T const& min(T const &nb1, T const &nb2) {
+	if (nb1 < nb2)
+		return (nb1);
+	return (nb2);
 }
 
-template <typename T>
-T const& max(T const& a, T const& b) {
-	return ((a >= b) ? a : b);
+template<typename T>
+T const& max(T const &nb1, T const &nb2) {
+	if (nb1 > nb2)
+		return (nb1);
+	return (nb2);
 }
-
 
 #endif
