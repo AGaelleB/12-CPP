@@ -23,12 +23,12 @@ void	subjectMain() {
 	mstack.push(5);
 	mstack.push(17);
 
-	std::cout << BOLD << "I print the element at the top of the stack:" << RESET;
+	std::cout << BOLD << "I print the element at the top of the stack: " << RESET;
 	std::cout << mstack.top() << std::endl << std::endl;
 
 	mstack.pop();
 
-	std::cout << BOLD << "I print the size of the stack:" << RESET;
+	std::cout << BOLD << "I print the size of the stack: " << RESET;
 	std::cout << mstack.size() << std::endl << std::endl;
 
 	mstack.push(3);
@@ -42,7 +42,7 @@ void	subjectMain() {
 
 	++it;
 	--it;
-	std::cout << BOLD << "I use a iterator to print the stack:" << RESET << std::endl;
+	std::cout << BOLD << "I use a iterator to print the stack: " << RESET << std::endl;
 	while (it != ite)
 	{
 		std::cout << *it << std::endl;
@@ -73,14 +73,14 @@ void	myMain() {
 
 	// Suppression de l'élément au sommet
 	std::cout << BOLD << "\nSize of the stack elements before pop: " << mstack.size() << std::endl;
-	mstack.pop();
+	mstack.pop(); // je supprime le 21
 	std::cout << "Size of the stack elements after pop: " << mstack.size() << RESET << std::endl << std::endl;
 
 	// Ajout de plusieurs éléments
+	mstack.push(99);
 	mstack.push(3);
-	mstack.push(5);
 	mstack.push(-42);
-	mstack.push(0);
+	mstack.push(-0);
 
 	// Impression de la pile sur une copie tempStack
 	MutantStack<int> tempStack2 = mstack;

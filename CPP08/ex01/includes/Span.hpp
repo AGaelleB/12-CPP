@@ -2,7 +2,6 @@
 # define SPAN_HPP
 
 # include <algorithm>
-# include <exception>
 # include <vector>
 # include <iostream>
 
@@ -15,11 +14,11 @@ class Span {
 		// construteur par default, de copie et destructeur
 		Span();
 		Span(unsigned int N);
-		Span(const Span& rhs);
+		Span(const Span & obj);
 		~Span();
 
 		// Opérateur d'affectation
-		Span& operator=(const Span& rhs);
+		Span& operator=(const Span & rhs);
 
 		// Fonctions membres
 		void			addNumber(int nb);

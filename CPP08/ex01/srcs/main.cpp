@@ -27,57 +27,59 @@ void	subjectMain() {
 
  void	myMain() {
 
-	std::cout << BLUE << "TEST #1" << RESET << std::endl;
+	std::cout << BLUE << "		TEST #1" << RESET << std::endl;
 	try {
-		std::cout << BLUE << "Creating a span of 10000" << RESET << std::endl;
-		Span span = Span(10000);
+		std::cout << BLUE << "Creating a span of 100 000" << RESET << std::endl;
+		Span span = Span(100000);
 
 		std::vector<int> numbersToInsert;
-		for (int i = 0; i < 10000; ++i) {
+		for (int i = 0; i < 100000; ++i) {
 			numbersToInsert.push_back(i); // push_back car sur vector
 		}
 
 		span.addRange(numbersToInsert); // ajoue d'une serie de nb avec addRange() plutot que 1 a 1 avec addNumber
 
 		std::cout << BOLD << "-> Printing Shortest and Longest span" << RESET << std::endl;
-		std::cout << "   Shortest span: " << span.shortestSpan() << std::endl;
-		std::cout << "   Longest span: " << span.longestSpan() << std::endl;
+		std::cout << "	Shortest span: " << span.shortestSpan() << std::endl;
+		std::cout << "	Longest span: " << span.longestSpan() << std::endl;
 	}
 	catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
 
-	std::cout << BLUE << "\nTEST #2" << RESET << std::endl;
+	std::cout << BLUE << "\n		TEST #2" << RESET << std::endl;
 	try {
-		std::cout << BLUE << "Creating a range of size 5 and attempting to add 10 numbers" << RESET << std::endl;
-		Span span = Span(5);
+		std::cout << BLUE << "Creating a range of size 9 and attempting to add 10 numbers" << RESET << std::endl;
+		Span span = Span(9);
 
 		std::vector<int> numbersToInsert;
 		for (int i = 0; i < 10; ++i) {
 			numbersToInsert.push_back(i);
 		}
-
 		span.addRange(numbersToInsert);
 
 		std::cout << BOLD << "-> Printing Shortest and Longest span" << RESET << std::endl;
-		std::cout << "   Shortest span: " << span.shortestSpan() << std::endl;
-		std::cout << "   Longest span: " << span.longestSpan() << std::endl;
+		std::cout << "	Shortest span: " << span.shortestSpan() << std::endl;
+		std::cout << "	Longest span: " << span.longestSpan() << std::endl;
 	}
 	catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
 
-	std::cout << BLUE << "\nTEST #3" << RESET << std::endl;
+	std::cout << BLUE << "\n		TEST #3" << RESET << std::endl;
 	try {
-		std::cout << BLUE << "Creating a span of size 5 and adding a just 3 numbers" << RESET << std::endl;
-		Span span = Span(5);
-		span.addNumber(10);
-		span.addNumber(5);
-		span.addNumber(15);
+		std::cout << BLUE << "Creating a span of size 500 and adding a just 420 numbers" << RESET << std::endl;
+		Span span = Span(500);
+
+		std::vector<int> numbersToInsert;
+		for (int i = 0; i < 420; ++i) {
+			numbersToInsert.push_back(i);
+		}
+		span.addRange(numbersToInsert);
 
 		std::cout << BOLD << "-> Printing Shortest and Longest span" << RESET << std::endl;
-		std::cout << "   Shortest span: " << span.shortestSpan() << std::endl;
-		std::cout << "   Longest span: " << span.longestSpan() << std::endl;
+		std::cout << "	Shortest span: " << span.shortestSpan() << std::endl;
+		std::cout << "	Longest span: " << span.longestSpan() << std::endl;
 	}
 	catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;

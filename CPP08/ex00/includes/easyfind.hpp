@@ -2,9 +2,7 @@
 #define EASYFIND_HPP
 
 #include <algorithm>
-#include <exception>
 #include <vector>
-#include <list>
 #include <iostream>
 
 class NoOccurrenceException : public std::exception {
@@ -15,7 +13,7 @@ class NoOccurrenceException : public std::exception {
 };
 
 template <typename T>
-typename T::iterator	easyfind(T& container , int value) {
+typename T::iterator	easyfind(T & container , int value) {
 	typename T::iterator it = std::find(container.begin(), container.end(), value);
 	if (it == container.end()) {
 		throw NoOccurrenceException();

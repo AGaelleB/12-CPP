@@ -13,9 +13,9 @@ Span::Span(unsigned int N) {
 	return;
 }
 
-Span::Span(const Span& rhs) {
-	*this = rhs;
-	return;
+
+Span::Span(const Span & obj) {
+	*this = obj;
 }
 
 Span::~Span() {
@@ -25,7 +25,7 @@ Span::~Span() {
 
 /*************************** OPERATEUR D'AFFECTATION  **************************/
 
-Span& Span::operator=(const Span& rhs) {
+Span& Span::operator=(const Span & rhs) {
 	if (this == &rhs)
 		return *this;
 
@@ -67,7 +67,6 @@ unsigned int	Span::shortestSpan() const {
 			minDifference = difference;
 		}
 	}
-
 	return minDifference;
 }
 

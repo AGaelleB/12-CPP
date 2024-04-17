@@ -2,13 +2,9 @@
 
 #define RED			"\033[1;31m"
 #define GREEN		"\033[1;32m"
-#define YELLOW		"\033[1;33m"
 #define BLUE		"\033[1;34m"
-#define MAGENTA		"\033[1;35m"
-#define CYAN		"\033[1;36m"
 #define BOLD		"\033[1m\033[37m"
 #define RESET		"\033[0m"
-
 
 int main() {
 
@@ -16,7 +12,7 @@ int main() {
 
 
 	std::cout << std::endl << BLUE << "~~ Test #1 : existing vector ~~" << RESET << std::endl;
-	int arr[] = { 103, 14, 12, 123, 73, 42, 3, 55};
+	int arr[] = { 103, 14, -12, 123, 73, 42, 3, -55};
 	std::vector<int> vec(arr, arr + sizeof(arr) / sizeof(arr[0])); // Initialisation du vecteur avec les éléments du tab "arr"
 	std::cout << "Vector container: ";
 	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); it++) {
