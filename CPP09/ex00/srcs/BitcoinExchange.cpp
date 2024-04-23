@@ -36,27 +36,6 @@ std::string	BitcoinExchange::getInputFile() const {
 
 /********************************************* PARSING *********************************************/
 
-void BitcoinExchange::parseInputFile(std::string inputFile) {
-	std::ifstream file(inputFile.c_str());
-	bool boolFirstLine = true;
-	if (!file.is_open()) {
-		std::cerr << "Error: can't open the file" << std::endl;
-		return;
-	}
-
-	std::string line;
-	while (std::getline(file, line)) {
-		if (boolFirstLine == true) {
-			if (!checkFirstLine(line))
-				break;
-			boolFirstLine = false;
-			continue;
-		}
-		if (checkFormaDate(line) && checkConvertion(line))
-			calculateExchangeRate(line);
-	}
-}
-
 bool BitcoinExchange::checkFirstLine(std::string line) {
 	if (line != "date | value") {
 		std::cerr << BOLD<< "Error: invalid format for the first line \"" << line << "\"" <<  RESET << std::endl;
@@ -125,8 +104,7 @@ bool BitcoinExchange::checkConvertion(std::string line) {
 	return true;
 }
 
-
-/**************************************** FONCTIONS MEMBRES ****************************************/
+/*********************************************** DATA ***********************************************/
 
 void		BitcoinExchange::loadBitcoinPrices() {
 
@@ -151,6 +129,8 @@ void		BitcoinExchange::loadBitcoinPrices() {
 }
 
 void BitcoinExchange::calculateExchangeRate(std::string lineToPrint) {
+	loadBitcoinPrices();
+	
 	std::string::size_type pos = lineToPrint.find(" | ");
 	std::string date = lineToPrint.substr(0, pos); // Extraire la date
 	std::string valueStr = lineToPrint.substr(pos + 3); // Extraire la valeur sous forme de chaîne
@@ -160,7 +140,8 @@ void BitcoinExchange::calculateExchangeRate(std::string lineToPrint) {
 	double value;
 	iss >> value;
 
-	std::map<std::string, double>::iterator it = bitcoinPrices.lower_bound(date); // trouve la date la plus proche ou exacte
+	std::map<std::string, double>::iterator it;
+	it = bitcoinPrices.lower_bound(date); // trouve la date la plus proche ou exacte
 
 	if (it != bitcoinPrices.begin() && (it == bitcoinPrices.end() || it->first != date)) // recule pour obtenir la date précédente la plus proche
 		--it;
@@ -170,4 +151,28 @@ void BitcoinExchange::calculateExchangeRate(std::string lineToPrint) {
 	double conversionResult = value * price;
 
 	std::cout << date << " => " << value << " = " << conversionResult << std::endl;
+}
+
+
+/**************************************** FONCTIONS MEMBRES ****************************************/
+
+void BitcoinExchange::convertionExchangeRate(std::string inputFile) {
+	std::ifstream file(inputFile.c_str());
+	bool boolFirstLine = true;
+	if (!file.is_open()) {
+		std::cerr << "Error: can't open the file" << std::endl;
+		return;
+	}
+
+	std::string line;
+	while (std::getline(file, line)) {
+		if (boolFirstLine == true) {
+			if (!checkFirstLine(line))
+				break;
+			boolFirstLine = false;
+			continue;
+		}
+		if (checkFormaDate(line) && checkConvertion(line))
+			calculateExchangeRate(line);
+	}
 }

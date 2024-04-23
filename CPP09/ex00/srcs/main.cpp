@@ -10,8 +10,7 @@ int main(int ac, char **av) {
 	std::string inputFile = av[1];
 	BitcoinExchange exchange(inputFile);
 
-	exchange.loadBitcoinPrices();
-	exchange.parseInputFile(inputFile);
+	exchange.convertionExchangeRate(inputFile);
 
 	return 0;
 }

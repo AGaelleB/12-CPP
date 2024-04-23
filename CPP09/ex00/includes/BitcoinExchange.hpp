@@ -27,7 +27,6 @@ class BitcoinExchange {
 		std::string	getInputFile() const;
 
 		// parsing
-		void		parseInputFile(std::string inputFile);			// parsing du fichier d'entree
 		bool		checkFirstLine(std::string line);				// parsing format de la ligne (date | valeur)
 		bool		checkFormaDate(std::string line);				// parsing format de la date (YYYY-MM-DD)
 		bool		checkContentDate(std::string dateStr);			// parsing du contenur de la date 32j etc
@@ -37,6 +36,7 @@ class BitcoinExchange {
 		void		loadBitcoinPrices();							// Charge les prix du Bitcoin à partir du fichier CSV
 		void		calculateExchangeRate(std::string lineToPrint);	// Utilise la date trouvée pour calculer le taux de change
 
+		void		convertionExchangeRate(std::string inputFile);
 };
 
 #endif
