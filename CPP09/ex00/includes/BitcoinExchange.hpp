@@ -13,7 +13,7 @@ class BitcoinExchange {
 
 	private :
 		std::string	_inputFile;
-		std::map<std::string, double> bitcoinPrices; // Container map pour stocker les prix du Bitcoin
+		std::map<std::string, double> _bitcoinPrices; // Container map pour stocker les prix du Bitcoin
 	
 	public :
 
@@ -36,6 +36,7 @@ class BitcoinExchange {
 		void		loadBitcoinPrices();							// Charge les prix du Bitcoin à partir du fichier CSV
 		void		calculateExchangeRate(std::string lineToPrint);	// Utilise la date trouvée pour calculer le taux de change
 
+		// result
 		void		convertionExchangeRate(std::string inputFile);
 };
 
