@@ -74,7 +74,7 @@ bool RPN::isOperator(std::string const & token) const {
 	return (token == "+" || token == "-" || token == "*" || token == "/");
 }
 
-int RPN::performOperation(int operand1, int operand2, std::string const & op) {
+int RPN::doOperation(int operand1, int operand2, std::string const & op) {
 
 	if (op == "+") return operand1 + operand2;
 	else if (op == "-") return operand1 - operand2;
@@ -88,7 +88,7 @@ int RPN::performOperation(int operand1, int operand2, std::string const & op) {
 	throw std::runtime_error("Error: Unknown operator");
 }
 
-int RPN::calculate(std::string const & numbers) {
+int RPN::calculator(std::string const & numbers) {
 
 	std::istringstream iss(numbers);
 	std::string token;
@@ -102,7 +102,7 @@ int RPN::calculate(std::string const & numbers) {
 			_operands.pop();
 			int operand1 = _operands.top();
 			_operands.pop();
-			_operands.push(performOperation(operand1, operand2, token)); // Effectue l'opération et empile le résultat
+			_operands.push(doOperation(operand1, operand2, token)); // Effectue l'opération et empile le résultat
 		}
 		else {
 			_operands.push(std::atoi(token.c_str()));

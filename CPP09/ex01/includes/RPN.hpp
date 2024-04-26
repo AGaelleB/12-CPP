@@ -35,8 +35,8 @@ class RPN {
 
 		// calculs
 		bool		isOperator(std::string const & token) const;
-		int			performOperation(int operand1, int operand2, std::string const & op);
-		int			calculate(std::string const & numbers);
+		int			doOperation(int operand1, int operand2, std::string const & op);
+		int			calculator(std::string const & numbers);
 
 
 

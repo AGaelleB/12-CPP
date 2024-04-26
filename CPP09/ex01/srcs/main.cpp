@@ -13,8 +13,9 @@ int main(int ac, char **av) {
 
 	try {
 		RPNCalculator.parsing(numbers);
-		RPNCalculator.calculate(numbers);
-	} catch (const std::runtime_error& e) {
+		RPNCalculator.calculator(numbers);
+	}
+	catch (const std::runtime_error& e) {
 		std::cerr << e.what() << std::endl;
 		return 1;
 	}
