@@ -18,8 +18,8 @@
 class PmergeMe {
 
 	private :
-	std::vector<int>	_toBeSort; // pour stocker la séquence d'entiers non triés
-	std::list<int>		_hasBeenSort; // pour stocker la séquence triée
+	std::vector<int>	_sortVector;
+	std::list<int>		_sortList;
  
 
 	public :
@@ -40,6 +40,10 @@ class PmergeMe {
 
 
 		// sort std::list
+		std::list<int>::iterator	split(std::list<int>& source);
+		void						merge(std::list<int>& left, std::list<int>& right, std::list<int>& result);
+		void						mergeSort(std::list<int>& list);
+		clock_t						sortList();
 
 
 		// time
@@ -48,7 +52,10 @@ class PmergeMe {
 
 		// print
 		void	displayInput() const; // Pour afficher la séquence d'entiers non triés
-		void	displaySorted() const; // Pour afficher la séquence triée
+		void	displaySortedVector() const;
+		void	displaySortedList() const;
+
+
 
 		// execution
 		void	execPmergeMe(int ac, char **av);

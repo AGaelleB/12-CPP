@@ -22,10 +22,6 @@ PmergeMe::~PmergeMe() {
 }
 
 
-/**************************************** GETTERS / SETTERS ****************************************/
-
-
-
 /********************************************* PARSING *********************************************/
 
 int PmergeMe::parseInput(int ac, char **av) {
@@ -51,14 +47,14 @@ int PmergeMe::parseInput(int ac, char **av) {
 		}
 
 		// Vérif si doublons de nb
-		for (std::vector<int>::size_type j = 0; j < _toBeSort.size(); j++) {
-			if (_toBeSort[j] == static_cast<int>(num)) {
-				std::cerr << "Error: Duplicate number for number [" << _toBeSort[j] << "]" << std::endl;
+		for (std::vector<int>::size_type j = 0; j < _sortVector.size(); j++) {
+			if (_sortVector[j] == static_cast<int>(num)) {
+				std::cerr << "Error: Duplicate number for number [" << _sortVector[j] << "]" << std::endl;
 				return 1;
 			}
 		}
 
-		_toBeSort.push_back(static_cast<int>(num));
+		_sortVector.push_back(static_cast<int>(num));
 	}
 	return 0;
 }
@@ -120,7 +116,7 @@ clock_t PmergeMe::sortVector() {
 	int minSize = 16; // Seuil pour basculer vers le tri par insertion
 	clock_t start = clock();  // Début de la mesure du temps
 
-	mergeSort(_toBeSort, 0, _toBeSort.size() - 1, minSize);  // Exécution du tri
+	mergeSort(_sortVector, 0, _sortVector.size() - 1, minSize);  // Exécution du tri
 
 	clock_t end = clock();  // Fin de la mesure du temps
 	return end - start;  // Renvoie le temps écoulé en ticks
@@ -130,41 +126,124 @@ clock_t PmergeMe::sortVector() {
 
 /******************************************** SORT LIST ********************************************/
 
+// Fonction pour diviser une liste
+std::list<int>::iterator PmergeMe::split(std::list<int>& source) {
+	std::list<int>::iterator fast = source.begin();
+	std::list<int>::iterator slow = source.begin();
+	// Avancer `fast` de deux pas à chaque itération, et `slow` d'un pas.
+	while (fast != source.end() && ++fast != source.end()) {
+		++fast;
+		++slow;
+	}
+	return slow;
+}
 
+
+// Fonction pour fusionner deux listes
+void PmergeMe::merge(std::list<int>& left, std::list<int>& right, std::list<int>& result) {
+	std::list<int>::iterator it_left = left.begin();
+	std::list<int>::iterator it_right = right.begin();
+	while (it_left != left.end() && it_right != right.end()) {
+		if (*it_left <= *it_right) {
+			result.push_back(*it_left);
+			++it_left;
+		} else {
+			result.push_back(*it_right);
+			++it_right;
+		}
+	}
+	while (it_left != left.end()) {
+		result.push_back(*it_left);
+		++it_left;
+	}
+	while (it_right != right.end()) {
+		result.push_back(*it_right);
+		++it_right;
+	}
+}
+
+
+//Fonction pour le tri fusion sur une liste
+void PmergeMe::mergeSort(std::list<int>& list) {
+	if (list.size() <= 1) return;  // Cas de base, la liste est déjà triée
+
+	std::list<int> left;
+	std::list<int> right;
+	std::list<int>::iterator mid = split(list);
+
+	// Diviser la liste en deux moitiés 'left' et 'right'
+	left.splice(left.begin(), list, list.begin(), mid);
+	right.splice(right.begin(), list, mid, list.end());
+
+	mergeSort(left);
+	mergeSort(right);
+
+	// Fusionner les deux listes triées dans la liste originale
+	list.clear();
+	merge(left, right, list);
+}
+
+
+clock_t PmergeMe::sortList() {
+	clock_t start = clock();
+
+	mergeSort(_sortList);
+
+	clock_t end = clock();
+	return end - start;
+}
 
 
 /*********************************************** TIME **********************************************/
 
 void PmergeMe::printTimeVector(clock_t timeElapsed, size_t nbElements) {
-	double timeInSeconds = static_cast<double>(timeElapsed) / CLOCKS_PER_SEC;  // Convertir les ticks en secondes
-	double timeInMilliseconds = timeInSeconds * 1000;  // Convertir les secondes en millisecondes
-	std::cout << BOLD << "Time to process a range of " << nbElements << " elements with std::vector: " << RESET
-	<< std::fixed << std::setprecision(5) << timeInMilliseconds << " ms" << std::endl;
+
+	double timeInSec;
+	double timeInMs;
+
+	timeInSec = static_cast<double>(timeElapsed) / CLOCKS_PER_SEC;
+	timeInMs = timeInSec * 1000;
+
+	std::cout << BOLD << "Time to process a range of " << nbElements << " elements with std::vector:	" << RESET
+	<< std::fixed << std::setprecision(5) << timeInMs << " ms" << std::endl;
 }
 
 void PmergeMe::printTimeList(clock_t timeElapsed, size_t nbElements) {
-	double timeInSeconds = static_cast<double>(timeElapsed) / CLOCKS_PER_SEC;
-	double timeInMilliseconds = timeInSeconds * 1000;
-	std::cout << BOLD << "Time to process a range of " << nbElements << " elements with std::list: " << RESET
-	<< std::fixed << std::setprecision(5) << timeInMilliseconds << " ms" << std::endl;
+
+	double timeInSec;
+	double timeInMs;
+
+	timeInSec = static_cast<double>(timeElapsed) / CLOCKS_PER_SEC;
+	timeInMs = timeInSec * 1000;
+
+	std::cout << BOLD << "Time to process a range of " << nbElements << " elements with std::list:	" << RESET
+	<< std::fixed << std::setprecision(5) << timeInMs << " ms" << std::endl;
 }
+
 
 /********************************************** PRINT **********************************************/
 
 
 void PmergeMe::displayInput() const {
 
-	std::cout << RED << "Before sort:	";
-	for (size_t i = 0; i < _toBeSort.size(); ++i) {
-		std::cout << "[" << _toBeSort[i] << "] ";
+	std::cout << RED << "\nBefore sort:				";
+	for (size_t i = 0; i < _sortVector.size(); ++i) {
+		std::cout << "[" << _sortVector[i] << "] ";
+	}
+	std::cout << RESET << std::endl << std::endl;
+}
+
+void PmergeMe::displaySortedVector() const {
+	std::cout << GREEN << "After sort with Vector container:	";
+	for (size_t i = 0; i < _sortVector.size(); ++i) {
+		std::cout << "[" << _sortVector[i] << "] ";
 	}
 	std::cout << RESET << std::endl;
 }
 
-
-void PmergeMe::displaySorted() const {
-	std::cout << GREEN << "After sort:	";
-	for (std::list<int>::const_iterator it = _hasBeenSort.begin(); it != _hasBeenSort.end(); it++) {
+void PmergeMe::displaySortedList() const {
+	std::cout << GREEN << "After sort with List container:		";
+	for (std::list<int>::const_iterator it = _sortList.begin(); it != _sortList.end(); ++it) {
 		std::cout << "[" << *it << "] ";
 	}
 	std::cout << RESET << std::endl;
@@ -175,23 +254,27 @@ void PmergeMe::displaySorted() const {
 
 
 void PmergeMe::execPmergeMe(int ac, char **av) {
-
 	if (parseInput(ac, av) == 1)
 		return;
 
-	std::cout << BLUE << "\n~~~ Ford-Johnson algorithm sort with std::vector ~~~\n" << RESET << std::endl;
+	std::cout << BLUE << "\n	~~~ Ford-Johnson algorithm sort ~~~\n" << RESET << std::endl;
 	displayInput();
-	clock_t timeElapsed = sortVector();	// Capture le temps de tri et affiche les résultats triés
-	_hasBeenSort.clear();  // Transfert des éléments triés du vector à la list
-	for (size_t i = 0; i < _toBeSort.size(); ++i) {
-		_hasBeenSort.push_back(_toBeSort[i]);
+
+	// Tri et affichage pour std::vector
+	clock_t timeElapsedVector = sortVector();
+	displaySortedVector();
+	printTimeVector(timeElapsedVector, _sortVector.size());
+
+	// Préparation pour le tri avec std::list
+	_sortList.clear();  // Nettoyez la liste avant de transférer les éléments
+	for (std::vector<int>::iterator it = _sortVector.begin(); it != _sortVector.end(); ++it) {
+		_sortList.push_back(*it);  // Copie des éléments triés dans _sortList
 	}
-	displaySorted();
-	printTimeVector(timeElapsed, _toBeSort.size());
 
+	std::cout << std::endl;
 
-	std::cout << BLUE << "\n\n~~~ Ford-Johnson algorithm sort with std::list ~~~\n" << RESET << std::endl;
-
-
+	// Tri et affichage pour std::list
+	clock_t timeElapsedList = sortList();
+	displaySortedList();
+	printTimeList(timeElapsedList, _sortList.size());
 }
-

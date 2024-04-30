@@ -20,23 +20,26 @@ int main(int ac, char **av) {
 
 /* 
 	Algorithme de tri "merge-insert" :
-
-	Combinaison de l'algorithme de tri fusion et de l'algorithme de tri par insertion.
-	Divise la liste en sous-listes de taille appropriée pour le tri par insertion.
-	Trie chaque sous-liste en utilisant l'algorithme de tri par insertion.
-	Fusionne les sous-listes triées pour obtenir la liste entière triée.
-	Avantages : tire parti des avantages du tri fusion pour diviser la liste et de l'efficacité du tri par insertion pour trier les sous-listes de petite taille.
-	Peut offrir des performances optimales pour les listes partiellement triées ou de petite taille.
-
+	Combinaison de tri par insertion et tri par fusion.
+	Utilise le tri par insertion pour les petits segments (efficace sur de petits ensembles).
+	Utilise le tri par fusion pour combiner les segments (efficace sur de grands ensembles).
 
 	Algorithme Ford-Johnson :
+	Connu aussi sous le nom de tri par paire.
+	Réduit le nombre de comparaisons nécessaires.
+	Organise les éléments en paires, les trie, puis les regroupe stratégiquement pour optimiser les comparaisons.
+ */
 
-	Implémentation spécifique de l'algorithme de tri "merge-insert".
-	Divise la liste en sous-listes de taille appropriée pour le tri par insertion.
-	Trie chaque sous-liste en utilisant l'algorithme de tri par insertion.
-	Fusionne les sous-listes triées pour obtenir la liste entière triée.
-	Porte le nom de ses inventeurs, Donald B. Johnson et Selmer M. Johnson.
-	Vise à combiner les avantages du tri fusion et du tri par insertion pour des performances optimales de tri.
-	Utilisé dans divers contextes où des performances de tri efficaces sont nécessaires.
 
+/* 
+	std::vector
+	Accès rapide : Permet un accès rapide aux éléments par indexation.
+	Efficient pour la lecture : Bon pour les opérations qui accèdent souvent à des éléments de manière séquentielle.
+	
+	std::list
+	Modifications efficaces : Idéal pour les insertions et suppressions fréquentes, car il ne nécessite pas de déplacer les autres éléments.
+	Flexibilité : Permet des modifications n'importe où dans la liste sans coût élevé.
+	
+	Utilisation conjointe
+	Complémentarité : std::vector est optimal pour l'accès, tandis que std::list est optimal pour les modifications fréquentes, combinant efficacité en lecture et flexibilité en écriture.
  */
