@@ -60,65 +60,94 @@ int PmergeMe::parseInput(int ac, char **av) {
 }
 
 
+
 /******************************************* SORT VECTOR *******************************************/
 
-void PmergeMe::insertionSort(std::vector<int>& arr, int left, int right) {
-	for (int i = left + 1; i <= right; i++) {
-		int key = arr[i];
-		int j = i - 1;
-		while (j >= left && arr[j] > key) {
-			arr[j + 1] = arr[j];
-			j--;
-		}
-		arr[j + 1] = key;
+void PmergeMe::minMax(std::vector<int>& arr, int a, int b) {
+	if (arr[a] > arr[b]) {
+		std::swap(arr[a], arr[b]);  // S'assurer que la paire est ordonnée (min, max)
 	}
 }
 
-void PmergeMe::merge(std::vector<int>& arr, int l, int m, int r) {
-	std::vector<int> left(arr.begin() + l, arr.begin() + m + 1);
-	std::vector<int> right(arr.begin() + m + 1, arr.begin() + r + 1);
-	
-	size_t i = 0, j = 0;  // Change 'int' to 'size_t' for i and j
-	int k = l;
-	while (i < left.size() && j < right.size()) {
-		if (left[i] <= right[j]) {
-			arr[k++] = left[i++];
+void PmergeMe::merge(std::vector<int>& arr, int left, int mid, int right) {
+	std::vector<int> temp(right - left + 1);
+
+	int i = left;
+	int j = mid + 1;
+	int k = 0;
+
+	// Fusionner les deux moitiés dans temp[]
+	while (i <= mid && j <= right) {
+		if (arr[i] <= arr[j]) {
+			temp[k++] = arr[i++];
 		} else {
-			arr[k++] = right[j++];
+			temp[k++] = arr[j++];
 		}
 	}
 
-	while (i < left.size()) {
-		arr[k++] = left[i++];
+	// Copier les éléments restants de la première moitié, s'il y en a
+	while (i <= mid) {
+		temp[k++] = arr[i++];
 	}
 
-	while (j < right.size()) {
-		arr[k++] = right[j++];
+	// Copier les éléments restants de la deuxième moitié, s'il y en a
+	while (j <= right) {
+		temp[k++] = arr[j++];
+	}
+
+	// Copier les éléments de temp[] à arr[]
+	for (i = left, k = 0; i <= right; i++, k++) {
+		arr[i] = temp[k];
 	}
 }
 
 
-void PmergeMe::mergeSort(std::vector<int>& arr, int l, int r, int minSize) {
-	if (l < r) {
-		if (r - l + 1 <= minSize) {
-			insertionSort(arr, l, r); // Use insertion sort for small segments
-		} else {
-			int m = l + (r - l) / 2;
-			mergeSort(arr, l, m, minSize);
-			mergeSort(arr, m + 1, r, minSize);
-			merge(arr, l, m, r);
+
+
+void PmergeMe::fordJohnson(std::vector<int>& arr, int left, int right) {
+
+	// Debugging: Affiche l'état actuel du tableau
+	std::cout << "Handling range [" << left << ", " << right << "]: ";
+	for (int i = left; i <= right; ++i) {
+		std::cout << arr[i] << " ";
+	}
+	std::cout << std::endl;
+
+	// Étape 1: Comparer les éléments en paires
+	if (right - left + 1 <= 2) {  // Cas de base pour les paires ou les éléments uniques
+		if (right > left) minMax(arr, left, right);  // Comparaison et échange si nécessaire
+		return;
+	}
+
+	// Étape 2: Construction de l'arbre de tournoi
+	int mid = (left + right) / 2;
+	// Compare les éléments à travers le milieu pour construire l'arbre de tournoi
+	for (int i = left; i <= mid; ++i) {
+		int j = mid + 1 + (i - left); // Comparer les éléments en formant des paires minimales
+		if (j <= right) { // Ajoutez cette vérification pour vous assurer que j ne dépasse pas right
+			minMax(arr, i, j);
 		}
 	}
+
+	// Étape 3: Placer l'élément minimal et répéter
+	fordJohnson(arr, left, mid);  // Tri récursif de la première moitié
+	fordJohnson(arr, mid + 1, right);  // Tri récursif de la seconde moitié
+
+	merge(arr, left, mid, right);  // Merge les deux sous-ensembles triés pour maintenir l'ordre
+
+
+}
+
+void PmergeMe::sortVectorFordJohnson() {
+	if (_sortVector.size() < 2) return;  // Gestion du cas où il n'y a rien ou un seul élément à trier
+	fordJohnson(_sortVector, 0, _sortVector.size() - 1);
 }
 
 
 clock_t PmergeMe::sortVector() {
-	int minSize = 16; // Seuil pour basculer vers le tri par insertion
-	clock_t start = clock();  // Début de la mesure du temps
-
-	mergeSort(_sortVector, 0, _sortVector.size() - 1, minSize);  // Exécution du tri
-
-	clock_t end = clock();  // Fin de la mesure du temps
+	clock_t start = clock();  // Commence le chronométrage
+	sortVectorFordJohnson();  // Exécute le tri Ford-Johnson
+	clock_t end = clock();  // Termine le chronométrage
 	return end - start;  // Renvoie le temps écoulé en ticks
 }
 
@@ -251,6 +280,7 @@ void PmergeMe::displaySortedList() const {
 
 
 /******************************************** EXECUTION ********************************************/
+
 
 
 void PmergeMe::execPmergeMe(int ac, char **av) {

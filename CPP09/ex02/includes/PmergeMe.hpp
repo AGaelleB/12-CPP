@@ -10,6 +10,7 @@
 #include <cctype>
 #include <ctime>
 #include <iomanip>
+#include <algorithm>
 
 #include "Colors.hpp"
 
@@ -33,18 +34,17 @@ class PmergeMe {
 		int		parseInput(int ac, char **av);
 
 		// sort std::vector
-		void	insertionSort(std::vector<int>& arr, int left, int right);
-		void	merge(std::vector<int>& arr, int l, int m, int r);
-		void	mergeSort(std::vector<int>& arr, int l, int r, int minSize);
+		void	minMax(std::vector<int>& arr, int a, int b);
+		void	merge(std::vector<int>& arr, int left, int mid, int right);
+		void	fordJohnson(std::vector<int>& arr, int left, int right);
+		void	sortVectorFordJohnson();
 		clock_t	sortVector();
-
 
 		// sort std::list
 		std::list<int>::iterator	split(std::list<int>& source);
 		void						merge(std::list<int>& left, std::list<int>& right, std::list<int>& result);
 		void						mergeSort(std::list<int>& list);
 		clock_t						sortList();
-
 
 		// time
 		void printTimeVector(clock_t timeElapsed, size_t nbElements);
@@ -54,8 +54,6 @@ class PmergeMe {
 		void	displayInput() const; // Pour afficher la séquence d'entiers non triés
 		void	displaySortedVector() const;
 		void	displaySortedList() const;
-
-
 
 		// execution
 		void	execPmergeMe(int ac, char **av);

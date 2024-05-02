@@ -28,6 +28,12 @@ int main(int ac, char **av) {
 	Connu aussi sous le nom de tri par paire.
 	Réduit le nombre de comparaisons nécessaires.
 	Organise les éléments en paires, les trie, puis les regroupe stratégiquement pour optimiser les comparaisons.
+ 
+	Principe de base du tri Ford-Johnson :
+	1.Diviser : Divisez les données en paires et triez chaque paire.
+	2.Construire un arbre de tournoi : Utilisez les éléments plus petits de chaque paire pour construire un arbre de tournoi et déterminer l'élément le plus petit.
+	3.Positionner : Une fois l'élément le plus petit trouvé, utilisez l'autre élément de sa paire pour aider à positionner le prochain élément le plus petit en utilisant le moins de comparaisons.
+ 
  */
 
 
