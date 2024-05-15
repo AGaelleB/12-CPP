@@ -34,17 +34,18 @@ class PmergeMe {
 		int		parseInput(int ac, char **av);
 
 		// sort std::vector
-		void	minMax(std::vector<int>& arr, int a, int b);
-		void	merge(std::vector<int>& arr, int left, int mid, int right);
-		void	fordJohnson(std::vector<int>& arr, int left, int right);
-		void	sortVectorFordJohnson();
-		clock_t	sortVector();
+		void	minMaxVector(std::vector<int>& arr, int a, int b);
+		void	mergeVector(std::vector<int>& arr, int left, int mid, int right);
+		void	fordJohnsonSortVector(std::vector<int>& arr, int left, int right);
+		void	executeFordJohnsonSortVector();
+		clock_t	sortVectorTime();
 
 		// sort std::list
-		std::list<int>::iterator	split(std::list<int>& source);
-		void						merge(std::list<int>& left, std::list<int>& right, std::list<int>& result);
-		void						mergeSort(std::list<int>& list);
-		clock_t						sortList();
+		void						minMaxList(std::list<int>::iterator a, std::list<int>::iterator b);
+		std::list<int>::iterator	findMiddle(std::list<int> &lst, int size);
+		void						fordJohnsonList(std::list<int>& lst);
+		void						executeFordJohnsonSortList();
+		clock_t						sortListTime();
 
 		// time
 		void printTimeVector(clock_t timeElapsed, size_t nbElements);

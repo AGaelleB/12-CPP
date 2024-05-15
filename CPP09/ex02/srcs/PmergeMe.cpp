@@ -60,16 +60,16 @@ int PmergeMe::parseInput(int ac, char **av) {
 }
 
 
-
 /******************************************* SORT VECTOR *******************************************/
 
-void PmergeMe::minMax(std::vector<int>& arr, int a, int b) {
+// Fonction pour comparer et ordonner les paires
+void PmergeMe::minMaxVector(std::vector<int>& arr, int a, int b) {
 	if (arr[a] > arr[b]) {
 		std::swap(arr[a], arr[b]);  // S'assurer que la paire est ordonnée (min, max)
 	}
 }
 
-void PmergeMe::merge(std::vector<int>& arr, int left, int mid, int right) {
+void PmergeMe::mergeVector(std::vector<int>& arr, int left, int mid, int right) {
 	std::vector<int> temp(right - left + 1);
 
 	int i = left;
@@ -101,18 +101,18 @@ void PmergeMe::merge(std::vector<int>& arr, int left, int mid, int right) {
 	}
 }
 
-void PmergeMe::fordJohnson(std::vector<int>& arr, int left, int right) {
+void PmergeMe::fordJohnsonSortVector(std::vector<int>& arr, int left, int right) {
 
-	// Debugging: Affiche l'état actuel du tableau
+/* 	// Debugging: Affiche l'état actuel du tableau
 	std::cout << "Handling range [" << left << ", " << right << "]: ";
 	for (int i = left; i <= right; ++i) {
 		std::cout << arr[i] << " ";
 	}
-	std::cout << std::endl;
+	std::cout << std::endl; */
 
 	// Étape 1: Comparer les éléments en paires
 	if (right - left + 1 <= 2) {  // Cas de base pour les paires ou les éléments uniques
-		if (right > left) minMax(arr, left, right);  // Comparaison et échange si nécessaire
+		if (right > left) minMaxVector(arr, left, right);  // Comparaison et échange si nécessaire
 		return;
 	}
 
@@ -121,103 +121,107 @@ void PmergeMe::fordJohnson(std::vector<int>& arr, int left, int right) {
 	// Compare les éléments à travers le milieu pour construire l'arbre de tournoi
 	for (int i = left; i <= mid; ++i) {
 		int j = mid + 1 + (i - left); // Comparer les éléments en formant des paires minimales
-		if (j <= right) { // Ajoutez cette vérification pour vous assurer que j ne dépasse pas right
-			minMax(arr, i, j);
-		}
+		if (j <= right)
+			minMaxVector(arr, i, j);
 	}
 
 	// Étape 3: Placer l'élément minimal et répéter
-	fordJohnson(arr, left, mid);  // Tri récursif de la première moitié
-	fordJohnson(arr, mid + 1, right);  // Tri récursif de la seconde moitié
+	fordJohnsonSortVector(arr, left, mid);  // Tri récursif de la première moitié
+	fordJohnsonSortVector(arr, mid + 1, right);  // Tri récursif de la seconde moitié
 
-	merge(arr, left, mid, right);  // Merge les deux sous-ensembles triés pour maintenir l'ordre
-
-
+	mergeVector(arr, left, mid, right);  // Merge les deux sous-ensembles triés pour maintenir l'ordre
 }
 
-void PmergeMe::sortVectorFordJohnson() {
-	if (_sortVector.size() < 2) return;  // Gestion du cas où il n'y a rien ou un seul élément à trier
-	fordJohnson(_sortVector, 0, _sortVector.size() - 1);
+void PmergeMe::executeFordJohnsonSortVector() {
+	fordJohnsonSortVector(_sortVector, 0, _sortVector.size() - 1);
 }
 
 
-clock_t PmergeMe::sortVector() {
-	clock_t start = clock();  // Commence le chronométrage
-	sortVectorFordJohnson();  // Exécute le tri Ford-Johnson
-	clock_t end = clock();  // Termine le chronométrage
-	return end - start;  // Renvoie le temps écoulé en ticks
+clock_t PmergeMe::sortVectorTime() {
+	clock_t	start = clock();  // Commence le chronométrage
+	executeFordJohnsonSortVector();  // Exécute le tri Ford-Johnson
+	clock_t	end = clock();  // Termine le chronométrage
+	return (end - start);  // Renvoie le temps écoulé en ticks
 }
 
 
 
 /******************************************** SORT LIST ********************************************/
 
-// Fonction pour diviser une liste
-std::list<int>::iterator PmergeMe::split(std::list<int>& source) {
-	std::list<int>::iterator fast = source.begin();
-	std::list<int>::iterator slow = source.begin();
-	// Avancer `fast` de deux pas à chaque itération, et `slow` d'un pas.
-	while (fast != source.end() && ++fast != source.end()) {
-		++fast;
-		++slow;
+
+// Fonction pour comparer et échanger deux éléments pointés par des itérateurs
+void PmergeMe::minMaxList(std::list<int>::iterator a, std::list<int>::iterator b) {
+	if (*a > *b) {
+		std::iter_swap(a, b);
 	}
-	return slow;
 }
 
 
-// Fonction pour fusionner deux listes
-void PmergeMe::merge(std::list<int>& left, std::list<int>& right, std::list<int>& result) {
-	std::list<int>::iterator it_left = left.begin();
-	std::list<int>::iterator it_right = right.begin();
-	while (it_left != left.end() && it_right != right.end()) {
-		if (*it_left <= *it_right) {
-			result.push_back(*it_left);
-			++it_left;
-		} else {
-			result.push_back(*it_right);
-			++it_right;
+// Fonction pour trouver le milieu d'une liste
+std::list<int>::iterator PmergeMe::findMiddle(std::list<int> &lst, int size) {
+	std::list<int>::iterator mid = lst.begin();
+	std::advance(mid, size / 2);
+	return mid;
+}
+
+// Fonction récursive pour trier la liste
+void PmergeMe::fordJohnsonList(std::list<int>& lst) {
+	int size = std::distance(lst.begin(), lst.end());
+	if (size <= 2) {
+		if (size == 2) {
+			std::list<int>::iterator first = lst.begin();
+			std::list<int>::iterator second = lst.begin();
+			++second;
+			minMaxList(first, second);
 		}
+		return;
 	}
-	while (it_left != left.end()) {
-		result.push_back(*it_left);
-		++it_left;
-	}
-	while (it_right != right.end()) {
-		result.push_back(*it_right);
-		++it_right;
-	}
-}
 
+	std::list<int>::iterator mid = findMiddle(lst, size);
+	std::list<int>::iterator midPlusOne = mid;
+	++midPlusOne;
 
-//Fonction pour le tri fusion sur une liste
-void PmergeMe::mergeSort(std::list<int>& list) {
-	if (list.size() <= 1) return;  // Cas de base, la liste est déjà triée
+	std::list<int>::iterator it1 = lst.begin();
+	std::list<int>::iterator it2 = midPlusOne;
+	while (it1 != midPlusOne && it2 != lst.end()) {
+		minMaxList(it1, it2);
+		++it1;
+		++it2;
+	}
 
 	std::list<int> left;
+	std::list<int>::iterator it = lst.begin();
+	while (it != midPlusOne) {
+		left.push_back(*it);
+		++it;
+	}
+	
 	std::list<int> right;
-	std::list<int>::iterator mid = split(list);
+	it = midPlusOne;
+	while (it != lst.end()) {
+		right.push_back(*it);
+		++it;
+	}
 
-	// Diviser la liste en deux moitiés 'left' et 'right'
-	left.splice(left.begin(), list, list.begin(), mid);
-	right.splice(right.begin(), list, mid, list.end());
+	fordJohnsonList(left);
+	fordJohnsonList(right);
 
-	mergeSort(left);
-	mergeSort(right);
-
-	// Fusionner les deux listes triées dans la liste originale
-	list.clear();
-	merge(left, right, list);
+	lst.clear();
+	lst.insert(lst.end(), left.begin(), left.end());
+	lst.insert(lst.end(), right.begin(), right.end());
 }
 
+void PmergeMe::executeFordJohnsonSortList() {
+	fordJohnsonList(_sortList);
+}
 
-clock_t PmergeMe::sortList() {
+clock_t PmergeMe::sortListTime() {
 	clock_t start = clock();
-
-	mergeSort(_sortList);
-
+	executeFordJohnsonSortList();
 	clock_t end = clock();
-	return end - start;
+	return (end - start);
 }
+
 
 
 /*********************************************** TIME **********************************************/
@@ -288,7 +292,7 @@ void PmergeMe::execPmergeMe(int ac, char **av) {
 	displayInput();
 
 	// Tri et affichage pour std::vector
-	clock_t timeElapsedVector = sortVector();
+	clock_t timeElapsedVector = sortVectorTime();
 	displaySortedVector();
 	printTimeVector(timeElapsedVector, _sortVector.size());
 
@@ -301,7 +305,7 @@ void PmergeMe::execPmergeMe(int ac, char **av) {
 	std::cout << std::endl;
 
 	// Tri et affichage pour std::list
-	clock_t timeElapsedList = sortList();
+	clock_t timeElapsedList = sortListTime();
 	displaySortedList();
 	printTimeList(timeElapsedList, _sortList.size());
 }
