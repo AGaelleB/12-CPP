@@ -1,6 +1,7 @@
 #include "../includes/PmergeMe.hpp"
 #include "../includes/Colors.hpp"
 
+// ./PmergeMe `shuf -i 1-100 -n 10`
 
 int main(int ac, char **av) {
 
@@ -12,7 +13,6 @@ int main(int ac, char **av) {
 	PmergeMe	list;
 
 	list.execPmergeMe(ac, av);
-
 
 	return 0;
 }

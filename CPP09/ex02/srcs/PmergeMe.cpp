@@ -101,9 +101,6 @@ void PmergeMe::merge(std::vector<int>& arr, int left, int mid, int right) {
 	}
 }
 
-
-
-
 void PmergeMe::fordJohnson(std::vector<int>& arr, int left, int right) {
 
 	// Debugging: Affiche l'état actuel du tableau
@@ -308,3 +305,5 @@ void PmergeMe::execPmergeMe(int ac, char **av) {
 	displaySortedList();
 	printTimeList(timeElapsedList, _sortList.size());
 }
+
+// question tu utilise le merge insert ou ford johson, c est different mais pas clair dans le sujet 
