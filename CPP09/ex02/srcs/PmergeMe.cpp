@@ -152,35 +152,36 @@ clock_t PmergeMe::sortVectorTime() {
 // Fonction pour comparer et échanger deux éléments pointés par des itérateurs
 void PmergeMe::minMaxList(std::list<int>::iterator a, std::list<int>::iterator b) {
 	if (*a > *b) {
-		std::iter_swap(a, b);
+		std::iter_swap(a, b);  // Échange les éléments si nécessaire pour ordonner la paire (min, max)
 	}
 }
 
-
-// Fonction pour trouver le milieu d'une liste
+// Fonction pour trouver le milieu d'une liste, utilisée pour diviser la liste en deux sous-listes
 std::list<int>::iterator PmergeMe::findMiddle(std::list<int> &lst, int size) {
 	std::list<int>::iterator mid = lst.begin();
-	std::advance(mid, size / 2);
+	std::advance(mid, size / 2);  // Avance l'itérateur de la moitié de la taille de la liste
 	return mid;
 }
 
-// Fonction récursive pour trier la liste
+// Fonction récursive pour trier la liste utilisant l'algorithme de Ford-Johnson
 void PmergeMe::fordJohnsonList(std::list<int>& lst) {
-	int size = std::distance(lst.begin(), lst.end());
-	if (size <= 2) {
+	int size = std::distance(lst.begin(), lst.end());  // Calculer la taille de la liste
+	if (size <= 2) {  // Si la liste contient deux éléments ou moins
 		if (size == 2) {
 			std::list<int>::iterator first = lst.begin();
 			std::list<int>::iterator second = lst.begin();
 			++second;
-			minMaxList(first, second);
+			minMaxList(first, second);  // Comparer et éventuellement échanger les deux éléments
 		}
 		return;
 	}
 
+	// Étape 2: Construction de l'arbre de tournoi
 	std::list<int>::iterator mid = findMiddle(lst, size);
 	std::list<int>::iterator midPlusOne = mid;
 	++midPlusOne;
 
+	// Comparer les éléments à travers le milieu pour construire l'arbre de tournoi
 	std::list<int>::iterator it1 = lst.begin();
 	std::list<int>::iterator it2 = midPlusOne;
 	while (it1 != midPlusOne && it2 != lst.end()) {
@@ -189,6 +190,7 @@ void PmergeMe::fordJohnsonList(std::list<int>& lst) {
 		++it2;
 	}
 
+	// Diviser la liste en deux moitiés et trier chacune récursivement
 	std::list<int> left;
 	std::list<int>::iterator it = lst.begin();
 	while (it != midPlusOne) {
@@ -206,20 +208,21 @@ void PmergeMe::fordJohnsonList(std::list<int>& lst) {
 	fordJohnsonList(left);
 	fordJohnsonList(right);
 
+	// Étape 3: Fusion des listes triées
 	lst.clear();
 	lst.insert(lst.end(), left.begin(), left.end());
 	lst.insert(lst.end(), right.begin(), right.end());
 }
 
 void PmergeMe::executeFordJohnsonSortList() {
-	fordJohnsonList(_sortList);
+	fordJohnsonList(_sortList);  // Lancer le tri Ford-Johnson sur la liste
 }
 
 clock_t PmergeMe::sortListTime() {
-	clock_t start = clock();
-	executeFordJohnsonSortList();
-	clock_t end = clock();
-	return (end - start);
+	clock_t start = clock();  // Début du chronométrage
+	executeFordJohnsonSortList();  // Exécution du tri
+	clock_t end = clock();  // Fin du chronométrage
+	return (end - start);  // Renvoie le temps écoulé en ticks
 }
 
 
@@ -310,4 +313,3 @@ void PmergeMe::execPmergeMe(int ac, char **av) {
 	printTimeList(timeElapsedList, _sortList.size());
 }
 
-// question tu utilise le merge insert ou ford johson, c est different mais pas clair dans le sujet 
