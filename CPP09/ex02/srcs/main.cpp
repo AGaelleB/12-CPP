@@ -48,7 +48,7 @@ int main(int ac, char **av) {
 	Modifications efficaces : Idéal pour les insertions et suppressions fréquentes, car il ne nécessite pas de déplacer les autres éléments.
 	Flexibilité : Permet des modifications n'importe où dans la liste sans coût élevé.
 	Caractéristiques + :  éléments sous forme de liste doublement chaînée, ce qui permet des insertions et suppressions rapides à n'importe quel point de la liste sans nécessiter de déplacements d'autres éléments
-	Caractéristiques - : l'accès aux éléments n'est pas aussi rapide que dans un vecteur car il faut parcourir la liste
+	Caractéristiques - : étant une liste chaînée, doit allouer de la mémoire pour chaque nouvel élément (ou nœud), ce qui peut entraîner des allocations plus fréquentes et dispersées.
 
 	Utilisation conjointe
 	Complémentarité : std::vector est optimal pour l'accès, tandis que std::list est optimal pour les modifications fréquentes, combinant efficacité en lecture et flexibilité en écriture.

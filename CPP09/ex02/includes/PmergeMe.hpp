@@ -43,7 +43,7 @@ class PmergeMe {
 		// sort std::list
 		void						minMaxList(std::list<int>::iterator a, std::list<int>::iterator b);
 		std::list<int>::iterator	findMiddle(std::list<int> &lst, int size);
-		void						fordJohnsonList(std::list<int>& lst);
+		void						fordJohnsonSortList(std::list<int>& lst);
 		void						executeFordJohnsonSortList();
 		clock_t						sortListTime();
 
@@ -55,6 +55,7 @@ class PmergeMe {
 		void						displayInput() const; // Pour afficher la séquence d'entiers non triés
 		void						displaySortedVector() const;
 		void						displaySortedList() const;
+		void						compareResults();
 
 		// execution
 		void						execPmergeMe(int ac, char **av);
