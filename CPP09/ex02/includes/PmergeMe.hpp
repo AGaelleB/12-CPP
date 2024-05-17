@@ -35,15 +35,12 @@ class PmergeMe {
 
 		// sort std::vector
 		void						minMaxVector(std::vector<int>& arr, int a, int b);
-		void						mergeVector(std::vector<int>& arr, int left, int mid, int right);
-		void						fordJohnsonSortVector(std::vector<int>& arr, int left, int right);
+		std::vector<int>			fordJohnsonSortVector(std::vector<int> v);
 		void						executeFordJohnsonSortVector();
 		clock_t						sortVectorTime();
 
 		// sort std::list
-		void						minMaxList(std::list<int>::iterator a, std::list<int>::iterator b);
-		std::list<int>::iterator	findMiddle(std::list<int> &lst, int size);
-		void						fordJohnsonSortList(std::list<int>& lst);
+		std::list<int> 				fordJohnsonSortList(std::list<int> l);
 		void						executeFordJohnsonSortList();
 		clock_t						sortListTime();
 
@@ -55,12 +52,10 @@ class PmergeMe {
 		void						displayInput() const; // Pour afficher la séquence d'entiers non triés
 		void						displaySortedVector() const;
 		void						displaySortedList() const;
-		void						compareResults();
+		void						compareResults(clock_t vectorTime, clock_t listTime);
 
 		// execution
 		void						execPmergeMe(int ac, char **av);
-
-
 };
 
 #endif
