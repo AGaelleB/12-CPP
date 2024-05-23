@@ -4,7 +4,6 @@
 
 /****************************************** FORME CANONIQUE ******************************************/
 
-
 PmergeMe::PmergeMe() {
 }
 
@@ -24,43 +23,69 @@ PmergeMe::~PmergeMe() {
 
 /********************************************* PARSING *********************************************/
 
-int PmergeMe::parseInput(int ac, char **av) {
+long PmergeMe::parseInput(char* input) {
+	char* endPtr;
+	long num = strtol(input, &endPtr, 10); // Convert string to long
 
-	char	*endPtr;
-	long	num;
+	// Vérif si la conversion a échoué
+	if (*endPtr != '\0') {
+		std::cerr << "Error: Non-numeric character" << std::endl;
+		exit(-1);
+	}
+	if (num <= 0) {
+		std::cerr << "Error: Non-positive integer" << std::endl;
+		exit(-1);
+	}
+	if (num > INT_MAX) {
+		std::cerr << "Error: integer overflow " << std::endl;
+		exit(-1);
+	}
+	return num;
+}
 
+bool PmergeMe::fillContainersVector(long num) {
+	if (std::find(_sortVector.begin(), _sortVector.end(), static_cast<int>(num)) != _sortVector.end()) {
+		std::cerr << "Error: Duplicate number for vector [" << num << "]" << std::endl;
+		return false;
+	}
+	_sortVector.push_back(static_cast<int>(num));
+	return true;
+}
+
+bool PmergeMe::fillContainersList(long num) {
+	if (std::find(_sortList.begin(), _sortList.end(), static_cast<int>(num)) != _sortList.end()) {
+		std::cerr << "Error: Duplicate number for list [" << num << "]" << std::endl;
+		return false;
+	}
+	_sortList.push_back(static_cast<int>(num));
+	return true;
+}
+
+int PmergeMe::parseAndFillVector(int ac, char **av) {
+	long num;
 	for (int i = 1; i < ac; i++) {
-		num = std::strtol(av[i], &endPtr, 10); // Convertir la chaîne en long
-
-		// Vérif si la conversion a échoué
-		if (*endPtr != '\0') {
-			std::cerr << "Error: Non-numeric character" << std::endl;
-			return 1;
+		num = parseInput(av[i]);
+		if (num == -1)
+			exit(-1);
+		if (!fillContainersVector(num)) {
+			exit(-1);
 		}
-		if (num <= 0) {
-			std::cerr << "Error: Non-positive integer" << std::endl;
-			return 1;
-		}
-		if (num > INT_MAX) {
-			std::cerr << "Error: integer overflow " << std::endl;
-			return 1;
-		}
-
-		// Vérif si doublons de nb
-		for (std::vector<int>::size_type j = 0; j < _sortVector.size(); j++) {
-			if (_sortVector[j] == static_cast<int>(num)) {
-				std::cerr << "Error: Duplicate number for number [" << _sortVector[j] << "]" << std::endl;
-				return 1;
-			}
-		}
-
-		// je rempli les deux list pour les trier ensuite
-		_sortVector.push_back(static_cast<int>(num));
-		_sortList.push_back(static_cast<int>(num));
 	}
 	return 0;
 }
 
+int PmergeMe::parseAndFillList(int ac, char **av) {
+	long num;
+	for (int i = 1; i < ac; i++) {
+		num = parseInput(av[i]);
+		if (num == -1)
+			exit(-1);
+		if (!fillContainersList(num)) {
+			exit(-1);
+		}
+	}
+	return 0;
+}
 
 
 /******************************************* SORT VECTOR *******************************************/
@@ -107,17 +132,6 @@ std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int> v) {
 	return sorted_vector;
 }
 
-void PmergeMe::executeFordJohnsonSortVector() {
-	_sortVector = fordJohnsonSortVector(_sortVector);
-}
-
-clock_t PmergeMe::sortVectorTime() {
-	clock_t start = clock();
-	executeFordJohnsonSortVector();
-	clock_t end = clock();
-	return (end - start);
-}
-
 
 /******************************************** SORT LIST ********************************************/
 
@@ -160,41 +174,27 @@ std::list<int> PmergeMe::fordJohnsonSortList(std::list<int> l) {
 	return sorted_list;
 }
 
-void PmergeMe::executeFordJohnsonSortList() {
-	_sortList = fordJohnsonSortList(_sortList);
-}
-
-clock_t PmergeMe::sortListTime() {
-	clock_t start = clock();
-	executeFordJohnsonSortList();
-	clock_t end = clock();
-	return (end - start);
-}
 
 /*********************************************** TIME **********************************************/
 
 void PmergeMe::printTimeVector(clock_t timeElapsed, size_t nbElements) {
 
-	double timeInSec;
-	double timeInMs;
+	double timeInUs;
 
-	timeInSec = static_cast<double>(timeElapsed) / CLOCKS_PER_SEC;
-	timeInMs = timeInSec * 1000;
+	timeInUs = timeElapsed * (1000000.0 / CLOCKS_PER_SEC);
 
 	std::cout << BOLD << "Time to process a range of " << nbElements << " elements with std::vector: "
-	<< std::fixed << std::setprecision(5) << timeInMs << " ms" << RESET << std::endl;
+	<< std::fixed << std::setprecision(0) << timeInUs << " us" << RESET << std::endl;
 }
 
 void PmergeMe::printTimeList(clock_t timeElapsed, size_t nbElements) {
 
-	double timeInSec;
-	double timeInMs;
+	double timeInUs;
 
-	timeInSec = static_cast<double>(timeElapsed) / CLOCKS_PER_SEC;
-	timeInMs = timeInSec * 1000;
+	timeInUs = timeElapsed * (1000000.0 / CLOCKS_PER_SEC);
 
 	std::cout << BOLD << "Time to process a range of " << nbElements << " elements with std::list:   "
-	<< std::fixed << std::setprecision(5) << timeInMs << " ms" << RESET << std::endl;
+	<< std::fixed << std::setprecision(0) << timeInUs << " us" << RESET << std::endl;
 }
 
 /********************************************** PRINT **********************************************/
@@ -240,7 +240,7 @@ void PmergeMe::compareResults(clock_t vectorTime, clock_t listTime) {
 		std::cout << BLUE << "========>		std::vector was faster		 <========\n\n" << RESET;
 	}
 	else if (listTime < vectorTime) {
-		std::cout << YELLOW << "========>		std::list was faster		 <========\n\n" << RESET;
+		std::cout << BLUE << "========>		std::list was faster		 <========\n\n" << RESET;
 	}
 	else {
 		std::cout << BLUE << "========>  Both containers took the same amount of time  <========\n" << RESET;
@@ -250,16 +250,30 @@ void PmergeMe::compareResults(clock_t vectorTime, clock_t listTime) {
 
 /******************************************** EXECUTION ********************************************/
 
-void PmergeMe::execPmergeMe(int ac, char **av) {
-	if (parseInput(ac, av) == 1)
-		return;
 
+void PmergeMe::execPmergeMe(int ac, char **av) {
 	std::cout << BLUE << "\n~~~ Ford-Johnson algorithm sort ~~~\n" << RESET << std::endl;
+
+	// Fill and sort vector
+	clock_t vectorStart = clock();
+	if (parseAndFillVector(ac, av) != 0) { // Check if there was an error
+		return;
+	}
+	_sortVector = fordJohnsonSortVector(_sortVector);
+	clock_t vectorEnd = clock();
+
+	// Fill and sort list
+	clock_t listStart = clock();
+	if (parseAndFillList(ac, av) != 0) { // Check if there was an error
+		return;
+	}
+	_sortList = fordJohnsonSortList(_sortList);
+	clock_t listEnd = clock();
 
 	// Affiche les éléments avant le tri
 	std::cout << RED << "Before sort:	";
-	for (size_t i = 0; i < _sortVector.size(); ++i) {
-		std::cout << "[" << _sortVector[i] << "] ";
+	for (size_t i = 1; i < _sortVector.size(); ++i) {
+		std::cout << "[" << av[i] << "] ";
 	}
 	std::cout << RESET << std::endl << std::endl;
 
@@ -270,16 +284,68 @@ void PmergeMe::execPmergeMe(int ac, char **av) {
 	// }
 	// std::cout << RESET << std::endl << std::endl;
 
-	// Tri pour std::vector et std::list
-	clock_t timeElapsedVector = sortVectorTime();
+
+	// Display results
 	displaySortedVector();
-	clock_t timeElapsedList = sortListTime();
 	displaySortedList();
+
+	// Timing information
 	std::cout << std::endl;
+	printTimeVector((vectorEnd - vectorStart), _sortVector.size());
+	printTimeList((listEnd - listStart), _sortList.size());
 
-	// Affichage des timmings
-	printTimeVector(timeElapsedVector, _sortVector.size());
-	printTimeList(timeElapsedList, _sortList.size());
-
-	compareResults(timeElapsedVector, timeElapsedList);
+	// Compare results
+	compareResults((vectorEnd - vectorStart), (listEnd - listStart));
 }
+
+
+
+
+// void PmergeMe::execPmergeMe(int ac, char **av) {
+//     std::cout << BLUE << "\n~~~ Ford-Johnson algorithm sort ~~~\n" << RESET << std::endl;
+
+//     clock_t vectorStart = clock();
+//     clock_t listStart = clock();
+//     bool errorOccurred = false;
+
+//     for (int i = 1; i < ac; ++i) {
+//         long num = parseInput(av[i]);
+//         if (num == -1) {
+//             errorOccurred = true;
+//             break; // If any error occurs, stop processing further.
+//         }
+
+//         if (!fillContainersVector(num)) {
+//             errorOccurred = true;
+//             break;
+//         }
+
+//         if (!fillContainersList(num)) {
+//             errorOccurred = true;
+//             break;
+//         }
+//     }
+
+//     if (errorOccurred) {
+//         return; // Stop processing if there was an error.
+//     }
+
+//     _sortVector = fordJohnsonSortVector(_sortVector);
+//     clock_t vectorEnd = clock();
+
+//     _sortList = fordJohnsonSortList(_sortList);
+//     clock_t listEnd = clock();
+
+//     // Display results
+//     std::cout << RED << "Vector sort results:\n";
+//     displaySortedVector();
+//     std::cout << RED << "\nList sort results:\n";
+//     displaySortedList();
+
+//     // Timing information
+//     printTimeVector((vectorEnd - vectorStart), _sortVector.size());
+//     printTimeList((listEnd - listStart), _sortList.size());
+
+//     // Compare results
+//     compareResults((vectorEnd - vectorStart), (listEnd - listStart));
+// }

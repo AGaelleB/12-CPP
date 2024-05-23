@@ -31,7 +31,11 @@ class PmergeMe {
 		~PmergeMe();
 
 		// parsing
-		int		parseInput(int ac, char **av);
+		long parseInput(char* input);
+		bool fillContainersVector(long num);
+		bool fillContainersList(long num);
+		int parseAndFillVector(int ac, char **av);
+		int parseAndFillList(int ac, char **av);
 
 		// sort std::vector
 		void						minMaxVector(std::vector<int>& arr, int a, int b);
@@ -47,6 +51,7 @@ class PmergeMe {
 		// time
 		void						printTimeVector(clock_t timeElapsed, size_t nbElements);
 		void						printTimeList(clock_t timeElapsed, size_t nbElements);
+	void printTime(double timeElapsed, size_t nbElements, const std::string& containerType);
 
 		// print
 		void						displayInput() const; // Pour afficher la séquence d'entiers non triés
