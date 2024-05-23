@@ -8,6 +8,6 @@
 #define MAGENTA	"\033[1;35m"
 #define CYAN	"\033[1;36m"
 #define BOLD	"\033[1;37m"
-#define RESET		"\033[0m"
+#define RESET	"\033[0m"
 
 #endif

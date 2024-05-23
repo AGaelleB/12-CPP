@@ -3,7 +3,7 @@
 
 int main(int ac, char **av) {
 	if (ac != 2) {
-		std::cerr << RED << "Error: could not open file." << RESET << std::endl;
+		std::cerr << RED << "Error: could not open file. Add 1 input file" << RESET << std::endl;
 		return 1;
 	}
 

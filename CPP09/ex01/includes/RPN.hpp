@@ -5,7 +5,7 @@
 #include <stack>
 #include <cstdlib>
 #include <string>
-#include <sstream> // Inclure pour std::istringstream
+#include <sstream>
 
 #include "Colors.hpp"
 
