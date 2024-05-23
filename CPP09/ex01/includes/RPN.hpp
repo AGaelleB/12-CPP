@@ -16,7 +16,6 @@ class RPN {
 	std::string			_numbers;
 	std::stack<int>		_operands;
 
-
 	public :
 
 		RPN();
@@ -37,9 +36,6 @@ class RPN {
 		bool		isOperator(std::string const & token) const;
 		int			doOperation(int operand1, int operand2, std::string const & op);
 		int			calculator(std::string const & numbers);
-
-
-
 };
 
 #endif

@@ -4,7 +4,6 @@
 
 /****************************************** FORME CANONIQUE ******************************************/
 
-
 RPN::RPN() {
 }
 
@@ -115,7 +114,7 @@ int RPN::calculator(std::string const & numbers) {
 		return _operands.top();
 	}
 	else {
-		std::cerr << "Error: Too many operands" << std::endl;
+		std::cerr << "Error: bad number of operands" << std::endl;
 		return 0;
 	}
 

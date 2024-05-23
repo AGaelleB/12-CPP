@@ -197,7 +197,6 @@ void PmergeMe::printTimeList(clock_t timeElapsed, size_t nbElements) {
 	<< std::fixed << std::setprecision(5) << timeInMs << " ms" << RESET << std::endl;
 }
 
-
 /********************************************** PRINT **********************************************/
 
 
@@ -226,7 +225,6 @@ void PmergeMe::displaySortedList() const {
 	std::cout << RESET << std::endl;
 }
 
-
 void PmergeMe::compareResults(clock_t vectorTime, clock_t listTime) {
 	std::vector<int> vectorResults(_sortVector.begin(), _sortVector.end());
 	std::vector<int> listResults(_sortList.begin(), _sortList.end());
@@ -245,7 +243,7 @@ void PmergeMe::compareResults(clock_t vectorTime, clock_t listTime) {
 		std::cout << YELLOW << "========>		std::list was faster		 <========\n\n" << RESET;
 	}
 	else {
-		std::cout << YELLOW << " Both containers took the same amount of time.\n" << RESET;
+		std::cout << BLUE << "========>  Both containers took the same amount of time  <========\n" << RESET;
 	}
 }
 
