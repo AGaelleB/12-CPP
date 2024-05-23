@@ -26,6 +26,10 @@ class BitcoinExchange {
 		// getter
 		std::string	getInputFile() const;
 
+		//trimming functions
+		std::string	trim(const std::string &str);
+		std::string	trimTabsAndSpaces(const std::string &str);
+
 		// parsing
 		bool		checkFirstLine(std::string line);				// parsing format de la ligne (date | valeur)
 		bool		checkFormaDate(std::string line);				// parsing format de la date (YYYY-MM-DD)

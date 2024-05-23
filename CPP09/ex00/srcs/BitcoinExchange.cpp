@@ -26,6 +26,7 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const & obj) {
 BitcoinExchange::~BitcoinExchange() {
 }
 
+
 /**************************************** GETTERS / SETTERS ****************************************/
 
 std::string	BitcoinExchange::getInputFile() const {
@@ -33,35 +34,52 @@ std::string	BitcoinExchange::getInputFile() const {
 }
 
 
+/****************************************** TRIMMING FUNCTIONS ******************************************/
+
+std::string BitcoinExchange::trim(const std::string &str) {
+	size_t first = str.find_first_not_of(' ');
+	if (first == std::string::npos)
+		return "";
+	size_t last = str.find_last_not_of(' ');
+	return str.substr(first, last - first + 1);
+}
+
+std::string BitcoinExchange::trimTabsAndSpaces(const std::string &str) {
+	size_t first = str.find_first_not_of(" \t");
+	if (first == std::string::npos)
+		return "";
+	size_t last = str.find_last_not_of(" \t");
+	return str.substr(first, last - first + 1);
+}
+
+
 /********************************************* PARSING *********************************************/
 
 bool BitcoinExchange::checkFirstLine(std::string line) {
 	if (line != "date | value") {
-		std::cerr << BOLD<< "Error: invalid format for the first line \"" << line << "\"" <<  RESET << std::endl;
+		std::cerr << "Error: invalid format for the first line \"" << line << "\"" << std::endl;
 		return false;
 	}
 	return true;
 }
 
 bool BitcoinExchange::checkContentDate(std::string dateStr) {
-	int year;
-	int month;
-	int day;
+	int year, month, day;
 
 	std::istringstream(dateStr.substr(0, 4)) >> year;
 	std::istringstream(dateStr.substr(5, 2)) >> month;
 	std::istringstream(dateStr.substr(8, 2)) >> day;
 
 	if (year < 2009 || (year == 2009 && month < 1) || (year == 2009 && month == 1 && day < 2)) {
-		std::cerr << BOLD << "Error: invalid date before January 2, 2009" << RESET << std::endl;
+		std::cerr << "Error: invalid date before January 2, 2009" << std::endl;
 		return false;
 	}
 	if (month < 1 || month > 12 || day < 1 || day > 31) {
-		std::cerr << BOLD << "Error: invalid date" << RESET << std::endl;
+		std::cerr << "Error: invalid date" << std::endl;
 		return false;
 	}
 	if (((month == 4 || month == 6 || month == 9 || month == 11) && day > 30 ) || (month == 2 && day > 28)) {
-		std::cerr << BOLD << "Error: invalid date" << RESET << std::endl;
+		std::cerr << "Error: invalid date" << std::endl;
 		return false;
 	}
 	return true;
@@ -70,11 +88,12 @@ bool BitcoinExchange::checkContentDate(std::string dateStr) {
 bool BitcoinExchange::checkFormaDate(std::string line) {
 	std::string dateStr = line.substr(0, 10);
 	if (dateStr.size() != 10 || dateStr[4] != '-' || dateStr[7] != '-') {
-		std::cerr << BOLD << "Error: invalid date format" << RESET << std::endl;
+		std::cerr << "Error: invalid date format" << std::endl;
 		return false;
 	}
-	if (line.size() <= 13 || line[10] != ' ' || line[11] != '|' || line[12] != ' ') {
-		std::cerr << BOLD << "Error: Bad input => " << line << RESET << std::endl;
+	std::string trimmedLine = trim(line.substr(10));
+	if (trimmedLine.size() < 2 || trimmedLine[0] != '|' || trimmedLine[1] != ' ') {
+		std::cerr << "Error: Bad input => " << line << std::endl;
 		return false;
 	}
 	if (!checkContentDate(dateStr))
@@ -83,29 +102,31 @@ bool BitcoinExchange::checkFormaDate(std::string line) {
 }
 
 bool BitcoinExchange::checkConvertion(std::string line) {
-	std::string valueStr = line.substr(13);
+	std::string trimmedLine = trim(line.substr(10));
+	std::string valueStr = trim(trimmedLine.substr(2));
 	double value;
 	std::istringstream ss(valueStr);
 	ss >> value;
 
 	if (ss.fail() || !ss.eof()) {
-		std::cerr << BOLD << "Error: fail in line \"" << line << "\"" << RESET << std::endl;
+		std::cerr << "Error: fail in line \"" << line << "\"" << std::endl;
 		return false;
 	}
 	else if (value < 0) {
-		std::cerr << BOLD << "Error: not a positive number" << RESET << std::endl;
+		std::cerr << "Error: not a positive number" << std::endl;
 		return false;
 	}
 	else if (value > 1000) {
-		std::cerr << BOLD << "Error: too large number" << RESET << std::endl;
+		std::cerr << "Error: too large number" << std::endl;
 		return false;
 	}
 	return true;
 }
 
+
 /*********************************************** DATA ***********************************************/
 
-void		BitcoinExchange::loadBitcoinPrices() {
+void BitcoinExchange::loadBitcoinPrices() {
 
 	std::ifstream file("data.csv");
 	if (!file.is_open()) {
@@ -125,7 +146,7 @@ void		BitcoinExchange::loadBitcoinPrices() {
 		else
 			std::cerr << "Error parsing line: " << line << std::endl;
 	}
-	// Est ce que je dois close apres mon open ?? 
+	file.close();
 }
 
 void BitcoinExchange::calculateExchangeRate(std::string lineToPrint) {
@@ -133,7 +154,7 @@ void BitcoinExchange::calculateExchangeRate(std::string lineToPrint) {
 	
 	std::string::size_type pos = lineToPrint.find(" | ");
 	std::string date = lineToPrint.substr(0, pos); // Extraire la date
-	std::string valueStr = lineToPrint.substr(pos + 3); // Extraire la valeur sous forme de chaîne
+	std::string valueStr = trim(lineToPrint.substr(pos + 3)); // Extraire la valeur sous forme de chaîne
 	
 	// Convertir en double
 	std::istringstream iss(valueStr);
@@ -152,7 +173,6 @@ void BitcoinExchange::calculateExchangeRate(std::string lineToPrint) {
 
 	std::cout << date << " => " << value << " = " << conversionResult << std::endl;
 }
-
 
 /******************************************* RESULT *******************************************/
 
