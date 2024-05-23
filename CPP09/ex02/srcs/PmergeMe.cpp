@@ -1,4 +1,3 @@
-
 #include "../includes/PmergeMe.hpp"
 
 
@@ -25,9 +24,8 @@ PmergeMe::~PmergeMe() {
 
 long PmergeMe::parseInput(char* input) {
 	char* endPtr;
-	long num = strtol(input, &endPtr, 10); // Convert string to long
+	long num = strtol(input, &endPtr, 10);
 
-	// Vérif si la conversion a échoué
 	if (*endPtr != '\0') {
 		std::cerr << "Error: Non-numeric character" << std::endl;
 		exit(-1);
@@ -90,18 +88,19 @@ int PmergeMe::parseAndFillList(int ac, char **av) {
 
 /******************************************* SORT VECTOR *******************************************/
 
-// Function to compare and order pairs
 void PmergeMe::minMaxVector(std::vector<int>& arr, int a, int b) {
 	if (arr[a] > arr[b])
 		std::swap(arr[a], arr[b]);
 }
 
-// Ford-Johnson sort implementation based on your friend's approach
 std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int> v) {
+
 	if (v.size() <= 1)
 		return v;
 
-	std::vector<std::pair<int, int> > pairs;
+	std::vector<std::pair<int, int> > pairs; // Paires de comparaisons initiales
+
+	// Création et comparaison des paires
 	for (size_t i = 0; i + 1 < v.size(); i += 2) {
 		if (v[i] > v[i + 1])
 			pairs.push_back(std::make_pair(v[i + 1], v[i]));
@@ -110,20 +109,22 @@ std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int> v) {
 	}
 
 	std::vector<int> remaining_elements;
-	if (v.size() % 2 != 0)
+	if (v.size() % 2 != 0) // Gérer l'élément restant si le nombre d'éléments est impair
 		remaining_elements.push_back(v.back());
 
-	std::vector<int> sorted_vector;
+	std::vector<int> sorted_vector; // Vecteur partiellement trié
 	for (size_t i = 0; i < pairs.size(); ++i)
 		sorted_vector.push_back(pairs[i].first);
 
-	std::sort(sorted_vector.begin(), sorted_vector.end());
+	std::sort(sorted_vector.begin(), sorted_vector.end()); // Trier les premiers éléments de chaque paire
 
+	// Insérer les seconds éléments des paires dans le vecteur trié à la bonne position
 	for (size_t i = 0; i < pairs.size(); ++i) {
 		std::vector<int>::iterator it = std::upper_bound(sorted_vector.begin(), sorted_vector.end(), pairs[i].second);
 		sorted_vector.insert(it, pairs[i].second);
 	}
 
+	// Insérer les éléments restants si nécessaire
 	for (size_t i = 0; i < remaining_elements.size(); ++i) {
 		std::vector<int>::iterator it = std::upper_bound(sorted_vector.begin(), sorted_vector.end(), remaining_elements[i]);
 		sorted_vector.insert(it, remaining_elements[i]);
@@ -139,8 +140,10 @@ std::list<int> PmergeMe::fordJohnsonSortList(std::list<int> l) {
 	if (l.size() <= 1)
 		return l;
 
-	std::list<std::pair<int, int> > pairs;
+	std::list<std::pair<int, int> > pairs; // Paires de comparaisons initiales
 	std::list<int>::iterator it = l.begin();
+
+	// Création et comparaison des paires
 	while (std::distance(it, l.end()) > 1) {
 		int first = *it;
 		int second = *(++it);
@@ -152,20 +155,22 @@ std::list<int> PmergeMe::fordJohnsonSortList(std::list<int> l) {
 	}
 
 	std::list<int> remaining_elements;
-	if (it != l.end())
+	if (it != l.end()) // Gérer l'élément restant si le nombre d'éléments est impair
 		remaining_elements.push_back(*it);
 
-	std::list<int> sorted_list;
+	std::list<int> sorted_list; // Liste partiellement triée
 	for (std::list<std::pair<int, int> >::iterator pair_it = pairs.begin(); pair_it != pairs.end(); ++pair_it)
 		sorted_list.push_back(pair_it->first);
 
-	sorted_list.sort();
+	sorted_list.sort(); // Trier les premiers éléments de chaque paire
 
+	// Insérer les seconds éléments des paires dans la liste triée à la bonne position
 	for (std::list<std::pair<int, int> >::iterator pair_it = pairs.begin(); pair_it != pairs.end(); ++pair_it) {
 		std::list<int>::iterator insert_pos = std::upper_bound(sorted_list.begin(), sorted_list.end(), pair_it->second);
 		sorted_list.insert(insert_pos, pair_it->second);
 	}
 
+	// Insérer les éléments restants si nécessaire
 	for (std::list<int>::iterator remaining_it = remaining_elements.begin(); remaining_it != remaining_elements.end(); ++remaining_it) {
 		std::list<int>::iterator insert_pos = std::upper_bound(sorted_list.begin(), sorted_list.end(), *remaining_it);
 		sorted_list.insert(insert_pos, *remaining_it);
@@ -197,8 +202,8 @@ void PmergeMe::printTimeList(clock_t timeElapsed, size_t nbElements) {
 	<< std::fixed << std::setprecision(0) << timeInUs << " us" << RESET << std::endl;
 }
 
-/********************************************** PRINT **********************************************/
 
+/********************************************** PRINT **********************************************/
 
 void PmergeMe::displayInput() const {
 
@@ -250,25 +255,8 @@ void PmergeMe::compareResults(clock_t vectorTime, clock_t listTime) {
 
 /******************************************** EXECUTION ********************************************/
 
-
 void PmergeMe::execPmergeMe(int ac, char **av) {
 	std::cout << BLUE << "\n~~~ Ford-Johnson algorithm sort ~~~\n" << RESET << std::endl;
-
-	// Fill and sort vector
-	clock_t vectorStart = clock();
-	if (parseAndFillVector(ac, av) != 0) { // Check if there was an error
-		return;
-	}
-	_sortVector = fordJohnsonSortVector(_sortVector);
-	clock_t vectorEnd = clock();
-
-	// Fill and sort list
-	clock_t listStart = clock();
-	if (parseAndFillList(ac, av) != 0) { // Check if there was an error
-		return;
-	}
-	_sortList = fordJohnsonSortList(_sortList);
-	clock_t listEnd = clock();
 
 	// Affiche les éléments avant le tri
 	std::cout << RED << "Before sort:	";
@@ -284,8 +272,24 @@ void PmergeMe::execPmergeMe(int ac, char **av) {
 	// }
 	// std::cout << RESET << std::endl << std::endl;
 
+	// tri pour std::vector
+	clock_t vectorStart = clock();
+	if (parseAndFillVector(ac, av) != 0) { // Check if there was an error
+		return;
+	}
+	_sortVector = fordJohnsonSortVector(_sortVector);
+	clock_t vectorEnd = clock();
 
-	// Display results
+
+	// tri pour std::list
+	clock_t listStart = clock();
+	if (parseAndFillList(ac, av) != 0) { // Check if there was an error
+		return;
+	}
+	_sortList = fordJohnsonSortList(_sortList);
+	clock_t listEnd = clock();
+
+	// Affiche les results
 	displaySortedVector();
 	displaySortedList();
 
@@ -297,55 +301,3 @@ void PmergeMe::execPmergeMe(int ac, char **av) {
 	// Compare results
 	compareResults((vectorEnd - vectorStart), (listEnd - listStart));
 }
-
-
-
-
-// void PmergeMe::execPmergeMe(int ac, char **av) {
-//     std::cout << BLUE << "\n~~~ Ford-Johnson algorithm sort ~~~\n" << RESET << std::endl;
-
-//     clock_t vectorStart = clock();
-//     clock_t listStart = clock();
-//     bool errorOccurred = false;
-
-//     for (int i = 1; i < ac; ++i) {
-//         long num = parseInput(av[i]);
-//         if (num == -1) {
-//             errorOccurred = true;
-//             break; // If any error occurs, stop processing further.
-//         }
-
-//         if (!fillContainersVector(num)) {
-//             errorOccurred = true;
-//             break;
-//         }
-
-//         if (!fillContainersList(num)) {
-//             errorOccurred = true;
-//             break;
-//         }
-//     }
-
-//     if (errorOccurred) {
-//         return; // Stop processing if there was an error.
-//     }
-
-//     _sortVector = fordJohnsonSortVector(_sortVector);
-//     clock_t vectorEnd = clock();
-
-//     _sortList = fordJohnsonSortList(_sortList);
-//     clock_t listEnd = clock();
-
-//     // Display results
-//     std::cout << RED << "Vector sort results:\n";
-//     displaySortedVector();
-//     std::cout << RED << "\nList sort results:\n";
-//     displaySortedList();
-
-//     // Timing information
-//     printTimeVector((vectorEnd - vectorStart), _sortVector.size());
-//     printTimeList((listEnd - listStart), _sortList.size());
-
-//     // Compare results
-//     compareResults((vectorEnd - vectorStart), (listEnd - listStart));
-// }
