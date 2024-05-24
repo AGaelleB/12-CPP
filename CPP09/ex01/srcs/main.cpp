@@ -1,6 +1,4 @@
 #include "../includes/RPN.hpp"
-#include "../includes/Colors.hpp"
-
 
 int main(int ac, char **av) {
 	if (ac != 2) {

@@ -88,11 +88,6 @@ int PmergeMe::parseAndFillList(int ac, char **av) {
 
 /******************************************* SORT VECTOR *******************************************/
 
-void PmergeMe::minMaxVector(std::vector<int>& arr, int a, int b) {
-	if (arr[a] > arr[b])
-		std::swap(arr[a], arr[b]);
-}
-
 std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int> v) {
 
 	if (v.size() <= 1)
@@ -205,15 +200,6 @@ void PmergeMe::printTimeList(clock_t timeElapsed, size_t nbElements) {
 
 /********************************************** PRINT **********************************************/
 
-void PmergeMe::displayInput() const {
-
-	std::cout << RED << "\nBefore sort: ";
-	for (size_t i = 0; i < _sortVector.size(); ++i) {
-		std::cout << "[" << _sortVector[i] << "] ";
-	}
-	std::cout << RESET << std::endl << std::endl;
-}
-
 void PmergeMe::displaySortedVector() const {
 	std::cout << GREEN << "After sort with Vector container: ";
 	for (size_t i = 0; i < _sortVector.size(); ++i) {
@@ -258,46 +244,38 @@ void PmergeMe::compareResults(clock_t vectorTime, clock_t listTime) {
 void PmergeMe::execPmergeMe(int ac, char **av) {
 	std::cout << BLUE << "\n~~~ Ford-Johnson algorithm sort ~~~\n" << RESET << std::endl;
 
-	// Affiche les éléments avant le tri
-	std::cout << RED << "Before sort:	";
-	for (size_t i = 1; i < _sortVector.size(); ++i) {
-		std::cout << "[" << av[i] << "] ";
-	}
-	std::cout << RESET << std::endl << std::endl;
-
-	// // Affiche les éléments avant le tri pour la list
-	// std::cout << RED << "Before sort (List):	";
-	// for (std::list<int>::iterator it = _sortList.begin(); it != _sortList.end(); ++it) {
-	// 	std::cout << "[" << *it << "] ";
-	// }
-	// std::cout << RESET << std::endl << std::endl;
-
 	// tri pour std::vector
 	clock_t vectorStart = clock();
-	if (parseAndFillVector(ac, av) != 0) { // Check if there was an error
+	if (parseAndFillVector(ac, av) != 0) {
 		return;
 	}
 	_sortVector = fordJohnsonSortVector(_sortVector);
 	clock_t vectorEnd = clock();
 
-
 	// tri pour std::list
 	clock_t listStart = clock();
-	if (parseAndFillList(ac, av) != 0) { // Check if there was an error
+	if (parseAndFillList(ac, av) != 0) {
 		return;
 	}
 	_sortList = fordJohnsonSortList(_sortList);
 	clock_t listEnd = clock();
 
-	// Affiche les results
+	// Affiche les éléments avant le tri
+	std::cout << RED << "Before sort (Arguments):\t";
+	for (int i = 1; i < ac; ++i) {
+		std::cout << "[" << av[i] << "] ";
+	}
+	std::cout << RESET << std::endl << std::endl;
+
+	// Affiche les resultats
 	displaySortedVector();
 	displaySortedList();
 
-	// Timing information
+	// Affiche les temps
 	std::cout << std::endl;
 	printTimeVector((vectorEnd - vectorStart), _sortVector.size());
 	printTimeList((listEnd - listStart), _sortList.size());
 
-	// Compare results
+	// Compare les resultats
 	compareResults((vectorEnd - vectorStart), (listEnd - listStart));
 }

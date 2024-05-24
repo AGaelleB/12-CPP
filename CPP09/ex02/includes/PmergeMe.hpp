@@ -12,8 +12,14 @@
 #include <iomanip>
 #include <algorithm>
 
-#include "Colors.hpp"
-
+#define RED		"\033[1;31m"
+#define GREEN	"\033[1;32m"
+#define YELLOW	"\033[1;33m"
+#define BLUE	"\033[1;34m"
+#define MAGENTA	"\033[1;35m"
+#define CYAN	"\033[1;36m"
+#define BOLD	"\033[1;37m"
+#define RESET	"\033[0m"
 #define INT_MAX 2147483647
 
 class PmergeMe {
@@ -31,36 +37,29 @@ class PmergeMe {
 		~PmergeMe();
 
 		// parsing
-		long parseInput(char* input);
-		bool fillContainersVector(long num);
-		bool fillContainersList(long num);
-		int parseAndFillVector(int ac, char **av);
-		int parseAndFillList(int ac, char **av);
+		long				parseInput(char* input);
+		bool				fillContainersVector(long num);
+		bool				fillContainersList(long num);
+		int					parseAndFillVector(int ac, char **av);
+		int					parseAndFillList(int ac, char **av);
 
 		// sort std::vector
-		void						minMaxVector(std::vector<int>& arr, int a, int b);
-		std::vector<int>			fordJohnsonSortVector(std::vector<int> v);
-		void						executeFordJohnsonSortVector();
-		clock_t						sortVectorTime();
+		std::vector<int>	fordJohnsonSortVector(std::vector<int> v);
 
 		// sort std::list
-		std::list<int> 				fordJohnsonSortList(std::list<int> l);
-		void						executeFordJohnsonSortList();
-		clock_t						sortListTime();
+		std::list<int>		fordJohnsonSortList(std::list<int> l);
 
 		// time
-		void						printTimeVector(clock_t timeElapsed, size_t nbElements);
-		void						printTimeList(clock_t timeElapsed, size_t nbElements);
-	void printTime(double timeElapsed, size_t nbElements, const std::string& containerType);
+		void				printTimeVector(clock_t timeElapsed, size_t nbElements);
+		void				printTimeList(clock_t timeElapsed, size_t nbElements);
 
 		// print
-		void						displayInput() const; // Pour afficher la séquence d'entiers non triés
-		void						displaySortedVector() const;
-		void						displaySortedList() const;
-		void						compareResults(clock_t vectorTime, clock_t listTime);
+		void				displaySortedVector() const;
+		void				displaySortedList() const;
+		void				compareResults(clock_t vectorTime, clock_t listTime);
 
 		// execution
-		void						execPmergeMe(int ac, char **av);
+		void				execPmergeMe(int ac, char **av);
 };
 
 #endif
